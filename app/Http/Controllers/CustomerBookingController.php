@@ -55,11 +55,14 @@ class CustomerBookingController extends Controller
         $associates = $this->customerBookingService->getAssociates();
         $customers = $this->customerBookingService->getCustomers();
         $projects = $this->customerBookingService->getProjects();
-        $plotSale = $customer->plotSaleDetail;
-        $payment = $customer->payment;
+        $plotSales = $customer->plotSaleDetails;
+        $plotSale = $request->plot_sale_detail_id
+            ? $plotSales->firstWhere('id', $request->plot_sale_detail_id)
+            : $customer->plotSaleDetail;
+        $payment = $customer->payments->firstWhere('plot_sale_detail_id', $request->plot_sale_detail_id);
 
         return view('customer-booking.create',
-            compact('customer', 'step', 'associates', 'customers', 'projects', 'plotSale', 'payment'));
+            compact('customer', 'step', 'associates', 'customers', 'projects', 'plotSale', 'payment', 'plotSales'));
     }
 
     public function update(Request $request, $id)
@@ -89,10 +92,13 @@ class CustomerBookingController extends Controller
         }
         if ($step == 4) {
             $validated = app(CustomerBookingStepFourRequest::class)->validated();
-            $this->customerBookingService->storeStepFour($id, $validated);
+            $plotSale = $this->customerBookingService->storeStepFour($id, $validated);
 
-            return redirect()->route('admin.customer-booking.edit', [$id, 'step' => 5])
-                ->with('success', 'Plot details saved successfully.');
+            return redirect()->route('admin.customer-booking.edit', [
+                $id,
+                'step' => 5,
+                'plot_sale_detail_id' => $plotSale->id,
+            ])->with('success', 'Plot details saved successfully.');
         }
         if ($step == 5) {
             $validated = app(CustomerBookingStepFiveRequest::class)->validated();

@@ -191,6 +191,24 @@ class ModuleSeeder extends Seeder
             ],
 
             [
+                'name' => 'Customer List',
+                'slug' => 'customer-list',
+                'parent_slug' => 'plot-booking',
+                'route_name' => 'admin.customer-list.index',
+                'active_routes' => 'admin.customer-list.index',
+                'icon' => 'bi bi-list-ul',
+            ],
+
+            [
+                'name' => 'Edit Plot Booking',
+                'slug' => 'edit-plot-booking',
+                'parent_slug' => 'plot-booking',
+                'route_name' => 'admin.edit-plot-booking.index',
+                'active_routes' => 'admin.edit-plot-booking.index',
+                'icon' => 'bi bi-pencil-square',
+            ],
+
+            [
                 'name' => 'Plot Registry',
                 'slug' => 'plot-registry',
                 'parent_slug' => 'plot-booking',

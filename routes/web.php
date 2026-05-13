@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlockController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerBookingController;
+use App\Http\Controllers\CustomerListController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationRankController;
 use App\Http\Controllers\DevelopmentController;
@@ -77,6 +78,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
         ->name('associate-downline.export');
     Route::get('associate-tree', [AssociateTreeController::class, 'index'])->name('associate-tree');
     Route::resource('customer-booking', CustomerBookingController::class);
+    Route::get('customer-list', [CustomerListController::class, 'index'])->name('customer-list.index');
+    Route::get('edit-plot-booking', [CustomerListController::class, 'editPlotBooking'])->name('edit-plot-booking.index');
     Route::get('/get-blocks/{projectId}', [CustomerBookingController::class, 'getBlocks']);
     Route::get('/get-plots/{blockId}/{customerId?}', [CustomerBookingController::class, 'getPlots']);
 });

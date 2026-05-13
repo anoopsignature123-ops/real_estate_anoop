@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('associate_id')->nullable()->constrained('associates')->nullOnDelete();
             $table->enum('customer_type', ['returning_customer', 'sale_customer', 'sale_to_associate'])->nullable();
+            $table->string('customer_id')->nullable();
             $table->string('customer_code')->nullable();
+            $table->string('booking_code')->nullable()->unique();
             $table->string('customer_name')->nullable();
             $table->string('associate_code')->nullable();
             $table->string('associate_name')->nullable();

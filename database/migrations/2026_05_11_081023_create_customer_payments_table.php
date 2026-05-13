@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('customer_payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_booking_id')->constrained('customer_bookings')->cascadeOnDelete();
+            $table->foreignId('plot_sale_detail_id')->nullable()->constrained('plot_sale_details')->nullOnDelete();
+            $table->string('receipt_number')->nullable();
             $table->enum('plan_type', ['full_payment', 'emi_plan'])->nullable();
             $table->string('booking_amount')->nullable();
             $table->string('due_amount')->nullable();
@@ -29,6 +31,7 @@ return new class extends Migration
             $table->date('cheque_date')->nullable();
             $table->string('dd_number')->nullable();
             $table->string('transaction_number')->nullable()->comment('NEFT / RTGS / Card Transaction Reference Number');
+            $table->enum('payment_status', ['booked', 'hold', 'emi'])->default('hold');
             $table->timestamps();
         });
     }

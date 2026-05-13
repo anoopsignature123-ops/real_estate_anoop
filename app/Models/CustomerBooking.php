@@ -9,7 +9,15 @@ class CustomerBooking extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['associate_id', 'customer_type', 'customer_code', 'customer_name', 'associate_code', 'associate_name', 'current_step', 'status'];
+    protected $fillable = ['associate_id', 'customer_id', 'booking_code', 'customer_type', 'customer_code', 'customer_name', 'associate_code', 'associate_name', 'current_step', 'status'];
+
+    public function parentCustomer()
+    {
+        return $this->belongsTo(
+            CustomerBooking::class,
+            'customer_id'
+        );
+    }
 
     public function associate()
     {
@@ -31,9 +39,19 @@ class CustomerBooking extends Model
         return $this->hasOne(NomineeDetail::class);
     }
 
+    public function plotSaleDetails()
+    {
+        return $this->hasMany(PlotSaleDetail::class);
+    }
+
     public function plotSaleDetail()
     {
-        return $this->hasOne(PlotSaleDetail::class);
+        return $this->hasOne(PlotSaleDetail::class)->latestOfMany();
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(CustomerPayment::class);
     }
 
     public function payment()
@@ -46,10 +64,10 @@ class CustomerBooking extends Model
         return $this->hasOneThrough(
             CustomerDocument::class,
             PrimaryDetail::class,
-            'customer_booking_id', // primary_details.customer_booking_id
-            'primary_detail_id',   // customer_documents.primary_detail_id
-            'id',                  // customer_bookings.id
-            'id'                   // primary_details.id
+            'customer_booking_id',
+            'primary_detail_id',
+            'id',
+            'id'
         );
     }
 

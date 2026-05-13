@@ -3,72 +3,45 @@
 @endphp
 
 <div class="card border-0 shadow-sm mb-4">
-
     <div class="card-body p-4">
-
         <h5 class="fw-bold mb-4 border-bottom pb-2">
             Payment Details
         </h5>
-
-
         <div class="d-flex justify-content-end align-items-center">
-
             <span class="fw-semibold fs-6">
                 Total Payable Amount
             </span>
-
             <span class="fw-bold fs-6 text-success ms-2">
-
                 ₹ {{ number_format($plotSale->total_plot_cost ?? 0, 2) }}
-
             </span>
-
         </div>
-
-
         <div class="row">
-
             <input type="hidden" id="totalPlotCost" value="{{ $plotSale->total_plot_cost ?? 0 }}">
-
-
+            <input type="hidden" name="plot_sale_detail_id" value="{{ request('plot_sale_detail_id') }}">
             {{-- Plan Type --}}
             <div class="col-md-6 mb-3">
-
                 <label class="form-label fw-semibold">
                     Plan Type
                 </label>
-
                 <select name="plan_type" id="planType" class="form-select @error('plan_type') is-invalid @enderror">
-
                     <option value="">
                         Select Plan Type
                     </option>
-
                     <option value="full_payment"
                         {{ old('plan_type', $payment?->plan_type) == 'full_payment' ? 'selected' : '' }}>
-
                         Full Payment
-
                     </option>
-
                     <option value="emi_plan"
                         {{ old('plan_type', $payment?->plan_type) == 'emi_plan' ? 'selected' : '' }}>
-
                         EMI Plan
-
                     </option>
-
                 </select>
-
                 @error('plan_type')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
-
             </div>
-
-
             {{-- Pay Mode --}}
             <div class="col-md-6 mb-3 common-field d-none">
 

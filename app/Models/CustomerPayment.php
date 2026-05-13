@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PlotSaleDetail;
 
 class CustomerPayment extends Model
 {
     protected $fillable = [
         'customer_booking_id',
+        'plot_sale_detail_id',
         'plan_type',
         'booking_amount',
         'due_amount',
@@ -30,5 +32,10 @@ class CustomerPayment extends Model
     public function customerBooking()
     {
         return $this->belongsTo(CustomerBooking::class);
+    }
+
+    public function plotSaleDetail()
+    {
+        return $this->belongsTo(PlotSaleDetail::class);
     }
 }
