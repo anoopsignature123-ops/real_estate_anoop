@@ -20,6 +20,9 @@ class ChequeClearanceController extends Controller
     {
         $payments = CustomerPayment::with([
             'customerBooking.primaryDetail',
+            'plotSaleDetail.project',
+            'plotSaleDetail.block',
+            'plotSaleDetail.plotDetail',
         ])
             ->where('payment_mode', 'cheque')
             ->latest()

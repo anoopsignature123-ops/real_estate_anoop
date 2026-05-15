@@ -3,93 +3,97 @@
 namespace App\Services;
 
 use App\Models\CustomerBooking;
-use App\Models\CustomerPayment;
 use App\Models\PlotDetail;
-use Illuminate\Support\Str;
 
 class PlotPaymentService
 {
     public function getAll()
     {
         return CustomerBooking::with([
-            'primaryDetail.customerDocument',
+            'primaryDetail',
             'plotSaleDetail.project',
-            'plotSaleDetail.block',
             'plotSaleDetail.plotDetail',
             'payment',
-        ])->orderByDesc('id')->get();
+        ])
+            ->latest()
+            ->get();
     }
 
-    public function findById($id)
+    public function findById(int $id)
     {
         return CustomerBooking::with([
-            'primaryDetail.customerDocument',
+            'primaryDetail',
             'plotSaleDetail.project',
-            'plotSaleDetail.block',
             'plotSaleDetail.plotDetail',
             'payment',
         ])->findOrFail($id);
     }
 
-    public function savePayment($bookingId, array $data)
-    {
-        $booking = CustomerBooking::findOrFail($bookingId);
-        $plotSaleId = $data['plot_sale_detail_id'] ?? $booking->plotSaleDetail?->id;
-        $paymentMode = $data['payment_mode'] ?? null;
-        $planType = $data['plan_type'] ?? null;
+    public function updatePayment(
+        int $bookingId,
+        array $data
+    ) {
+        $booking = $this->findById($bookingId);
 
-        $transactionNumber = $data['transaction_number'] ??
-            strtoupper($paymentMode ?: 'PAY').'-'.time();
+        $payment = $booking->payment;
 
-        $receiptNumber = $data['receipt_number'] ??
-            'REC-'.Str::upper(Str::random(8));
+        if (! $payment) {
+            abort(404, 'Payment record not found');
+        }
 
         $paymentStatus = 'hold';
 
-        if ($planType === 'emi_plan') {
+        if ($data['plan_type'] === 'emi_plan') {
             $paymentStatus = 'emi';
-        } elseif (in_array($paymentMode, ['cash', 'card'], true)) {
+        }
+
+        if (
+            in_array(
+                $data['payment_mode'],
+                ['cash', 'card']
+            )
+        ) {
             $paymentStatus = 'booked';
         }
 
-        $payment = CustomerPayment::updateOrCreate(
-            [
-                'customer_booking_id' => $bookingId,
-                'plot_sale_detail_id' => $plotSaleId,
-            ],
-            [
-                'plan_type' => $planType,
-                'booking_amount' => $data['booking_amount'] ?? 0,
-                'due_amount' => $data['due_amount'] ?? 0,
-                'net_payable_amount' => $data['net_payable_amount'] ?? 0,
-                'emi_months' => $data['emi_months'] ?? null,
-                'after_booking_payable_amount' => $data['after_booking_payable_amount'] ?? null,
-                'remark' => $data['remark'] ?? null,
-                'payment_mode' => $paymentMode,
-                'account_number' => $data['account_number'] ?? null,
-                'bank_name' => $data['bank_name'] ?? null,
-                'branch_name' => $data['branch_name'] ?? null,
-                'cheque_number' => $data['cheque_number'] ?? null,
-                'cheque_date' => $data['cheque_date'] ?? null,
-                'dd_number' => $data['dd_number'] ?? null,
-                'transaction_number' => $transactionNumber,
-                'receipt_number' => $receiptNumber,
-                'payment_status' => $paymentStatus,
-            ]
-        );
+        $payment->update([
 
-        if ($plotSaleId) {
-            $plotSale = $booking->plotSaleDetails()->find($plotSaleId);
-            if ($plotSale && $plotSale->plot_detail_id) {
-                PlotDetail::where('id', $plotSale->plot_detail_id)
-                    ->update(['status' => 'booked']);
-            }
-        }
+            'manual_receipt_number' => $data['manual_receipt_number'],
 
-        $booking->update([
-            'current_step' => 6,
-            'status' => $paymentStatus === 'booked' ? 'completed' : 'pending',
+            'plan_type' => $data['plan_type'],
+
+            'booking_amount' => $data['booking_amount'],
+
+            'due_amount' => $data['due_amount'],
+
+            'emi_months' => $data['emi_months'],
+
+            'after_booking_payable_amount' => $data['after_booking_payable_amount'],
+
+            'payment_mode' => $data['payment_mode'],
+
+            'account_number' => $data['account_number'],
+
+            'bank_name' => $data['bank_name'],
+
+            'branch_name' => $data['branch_name'],
+
+            'cheque_number' => $data['cheque_number'],
+
+            'dd_number' => $data['dd_number'],
+
+            'payment_status' => $paymentStatus,
         ]);
+
+        if ($booking->plotSaleDetail?->plot_detail_id) {
+
+            PlotDetail::where(
+                'id',
+                $booking->plotSaleDetail->plot_detail_id
+            )->update([
+                'status' => 'booked',
+            ]);
+        }
 
         return $payment;
     }

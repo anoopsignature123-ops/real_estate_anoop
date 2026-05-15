@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MultipleChequeClearanceRequest extends FormRequest
+class AssociateAdvanceRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,21 +15,23 @@ class MultipleChequeClearanceRequest extends FormRequest
     {
         return [
 
-            'payment_ids' => [
+            'associate_id' => [
                 'required',
+                'exists:associates,id',
             ],
 
-            'cheque_status' => [
+            'advance_amount' => [
                 'required',
-                'in:cleared,cancelled,bounced,pending',
+                'numeric',
+                'min:1',
             ],
 
-            'cheque_date' => [
+            'advance_date' => [
                 'required',
                 'date',
             ],
 
-            'cheque_reason' => [
+            'remarks' => [
                 'nullable',
                 'string',
             ],

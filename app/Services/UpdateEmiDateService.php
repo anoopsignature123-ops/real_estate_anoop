@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\CustomerPayment;
 
-class ChequeClearanceService
+class UpdateEmiDateService
 {
-    public function store(array $data)
-    {
+    public function store(
+        array $data
+    ) {
         $paymentIds = explode(
             ',',
             $data['payment_ids']
@@ -18,12 +19,7 @@ class ChequeClearanceService
             $paymentIds
         )->update([
 
-            'cheque_status' => $data['cheque_status'],
-
-            'cheque_reason' => $data['cheque_reason'] ?? null,
-
-            // yahi main change hai
-            'cheque_date' => $data['cheque_date'],
+            'emi_date' => $data['emi_date'],
 
         ]);
 

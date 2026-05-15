@@ -37,6 +37,7 @@ return new class extends Migration
                 ->default('pending');
             $table->text('cheque_reason')->nullable();
             $table->timestamp('cheque_clearance_date')->nullable();
+            $table->date('emi_date')->nullable();
             $table->timestamps();
         });
     }

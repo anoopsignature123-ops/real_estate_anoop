@@ -14,6 +14,7 @@ class PlotPaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'manual_receipt_number' => 'nullable|string',
             'plan_type' => 'required|in:full_payment,emi_plan',
             'payment_mode' => 'required|in:cash,cheque,dd,neft_rtgs,card',
             'booking_amount' => 'required|numeric|min:0',

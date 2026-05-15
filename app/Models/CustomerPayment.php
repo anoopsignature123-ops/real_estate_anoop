@@ -30,6 +30,12 @@ class CustomerPayment extends Model
         'cheque_status',
         'cheque_reason',
         'cheque_clearance_date',
+        'emi_date',
+    ];
+
+    protected $casts = [
+        'emi_date' => 'datetime',
+        'cheque_date' => 'date',
     ];
 
     public function customerBooking()

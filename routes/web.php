@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssociateAdvanceController;
 use App\Http\Controllers\AssociateController;
 use App\Http\Controllers\AssociateTreeController;
 use App\Http\Controllers\AuthController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\DirectAssociateController;
 use App\Http\Controllers\EmiPaymentController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\GenerateEmiController;
 use App\Http\Controllers\OneTimePaymentController;
 use App\Http\Controllers\PlcRateController;
 use App\Http\Controllers\PlotDetailController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectManipulationController;
 use App\Http\Controllers\ReceiptReprintController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UpdateEmiDateController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -128,9 +131,25 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 
     Route::controller(ChequeClearanceController::class)->group(function () {
         Route::get('/multiple-cheque-clearance', 'multipleChequeClearanceIndex')->name('multiple-cheque-clearance.index');
-        Route::get('/multiple-cheque-clearance/blocks/{id}', 'getBlocksForChequeClearance')->name('multiple-cheque-clearance.blocks');
-        Route::get('/multiple-cheque-clearance/plots/{id}', 'getPlotsForChequeClearance')->name('multiple-cheque-clearance.plots');
-        Route::get('/multiple-cheque-clearance/details/{id}', 'getBookingDetailsForChequeClearance')->name('multiple-cheque-clearance.details');
         Route::post('/multiple-cheque-clearance/store', 'storeMultipleChequeClearance')->name('multiple-cheque-clearance.store');
     });
+    Route::controller(UpdateEmiDateController::class)->group(function () {
+        Route::get('/update-emi-date', 'index')->name('update-emi-date.index');
+        Route::post('/update-emi-date/store', 'store')->name('update-emi-date.store');
+    });
+
+    Route::controller(GenerateEmiController::class)->group(function () {
+        Route::get('generate-emi', 'index')->name('generate-emi.index');
+        Route::post('generate-emi/{id}', 'store')->name('generate-emi.store');
+    });
+
+    Route::controller(AssociateAdvanceController::class)->group(function () {
+        Route::get('associate-advances', 'index')->name('associate-advances.index');
+        Route::get('associate-advances/create', 'create')->name('associate-advances.create');
+        Route::post('associate-advances', 'store')->name('associate-advances.store');
+        Route::get('associate-advances/{id}/edit', 'edit')->name('associate-advances.edit');
+        Route::put('associate-advances/{id}', 'update')->name('associate-advances.update');
+        Route::delete('associate-advances/{id}', 'destroy')->name('associate-advances.destroy');
+    });
+
 });

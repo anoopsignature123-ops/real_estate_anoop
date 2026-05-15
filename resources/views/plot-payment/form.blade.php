@@ -3,11 +3,11 @@
     $plotSale = $selectedBooking->plotSaleDetail;
 @endphp
 
-<div class="card shadow-sm border-0 mb-4">
+<div class="card border-0 shadow-sm mb-4">
 
     <div class="card-body p-4">
 
-        <h5 class="fw-bold border-bottom pb-2 mb-4">
+        <h5 class="fw-bold mb-4">
             Edit Payment Details
         </h5>
 
@@ -20,32 +20,51 @@
 
             <input type="hidden" id="totalPlotCost" value="{{ $plotSale?->total_plot_cost ?? 0 }}">
 
-
             <div class="row">
 
                 {{-- Project --}}
                 <div class="col-md-4 mb-3">
-
-                    <label class="form-label">
+                    <label class="form-label fw-semibold">
                         Project Name
                     </label>
 
-                    <input type="text" readonly class="form-control" value="{{ $plotSale?->project?->name }}">
-
+                    <input type="text" class="form-control" readonly placeholder="Project Name"
+                        value="{{ $plotSale?->project?->name }}">
                 </div>
 
 
-                {{-- Plan Type --}}
+                {{-- Receipt --}}
                 <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
+                        Receipt No
+                    </label>
 
-                    <label class="form-label">
-                        Plan Type
+                    <input type="text" class="form-control" readonly placeholder="Receipt Number"
+                        value="{{ old('receipt_number', $payment?->receipt_number) }}">
+                </div>
+
+
+                {{-- Manual Receipt --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
+                        Manual Receipt No
+                    </label>
+
+                    <input type="text" name="manual_receipt_number" class="form-control"
+                        placeholder="Enter Manual Receipt"
+                        value="{{ old('manual_receipt_number', $payment?->manual_receipt_number) }}">
+                </div>
+
+
+                {{-- Plan --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
+                        Payment Type
                     </label>
 
                     <select name="plan_type" id="planType" class="form-select">
 
-                        <option value="full_payment"
-                            {{ old('plan_type', $payment?->plan_type) == 'full_payment' ? 'selected' : '' }}>
+                        <option value="full_payment">
                             Full Payment
                         </option>
 
@@ -55,23 +74,29 @@
                         </option>
 
                     </select>
+                </div>
 
+
+                {{-- Paid Amount --}}
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
+                        Paid Amount
+                    </label>
+
+                    <input type="number" name="booking_amount" id="bookingAmount" class="form-control"
+                        placeholder="Enter Paid Amount" value="{{ old('booking_amount', $payment?->booking_amount) }}">
                 </div>
 
 
                 {{-- Payment Mode --}}
-                <div class="col-md-4 mb-3 common-field d-none">
-
-                    <label class="form-label">
-                        Payment Mode
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
+                        Pay Mode
                     </label>
 
                     <select name="payment_mode" id="paymentMode" class="form-select">
 
-                        <option value="cash"
-                            {{ old('payment_mode', $payment?->payment_mode) == 'cash' ? 'selected' : '' }}>
-                            Cash
-                        </option>
+                        <option value="cash">Cash</option>
 
                         <option value="cheque"
                             {{ old('payment_mode', $payment?->payment_mode) == 'cheque' ? 'selected' : '' }}>
@@ -94,138 +119,96 @@
                         </option>
 
                     </select>
-
-                </div>
-
-
-                {{-- Booking Amount --}}
-                <div class="col-md-4 mb-3 common-field d-none">
-
-                    <label class="form-label">
-                        Booking Amount
-                    </label>
-
-                    <input type="number" id="bookingAmount" name="booking_amount" class="form-control"
-                        value="{{ old('booking_amount', $payment?->booking_amount) }}">
-
                 </div>
 
 
                 {{-- Due Amount --}}
-                <div class="col-md-4 mb-3 common-field d-none">
-
-                    <label class="form-label">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-semibold">
                         Due Amount
                     </label>
 
-                    <input type="number" id="dueAmount" name="due_amount" readonly class="form-control"
-                        value="{{ old('due_amount', $payment?->due_amount) }}">
-
+                    <input type="text" readonly name="due_amount" id="dueAmount" class="form-control"
+                        placeholder="Auto Due Amount" value="{{ old('due_amount', $payment?->due_amount) }}">
                 </div>
 
 
-                {{-- EMI Months --}}
+                {{-- EMI MONTHS --}}
                 <div class="col-md-4 mb-3 emi-field d-none">
 
-                    <label class="form-label">
+                    <label class="form-label fw-semibold">
                         EMI Months
                     </label>
 
-                    <input type="number" id="emiMonths" name="emi_months" class="form-control"
-                        value="{{ old('emi_months', $payment?->emi_months) }}">
+                    <input type="number" name="emi_months" id="emiMonths" class="form-control"
+                        placeholder="Enter EMI Months" value="{{ old('emi_months', $payment?->emi_months) }}">
 
                 </div>
 
 
-                {{-- Monthly EMI --}}
+                {{-- EMI Amount --}}
                 <div class="col-md-4 mb-3 emi-field d-none">
 
-                    <label class="form-label">
-                        Monthly EMI
+                    <label class="form-label fw-semibold">
+                        EMI Amount
                     </label>
 
-                    <input type="number" id="afterBookingAmount" name="after_booking_payable_amount" readonly
-                        class="form-control"
+                    <input type="text" readonly id="emiAmount" name="after_booking_payable_amount"
+                        class="form-control" placeholder="Auto EMI Amount"
                         value="{{ old('after_booking_payable_amount', $payment?->after_booking_payable_amount) }}">
 
                 </div>
-                {{-- Receipt Number --}}
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">
-                        Receipt Number
-                    </label>
-                    <input type="text" name="receipt_number" class="form-control"
-                        value="{{ old('receipt_number', $payment?->receipt_number) }}" readonly>
-                </div>
-                {{-- Account Number --}}
+
+
+                {{-- Bank Fields --}}
                 <div class="col-md-4 mb-3 bank-field d-none">
-                    <label class="form-label">
-                        Account Number
-                    </label>
-                    <input type="text" name="account_number" class="form-control"
+                    <label class="form-label fw-semibold">Account Number</label>
+
+                    <input type="text" name="account_number" class="form-control" placeholder="Enter Account Number"
                         value="{{ old('account_number', $payment?->account_number) }}">
                 </div>
 
 
-                {{-- Bank Name --}}
-                <div class="col-md-4 mb-3 bank-detail-field d-none">
+                <div class="col-md-4 mb-3 bank-field d-none">
+                    <label class="form-label fw-semibold">Bank Name</label>
 
-                    <label class="form-label">
-                        Bank Name
-                    </label>
-
-                    <input type="text" name="bank_name" class="form-control"
+                    <input type="text" name="bank_name" class="form-control" placeholder="Enter Bank Name"
                         value="{{ old('bank_name', $payment?->bank_name) }}">
-
                 </div>
 
 
-                {{-- Branch Name --}}
-                <div class="col-md-4 mb-3 bank-detail-field d-none">
+                <div class="col-md-4 mb-3 bank-field d-none">
+                    <label class="form-label fw-semibold">Branch Name</label>
 
-                    <label class="form-label">
-                        Branch Name
-                    </label>
-
-                    <input type="text" name="branch_name" class="form-control"
+                    <input type="text" name="branch_name" class="form-control" placeholder="Enter Branch Name"
                         value="{{ old('branch_name', $payment?->branch_name) }}">
-
                 </div>
 
 
-                {{-- Cheque Number --}}
-                <div class="col-md-4 mb-3 cheque-number-field d-none">
-
-                    <label class="form-label">
-                        Cheque Number
-                    </label>
+                {{-- Cheque --}}
+                <div class="col-md-4 mb-3 cheque-field d-none">
+                    <label class="form-label fw-semibold">Cheque Number</label>
 
                     <input type="text" name="cheque_number" class="form-control"
+                        placeholder="Enter Cheque Number"
                         value="{{ old('cheque_number', $payment?->cheque_number) }}">
-
                 </div>
 
 
-                {{-- DD Number --}}
-                <div class="col-md-4 mb-3 dd-number-field d-none">
+                {{-- DD --}}
+                <div class="col-md-4 mb-3 dd-field d-none">
+                    <label class="form-label fw-semibold">DD Number</label>
 
-                    <label class="form-label">
-                        DD Number
-                    </label>
-
-                    <input type="text" name="dd_number" class="form-control"
+                    <input type="text" name="dd_number" class="form-control" placeholder="Enter DD Number"
                         value="{{ old('dd_number', $payment?->dd_number) }}">
-
                 </div>
 
 
-                {{-- Submit --}}
-                <div class="col-md-12 mt-3">
+                <div class="col-12 mt-3">
 
-                    <button type="submit" class="btn btn-success px-4">
+                    <button class="btn btn-success px-4">
 
                         <i class="fa fa-save me-1"></i>
-
                         Update Payment
 
                     </button>
@@ -239,177 +222,3 @@
     </div>
 
 </div>
-
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-
-            function resetFields() {
-
-                $('.common-field').addClass('d-none');
-                $('.emi-field').addClass('d-none');
-                $('.bank-field').addClass('d-none');
-                $('.bank-detail-field').addClass('d-none');
-                $('.cheque-number-field').addClass('d-none');
-                $('.dd-number-field').addClass('d-none');
-
-            }
-
-
-            function calculateAmounts() {
-
-                let total =
-                    parseFloat($('#totalPlotCost').val()) || 0;
-
-                let booking =
-                    parseFloat($('#bookingAmount').val()) || 0;
-
-                let plan =
-                    $('#planType').val();
-
-
-                if (plan == 'full_payment') {
-
-                    booking = total;
-
-                    $('#bookingAmount')
-                        .val(total.toFixed(2))
-                        .prop('readonly', true);
-
-                } else {
-
-                    $('#bookingAmount')
-                        .prop('readonly', false);
-
-                }
-
-
-                let due = total - booking;
-
-                if (due < 0) {
-                    due = 0;
-                }
-
-                $('#dueAmount').val(
-                    due.toFixed(2)
-                );
-
-
-                if (plan == 'emi_plan') {
-
-                    let months =
-                        parseInt($('#emiMonths').val()) || 0;
-
-                    if (months > 0) {
-
-                        $('#afterBookingAmount').val(
-                            (due / months).toFixed(2)
-                        );
-
-                    } else {
-
-                        $('#afterBookingAmount').val('');
-
-                    }
-
-                }
-
-            }
-
-
-            function loadFields() {
-
-                resetFields();
-
-                let plan =
-                    $('#planType').val();
-
-
-                $('.common-field')
-                    .removeClass('d-none');
-
-
-                if (plan == 'emi_plan') {
-
-                    $('.emi-field')
-                        .removeClass('d-none');
-
-                }
-
-
-                $('#paymentMode').trigger('change');
-
-                calculateAmounts();
-
-            }
-
-
-            $('#planType').change(loadFields);
-
-
-            $('#paymentMode').change(function() {
-
-                resetFields();
-
-                let plan =
-                    $('#planType').val();
-
-                let mode =
-                    $(this).val();
-
-
-                $('.common-field')
-                    .removeClass('d-none');
-
-
-                if (plan == 'emi_plan') {
-
-                    $('.emi-field')
-                        .removeClass('d-none');
-
-                }
-
-
-                if (
-                    mode == 'cheque' ||
-                    mode == 'dd' ||
-                    mode == 'neft_rtgs'
-                ) {
-
-                    $('.bank-field')
-                        .removeClass('d-none');
-
-                    $('.bank-detail-field')
-                        .removeClass('d-none');
-
-                }
-
-
-                if (mode == 'cheque') {
-
-                    $('.cheque-number-field')
-                        .removeClass('d-none');
-
-                }
-
-
-                if (mode == 'dd') {
-
-                    $('.dd-number-field')
-                        .removeClass('d-none');
-
-                }
-
-            });
-
-
-            $('#bookingAmount, #emiMonths')
-                .on('keyup change', calculateAmounts);
-
-
-            loadFields();
-
-        });
-    </script>
-@endpush
