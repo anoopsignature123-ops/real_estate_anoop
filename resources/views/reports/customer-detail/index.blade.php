@@ -41,7 +41,7 @@
 
             <div class="report-header">
 
-                <h5 class="mb-0">
+                <h5 class="mb-0 fw-bold">
 
                     <i class="bi bi-funnel me-2"></i>
 
@@ -114,7 +114,7 @@
 
                         <div class="col-md-3 d-flex gap-2 align-items-end">
 
-                            <button class="btn btn-primary w-100">
+                            <button class="btn btn-primary  ">
 
                                 <i class="bi bi-search"></i>
 
@@ -122,9 +122,15 @@
 
                             </button>
 
+                            <a href="{{ route('admin.customer-details-report.index') }}" class="btn btn-secondary">
 
+                                <i class="bi bi-arrow-clockwise me-1"></i>
+
+                                Reset
+
+                            </a>
                             <a href="{{ route('admin.customer-details-report.export', request()->all()) }}"
-                                class="btn btn-success w-100">
+                                class="btn btn-success ">
 
                                 <i class="bi bi-file-earmark-excel"></i>
 

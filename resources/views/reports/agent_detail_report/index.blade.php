@@ -88,7 +88,7 @@
                         </div>
 
 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
 
                             <label class="fw-semibold mb-1">
                                 From Date
@@ -99,7 +99,7 @@
                         </div>
 
 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
 
                             <label class="fw-semibold mb-1">
                                 To Date
@@ -110,18 +110,24 @@
                         </div>
 
 
-                        <div class="col-md-2 d-flex align-items-end gap-2">
+                        <div class="col-md-4 d-flex align-items-end gap-2">
 
-                            <button type="submit" class="btn btn-primary w-100">
+                            <button type="submit" class="btn btn-primary  ">
 
                                 <i class="fas fa-search me-1"></i>
                                 Search
 
                             </button>
+                            <a href="{{ route('admin.agent-detail-report.index') }}" class="btn btn-secondary">
 
+                                <i class="bi bi-arrow-clockwise me-1"></i>
+
+                                Reset
+
+                            </a>
 
                             <a href="{{ route('admin.agent-detail-report.export', request()->all()) }}"
-                                class="btn btn-success w-100">
+                                class="btn btn-success  ">
 
                                 <i class="fas fa-file-excel me-1"></i>
                                 Export

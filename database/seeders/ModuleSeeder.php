@@ -351,11 +351,11 @@ class ModuleSeeder extends Seeder
                 'icon' => 'bi bi-people',
             ],
             [
-                'name' => 'EMI Dues Status',
-                'slug' => 'emi-dues-status-report',
+                'name' => 'EMI Due Status',
+                'slug' => 'emi-due-status-report',
                 'parent_slug' => 'report',
-                'route_name' => 'admin.emi-dues-status-report.index',
-                'active_routes' => 'admin.emi-dues-status-report*',
+                'route_name' => 'admin.emi-due-status-report.index',
+                'active_routes' => 'admin.emi-due-status-report*',
                 'icon' => 'bi bi-calendar-x',
             ],
 
@@ -363,8 +363,8 @@ class ModuleSeeder extends Seeder
                 'name' => 'EMI Payment Dues',
                 'slug' => 'emi-payment-dues-report',
                 'parent_slug' => 'report',
-                'route_name' => 'admin.emi-payment-dues-report.index',
-                'active_routes' => 'admin.emi-payment-dues-report*',
+                'route_name' => 'admin.emi-due-date-report.index',
+                'active_routes' => 'admin.emi-due-date-report*',
                 'icon' => 'bi bi-cash-stack',
             ],
 

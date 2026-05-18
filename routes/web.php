@@ -17,10 +17,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesignationRankController;
 use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\DirectAssociateController;
+use App\Http\Controllers\EmiDueDateReportController;
+use App\Http\Controllers\EmiDueStatusReportController;
 use App\Http\Controllers\EmiPaymentController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\GenerateEmiController;
 use App\Http\Controllers\OneTimePaymentController;
+use App\Http\Controllers\OneTimePaymentDueController;
 use App\Http\Controllers\PlcRateController;
 use App\Http\Controllers\PlotDetailController;
 use App\Http\Controllers\PlotPaymentController;
@@ -168,6 +171,21 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::controller(CustomerDetailReportController::class)->group(function () {
         Route::get('customer-details-report', 'index')->name('customer-details-report.index');
         Route::get('customer-details-report/export', 'export')->name('customer-details-report.export');
+    });
+
+    Route::controller(EmiDueDateReportController::class)->group(function () {
+        Route::get('emi-due-date-report', 'index')->name('emi-due-date-report.index');
+        Route::get('emi-due-date-report/export', 'export')->name('emi-due-date-report.export');
+    });
+
+    Route::controller(EmiDueStatusReportController::class)->group(function () {
+        Route::get('emi-due-status-report', 'index')->name('emi-due-status-report.index');
+        Route::get('emi-due-status-report/export', 'export')->name('emi-due-status-report.export');
+    });
+
+    Route::controller(OneTimePaymentDueController::class)->group(function () {
+        Route::get('one-time-payment-due', 'index')->name('one-time-payment-due.index');
+        Route::get('one-time-payment-due/export', 'export')->name('one-time-payment-due.export');
     });
 
 });
