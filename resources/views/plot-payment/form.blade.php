@@ -11,7 +11,7 @@
             Edit Payment Details
         </h5>
 
-        <form method="POST" action="{{ route('admin.edit-payment-details.update', $selectedBooking->id) }}">
+        <form method="POST" action="{{ route('edit-payment-details.update', $selectedBooking->id) }}">
 
             @csrf
             @method('PUT')

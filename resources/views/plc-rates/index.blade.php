@@ -11,7 +11,7 @@
                     Manage PLC Rates
                 </small>
             </div>
-            <a href="{{ route('admin.plc-rates.create') }}" class="btn btn-success">
+            <a href="{{ route('plc-rates.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
                 Add PLC Rate
             </a>
@@ -41,12 +41,12 @@
                                     </td>
                                     <td>
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.plc-rates.edit', $plcRate->id) }}"
+                                        <a href="{{ route('plc-rates.edit', $plcRate->id) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <!-- Delete -->
-                                        <form action="{{ route('admin.plc-rates.destroy', $plcRate->id) }}" method="POST"
+                                        <form action="{{ route('plc-rates.destroy', $plcRate->id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')

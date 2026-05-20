@@ -30,7 +30,7 @@ class PlcRateController extends Controller
     {
         $this->plcRateService->create($request->validated());
 
-        return redirect()->route('admin.plc-rates.index')->with('success', 'PLC rate created successfully.');
+        return redirect()->route('plc-rates.index')->with('success', 'PLC rate created successfully.');
     }
 
     public function edit($id)
@@ -46,7 +46,7 @@ class PlcRateController extends Controller
     {
         $this->plcRateService->update($id, $request->validated());
 
-        return redirect()->route('admin.plc-rates.index')->with('success', 'PLC rate updated successfully.');
+        return redirect()->route('plc-rates.index')->with('success', 'PLC rate updated successfully.');
     }
 
     public function destroy($id)

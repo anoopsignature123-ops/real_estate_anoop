@@ -30,7 +30,7 @@ class ProjectController extends Controller
     {
         $this->projectService->create($request->validated());
 
-        return redirect()->route('admin.projects.index')
+        return redirect()->route('projects.index')
             ->with('success', 'Project created successfully');
     }
 
@@ -45,7 +45,7 @@ class ProjectController extends Controller
     {
         $this->projectService->update($id, $request->validated());
 
-        return redirect()->route('admin.projects.index')
+        return redirect()->route('projects.index')
             ->with('success', 'Project updated successfully');
     }
 

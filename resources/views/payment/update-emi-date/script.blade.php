@@ -38,7 +38,7 @@
                 }
 
                 $.ajax({
-                    url: "{{ route('admin.update-emi-date.store') }}",
+                    url: "{{ route('update-emi-date.store') }}",
                     type: "POST",
                     data: {
                         _token: "{{ csrf_token() }}",

@@ -1,11 +1,11 @@
 @if ($step == 5)
-    <form method="POST" action="{{ route('admin.customer-booking.update', $customer->id) }}">
+    <form method="POST" action="{{ route('customer-booking.update', $customer->id) }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="step" value="5">
         @include('customer-booking.partials.payment-form')
         <div class="d-flex justify-content-end mt-4">
-            <a href="{{ route('admin.customer-booking.edit', [$customer->id, 'step' => 4]) }}"
+            <a href="{{ route('customer-booking.edit', [$customer->id, 'step' => 4]) }}"
                 class="btn btn-outline-secondary px-4">Previous
             </a>
             <button type="submit" class="btn btn-success ms-2 px-4">Add Customer & Book Plot</button>

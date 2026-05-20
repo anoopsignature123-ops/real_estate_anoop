@@ -12,14 +12,14 @@
                     Add new plot type
                 </small>
             </div>
-            <a href="{{ route('admin.plot-types.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-types.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
         </div>
         <div class="card shadow border-0">
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.plot-types.store') }}">
+                <form method="POST" action="{{ route('plot-types.store') }}">
                     @csrf
 
                     @include('plot-types.form')

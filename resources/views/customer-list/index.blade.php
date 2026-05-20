@@ -103,7 +103,7 @@
 
                                     {{-- <td>
 
-                                        <a href="{{ route('admin.customer-booking.edit', [$customer->id, 'step' => 1]) }}"
+                                        <a href="{{ route('customer-booking.edit', [$customer->id, 'step' => 1]) }}"
                                             class="btn btn-sm btn-success">
 
                                             <i class="fa fa-edit"></i>

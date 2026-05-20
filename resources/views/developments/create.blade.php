@@ -14,14 +14,14 @@
                     Add development amount
                 </p>
             </div>
-            <a href="{{ route('admin.developments.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('developments.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
         </div>
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.developments.store') }}" method="POST">
+                <form action="{{ route('developments.store') }}" method="POST">
 
                     @csrf
 

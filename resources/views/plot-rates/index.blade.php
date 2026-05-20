@@ -16,7 +16,7 @@
                 </small>
             </div>
 
-            <a href="{{ route('admin.plot-rates.create') }}" class="btn btn-success">
+            <a href="{{ route('plot-rates.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
                 Add Plot Rate
             </a>
@@ -70,7 +70,7 @@
                                     <td>
 
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.plot-rates.edit', $plotRate->id) }}"
+                                        <a href="{{ route('plot-rates.edit', $plotRate->id) }}"
                                             class="btn btn-sm btn-outline-primary">
 
                                             <i class="bi bi-pencil"></i>
@@ -79,7 +79,7 @@
 
 
                                         <!-- Delete -->
-                                        <form action="{{ route('admin.plot-rates.destroy', $plotRate->id) }}" method="POST"
+                                        <form action="{{ route('plot-rates.destroy', $plotRate->id) }}" method="POST"
                                             class="d-inline">
 
                                             @csrf

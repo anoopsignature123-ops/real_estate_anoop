@@ -17,7 +17,7 @@
 
             </div>
 
-            <a href="{{ route('admin.plot-types.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-types.index') }}" class="btn btn-outline-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -31,7 +31,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('admin.plot-types.update', $plotType->id) }}">
+                <form method="POST" action="{{ route('plot-types.update', $plotType->id) }}">
 
                     @csrf
                     @method('PUT')

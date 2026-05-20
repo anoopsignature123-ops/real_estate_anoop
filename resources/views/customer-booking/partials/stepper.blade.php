@@ -31,7 +31,7 @@
                     $canClick = isset($customer);
                 @endphp
                 <div class="col">
-                    <a href="{{ $canClick ? route('admin.customer-booking.edit', [$customer->id, 'step' => $number]) : 'javascript:void(0)' }}"
+                    <a href="{{ $canClick ? route('customer-booking.edit', [$customer->id, 'step' => $number]) : 'javascript:void(0)' }}"
                         class="text-decoration-none booking-step" data-can-click="{{ $canClick ? 'yes' : 'no' }}">
                         <div
                             class="border rounded-4 p-3 text-center

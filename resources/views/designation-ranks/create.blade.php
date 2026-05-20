@@ -6,12 +6,12 @@
                 <h3 class="fw-bold mb-1">Add Designation</h3>
                 <small class="text-muted">Add new designations</small>
             </div>
-            <a href="{{ route('admin.designations.index') }}" class="btn btn-outline-secondary"><i
+            <a href="{{ route('designations.index') }}" class="btn btn-outline-secondary"><i
                     class="bi bi-arrow-left"></i>BacK</a>
         </div>
         <div class="card shadow-sm border-0">
             <div class="card-body">
-                <form action="{{ route('admin.designations.store') }}" method="POST">
+                <form action="{{ route('designations.store') }}" method="POST">
                     @csrf
 
                     @include('designation-ranks.form')

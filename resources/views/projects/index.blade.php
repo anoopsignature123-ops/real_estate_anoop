@@ -18,7 +18,7 @@
 
             </div>
 
-            <a href="{{ route('admin.projects.create') }}" class="btn btn-success">
+            <a href="{{ route('projects.create') }}" class="btn btn-success">
 
                 <i class="bi bi-plus-circle"></i>
 
@@ -82,7 +82,7 @@
                                     <td>
 
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.projects.edit', $project->id) }}"
+                                        <a href="{{ route('projects.edit', $project->id) }}"
                                             class="btn btn-sm btn-outline-primary">
 
                                             <i class="bi bi-pencil"></i>
@@ -91,7 +91,7 @@
 
 
                                         <!-- Delete -->
-                                        <form method="POST" action="{{ route('admin.projects.destroy', $project->id) }}"
+                                        <form method="POST" action="{{ route('projects.destroy', $project->id) }}"
                                             class="d-inline delete-form">
 
                                             @csrf

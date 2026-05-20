@@ -7,14 +7,13 @@
                 <h3 class="fw-bold mb-1">Edit Associate</h3>
                 <small class="text-muted">Update associate details</small>
             </div>
-            <a href="{{ route('admin.associate.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('associate.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Back
             </a>
         </div>
         <div class="card shadow border-0">
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.associate.update', $associate->id) }}"
-                    enctype="multipart/form-data">
+                <form method="POST" action="{{ route('associate.update', $associate->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

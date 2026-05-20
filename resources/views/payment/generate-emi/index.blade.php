@@ -83,7 +83,7 @@
                                     </td>
                                     {{-- Action --}}
                                     <td>
-                                        <form method="POST" action="{{ route('admin.generate-emi.store', $row->id) }}">
+                                        <form method="POST" action="{{ route('generate-emi.store', $row->id) }}">
                                             @csrf
                                             <input type="hidden" name="emi_months" class="hidden-emi-month">
                                             <input type="hidden" name="emi_amount" class="hidden-emi-amount">

@@ -112,12 +112,12 @@
         </div>
 
         <div class="text-end">
-            <a href="{{ route('admin.project.manipulation.export', array_merge(request()->all(), ['type' => 'excel'])) }}"
+            <a href="{{ route('project.manipulation.export', array_merge(request()->all(), ['type' => 'excel'])) }}"
                 class="btn btn-success shadow-sm px-3">
                 <i class="bi bi-file-earmark-excel-fill me-2"></i>
                 Export Excel
             </a>
-            <a href="{{ route('admin.project.manipulation.export', array_merge(request()->all(), ['type' => 'pdf'])) }}"
+            <a href="{{ route('project.manipulation.export', array_merge(request()->all(), ['type' => 'pdf'])) }}"
                 class="btn btn-danger shadow-sm px-3">
                 <i class="bi bi-file-earmark-pdf-fill me-2"></i>
                 Download PDF
@@ -182,7 +182,7 @@
                                                                             : 'text-primary')) }}">{{ ucfirst($plot->status) }}</span>
                                 </td>
                                 <td>
-                                    <form method="POST" action="{{ route('admin.project.manipulation.update.status') }}">
+                                    <form method="POST" action="{{ route('project.manipulation.update.status') }}">
                                         @csrf
                                         <input type="hidden" name="plot_id" value="{{ $plot->id }}">
                                         <select name="status" onchange="this.form.submit()" class="form-select">

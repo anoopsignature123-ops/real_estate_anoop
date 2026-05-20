@@ -31,7 +31,7 @@ class CompanyController extends Controller
 
         $this->companyService->create($request->all());
 
-        return redirect()->route('admin.company.index')->with('success', 'Company created successfully');
+        return redirect()->route('company.index')->with('success', 'Company created successfully');
     }
 
     public function edit($id)
@@ -46,13 +46,13 @@ class CompanyController extends Controller
 
         $this->companyService->update($id, $request->all());
 
-        return redirect()->route('admin.company.index')->with('success', 'Company updated successfully');
+        return redirect()->route('company.index')->with('success', 'Company updated successfully');
     }
 
     public function destroy($id)
     {
         $this->companyService->delete($id);
 
-        return redirect()->route('admin.company.index')->with('success', 'Company deleted successfully');
+        return redirect()->route('company.index')->with('success', 'Company deleted successfully');
     }
 }

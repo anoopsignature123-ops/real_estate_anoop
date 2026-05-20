@@ -26,7 +26,7 @@ class AssociateAdvanceController extends Controller
     public function store(AssociateAdvanceRequest $request)
     {
         $this->service->store($request->validated());
-        return redirect()->route('admin.associate-advances.index')
+        return redirect()->route('associate-advances.index')
             ->with('success', 'Advance created successfully');
     }
 
@@ -40,7 +40,7 @@ class AssociateAdvanceController extends Controller
     public function update(AssociateAdvanceRequest $request, $id)
     {
         $this->service->update($id, $request->validated());
-        return redirect()->route('admin.associate-advances.index')
+        return redirect()->route('associate-advances.index')
             ->with('success', 'Advance updated successfully');
     }
 

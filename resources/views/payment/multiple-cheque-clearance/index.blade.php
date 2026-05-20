@@ -107,7 +107,7 @@
     <div class="modal fade" id="statusModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
-                <form method="POST" action="{{ route('admin.multiple-cheque-clearance.store') }}">
+                <form method="POST" action="{{ route('multiple-cheque-clearance.store') }}">
                     @csrf
 
                     {{-- Header --}}

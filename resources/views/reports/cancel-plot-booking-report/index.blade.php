@@ -150,14 +150,14 @@
                                 Search
                             </button>
 
-                            <a href="{{ route('admin.cancel-plot-booking-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('cancel-plot-booking-report.index') }}" class="btn btn-secondary">
 
                                 <i class="bi bi-arrow-clockwise me-1"></i>
                                 Reset
 
                             </a>
 
-                            <a href="{{ route('admin.cancel-plot-booking-report.export', request()->all()) }}"
+                            <a href="{{ route('cancel-plot-booking-report.export', request()->all()) }}"
                                 class="btn btn-success">
 
                                 <i class="fas fa-file-excel me-1"></i>

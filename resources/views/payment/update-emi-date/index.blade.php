@@ -88,7 +88,7 @@
     <div class="modal fade" id="bulkDateModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
-                <form method="POST" action="{{ route('admin.update-emi-date.store') }}">
+                <form method="POST" action="{{ route('update-emi-date.store') }}">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold">Update EMI Date</h5>

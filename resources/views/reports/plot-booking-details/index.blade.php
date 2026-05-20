@@ -168,7 +168,7 @@
 
                             </button>
 
-                            <a href="{{ route('admin.plot-booking-details-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('plot-booking-details-report.index') }}" class="btn btn-secondary">
 
                                 <i class="bi bi-arrow-clockwise me-1"></i>
 
@@ -176,7 +176,7 @@
 
                             </a>
 
-                            <a href="{{ route('admin.plot-booking-details-report.export', request()->all()) }}"
+                            <a href="{{ route('plot-booking-details-report.export', request()->all()) }}"
                                 class="btn btn-success">
 
                                 <i class="bi bi-file-earmark-excel me-1"></i>

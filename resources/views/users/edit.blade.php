@@ -7,7 +7,7 @@
                 <h3 class="fw-bold mb-1">Edit User</h3>
                 <small class="text-muted">Update user information</small>
             </div>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">
                 ← Back
             </a>
         </div>
@@ -16,7 +16,7 @@
                 User Information
             </div>
             <div class="card-body px-4 py-4">
-                <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-light me-2 border">Cancel</a>
+                        <a href="{{ route('users.index') }}" class="btn btn-light me-2 border">Cancel</a>
                         <button type="submit" class="btn btn-success px-4">
                             <i class="bi bi-check-circle"></i> Update User
                         </button>

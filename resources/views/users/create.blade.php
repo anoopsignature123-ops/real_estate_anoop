@@ -7,7 +7,7 @@
                 <h3 class="fw-bold mb-1">Create User</h3>
                 <small class="text-muted">Add a new user to the system</small>
             </div>
-            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">
                 ← Back
             </a>
         </div>
@@ -16,7 +16,7 @@
                 User Information
             </div>
             <div class="card-body px-4 py-4">
-                <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -93,7 +93,7 @@
                     </div>
                     <!-- BUTTONS -->
                     <div class="d-flex justify-content-end mt-3">
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-light me-2 border">
+                        <a href="{{ route('users.index') }}" class="btn btn-light me-2 border">
                             Cancel
                         </a>
                         <button type="submit" class="btn btn-success px-4">

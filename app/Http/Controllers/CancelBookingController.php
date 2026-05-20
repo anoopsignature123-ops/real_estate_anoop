@@ -50,7 +50,7 @@ class CancelBookingController extends Controller
         $booking->status = 'cancelled';
         $booking->save();
 
-        return redirect()->route('admin.cancel-booking.index')
+        return redirect()->route('cancel-booking.index')
             ->with('success', 'Booking cancelled successfully.');
     }
 }

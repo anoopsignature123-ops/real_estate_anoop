@@ -18,7 +18,7 @@
 
             </div>
 
-            <a href="{{ route('admin.blocks.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('blocks.index') }}" class="btn btn-outline-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -34,7 +34,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('admin.blocks.store') }}">
+                <form method="POST" action="{{ route('blocks.store') }}">
 
                     @csrf
 

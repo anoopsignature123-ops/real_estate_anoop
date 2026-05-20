@@ -8,7 +8,7 @@
                 <h3 class="fw-bold mb-1">Associate Advances</h3>
                 <small class="text-muted">Manage associate advance records</small>
             </div>
-            <a href="{{ route('admin.associate-advances.create') }}" class="btn btn-success">
+            <a href="{{ route('associate-advances.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle me-1"></i>Add Advance
             </a>
         </div>
@@ -41,13 +41,13 @@
                                     <td>{{ $advance->remarks ?? '-' }}</td>
                                     <td>
                                         {{-- Edit --}}
-                                        <a href="{{ route('admin.associate-advances.edit', $advance->id) }}"
+                                        <a href="{{ route('associate-advances.edit', $advance->id) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         {{-- Delete --}}
                                         <form method="POST"
-                                            action="{{ route('admin.associate-advances.destroy', $advance->id) }}"
+                                            action="{{ route('associate-advances.destroy', $advance->id) }}"
                                             class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')

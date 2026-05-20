@@ -38,11 +38,10 @@
                             <button type="submit" name="search" value="1" class="btn btn-primary">
                                 <i class="bi bi-search me-1"></i>Search
                             </button>
-                            <a href="{{ route('admin.daily-dues-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('daily-dues-report.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>Reset
                             </a>
-                            <a href="{{ route('admin.daily-dues-report.export', request()->all()) }}"
-                                class="btn btn-success">
+                            <a href="{{ route('daily-dues-report.export', request()->all()) }}" class="btn btn-success">
                                 <i class="bi bi-file-earmark-excel me-1"></i>Export
                             </a>
                         </div>
@@ -105,8 +104,11 @@
                                             ₹{{ number_format($report->net_payable_amount ?? 0, 2) }}
                                         </td>
                                         <td>
-                                            {{ $report->cheque_number ?? ($report->dd_number ?? ($report->transaction_number ?? '
-                                            N/A')) }}
+                                            {{ $report->cheque_number ??
+                                                ($report->dd_number ??
+                                                    ($report->transaction_number ??
+                                                        '
+                                                                                        N/A')) }}
                                         </td>
                                         <td class="text-success fw-bold">
                                             ₹{{ number_format($report->booking_amount ?? 0, 2) }}

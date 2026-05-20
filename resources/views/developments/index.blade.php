@@ -16,7 +16,7 @@
                 </small>
             </div>
 
-            <a href="{{ route('admin.developments.create') }}" class="btn btn-success">
+            <a href="{{ route('developments.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
                 Add Development
             </a>
@@ -69,7 +69,7 @@
                                     <td>
 
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.developments.edit', $development->id) }}"
+                                        <a href="{{ route('developments.edit', $development->id) }}"
                                             class="btn btn-sm btn-outline-primary">
 
                                             <i class="bi bi-pencil"></i>
@@ -78,8 +78,8 @@
 
 
                                         <!-- Delete -->
-                                        <form action="{{ route('admin.developments.destroy', $development->id) }}"
-                                            method="POST" class="d-inline delete-form">
+                                        <form action="{{ route('developments.destroy', $development->id) }}" method="POST"
+                                            class="d-inline delete-form">
 
                                             @csrf
                                             @method('DELETE')

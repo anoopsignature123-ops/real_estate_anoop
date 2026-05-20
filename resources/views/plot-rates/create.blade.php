@@ -11,7 +11,7 @@
                     Add new plot Rate
                 </p>
             </div>
-            <a href="{{ route('admin.plot-rates.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-rates.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
@@ -20,7 +20,7 @@
 
             <div class="card-body">
 
-                <form action="{{ route('admin.plot-rates.store') }}" method="POST">
+                <form action="{{ route('plot-rates.store') }}" method="POST">
 
                     @csrf
 

@@ -12,7 +12,7 @@
                     Edit plot Rate
                 </p>
             </div>
-            <a href="{{ route('admin.plot-rates.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-rates.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
@@ -22,7 +22,7 @@
 
 
             <div class="card-body">
-                <form action="{{ route('admin.plot-rates.update', $plotRate->id) }}" method="POST">
+                <form action="{{ route('plot-rates.update', $plotRate->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 

@@ -10,14 +10,14 @@
                     Add new PLC Rate
                 </p>
             </div>
-            <a href="{{ route('admin.plc-rates.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plc-rates.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
         </div>
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('admin.plc-rates.store') }}" method="POST">
+                <form action="{{ route('plc-rates.store') }}" method="POST">
 
                     @csrf
 

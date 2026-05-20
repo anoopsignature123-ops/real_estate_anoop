@@ -18,7 +18,7 @@
 
             </div>
 
-            <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('projects.index') }}" class="btn btn-outline-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -33,7 +33,7 @@
 
             <div class="card-body p-4">
 
-                <form method="POST" action="{{ route('admin.projects.store') }}">
+                <form method="POST" action="{{ route('projects.store') }}">
 
                     @csrf
 

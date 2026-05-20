@@ -63,15 +63,14 @@
                             </button>
 
 
-                            <a href="{{ route('admin.associate-downline') }}" class="btn btn-secondary">
+                            <a href="{{ route('associate-downline') }}" class="btn btn-secondary">
 
                                 Reset
 
                             </a>
 
 
-                            <a href="{{ route('admin.associate-downline.export', request()->query()) }}"
-                                class="btn btn-info">
+                            <a href="{{ route('associate-downline.export', request()->query()) }}" class="btn btn-info">
 
                                 Export
 

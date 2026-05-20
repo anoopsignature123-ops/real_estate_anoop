@@ -12,7 +12,7 @@
 
                 </small>
             </div>
-            <a href="{{ route('admin.plot-details.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-details.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>

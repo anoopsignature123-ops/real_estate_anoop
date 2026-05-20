@@ -27,7 +27,7 @@ class DesignationRankController extends Controller
     {
         $this->designationRankService->create($request->validated());
 
-        return redirect()->route('admin.designations.index')->with('success', 'Designation created successfully.');
+        return redirect()->route('designations.index')->with('success', 'Designation created successfully.');
     }
 
     public function edit($id)
@@ -41,7 +41,7 @@ class DesignationRankController extends Controller
     {
         $this->designationRankService->update($id, $request->validated());
 
-        return redirect()->route('admin.designations.index')->with('success', 'Designation updated successfully.');
+        return redirect()->route('designations.index')->with('success', 'Designation updated successfully.');
     }
 
     public function destroy($id)

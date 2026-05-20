@@ -10,14 +10,13 @@
                     Update company information
                 </small>
             </div>
-            <a href="{{ route('admin.company.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('company.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>Back</a>
         </div>
 
         <div class="card border-0 shadow-sm rounded-3">
             <div class="card-body p-4">
-                <form method="POST" action="{{ route('admin.company.update', $company->id) }}"
-                    enctype="multipart/form-data">
+                <form method="POST" action="{{ route('company.update', $company->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

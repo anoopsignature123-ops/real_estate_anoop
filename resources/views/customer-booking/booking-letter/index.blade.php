@@ -125,7 +125,7 @@
 
                                     <td>
 
-                                        <a href="{{ route('admin.booking-letter.allotement', $row->id) }}" target="_blank"
+                                        <a href="{{ route('booking-letter.allotement', $row->id) }}" target="_blank"
                                             class="btn btn-sm btn-outline-success me-1">
 
                                             <i class="bi bi-file-earmark-text"></i>
@@ -135,7 +135,7 @@
                                         </a>
 
 
-                                        <a href="{{ route('admin.booking-letter.agreement', $row->id) }}" target="_blank"
+                                        <a href="{{ route('booking-letter.agreement', $row->id) }}" target="_blank"
                                             class="btn btn-sm btn-outline-primary">
 
                                             <i class="bi bi-file-earmark-check"></i>

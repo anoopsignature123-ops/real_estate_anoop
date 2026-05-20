@@ -48,11 +48,11 @@
                             <button type="submit" name="search" value="1" class="btn btn-primary">
                                 <i class="bi bi-search me-1"></i>Search
                             </button>
-                            <a href="{{ route('admin.associate-team-new-booking-details-report.index') }}"
+                            <a href="{{ route('associate-team-new-booking-details-report.index') }}"
                                 class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>Reset
                             </a>
-                            <a href="{{ route('admin.associate-team-new-booking-details-report.export', request()->query()) }}"
+                            <a href="{{ route('associate-team-new-booking-details-report.export', request()->query()) }}"
                                 class="btn btn-success">
                                 <i class="bi bi-file-earmark-excel me-1"></i>Export Excel
                             </a>

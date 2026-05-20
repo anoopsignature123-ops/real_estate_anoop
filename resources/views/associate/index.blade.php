@@ -39,10 +39,10 @@
                         </div>
                         <div class="col-md-3 d-flex align-items-end gap-2">
                             <button type="submit" class="btn btn-light"><i class="bi bi-search me-1"></i> Search</button>
-                            <a href="{{ route('admin.associate.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('associate.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i> Reset
                             </a>
-                            <a href="{{ route('admin.associate.export', request()->query()) }}" class="btn btn-success">
+                            <a href="{{ route('associate.export', request()->query()) }}" class="btn btn-success">
                                 <i class="bi bi-download me-1"></i> Export Excel
                             </a>
                         </div>
@@ -102,20 +102,20 @@
                                     </td>
                                     <td>
                                         <!-- View -->
-                                        <a href="{{ route('admin.associate.show', $associate->id) }}"
+                                        <a href="{{ route('associate.show', $associate->id) }}"
                                             class="btn btn-sm btn-outline-info">
 
                                             <i class="bi bi-eye"></i>
 
                                         </a>
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.associate.edit', $associate->id) }}"
+                                        <a href="{{ route('associate.edit', $associate->id) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <!-- Delete -->
-                                        <form action="{{ route('admin.associate.destroy', $associate->id) }}"
-                                            method="POST" class="d-inline delete-form">
+                                        <form action="{{ route('associate.destroy', $associate->id) }}" method="POST"
+                                            class="d-inline delete-form">
 
                                             @csrf
                                             @method('DELETE')

@@ -9,7 +9,7 @@
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
-                <form method="POST" action="{{ route('admin.cancel-booking.store') }}">
+                <form method="POST" action="{{ route('cancel-booking.store') }}">
                     @csrf
                     <input type="hidden" name="customer_booking_id" id="customerBookingId">
                     <input type="hidden" name="plot_sale_detail_id" id="plotSaleDetailId">

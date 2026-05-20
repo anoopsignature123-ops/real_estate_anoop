@@ -59,10 +59,10 @@
                             <button type="submit" class="btn btn-primary  ">
                                 <i class="fas fa-search me-1"></i> Search
                             </button>
-                            <a href="{{ route('admin.agent-detail-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('agent-detail-report.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>Reset
                             </a>
-                            <a href="{{ route('admin.agent-detail-report.export', request()->all()) }}"
+                            <a href="{{ route('agent-detail-report.export', request()->all()) }}"
                                 class="btn btn-success  ">
                                 <i class="fas fa-file-excel me-1"></i>Export
                             </a>

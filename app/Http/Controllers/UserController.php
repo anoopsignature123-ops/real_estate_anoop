@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $this->userService->create($request->all());
 
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully');
+        return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
     public function show(string $id)
@@ -55,7 +55,7 @@ class UserController extends Controller
     {
         $this->userService->update($id, $request->all());
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
     }
 
@@ -63,7 +63,7 @@ class UserController extends Controller
     {
         $this->userService->delete($id);
 
-        return redirect()->route('admin.users.index')
+        return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
     }
 }

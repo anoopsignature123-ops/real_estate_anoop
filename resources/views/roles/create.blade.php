@@ -16,7 +16,7 @@
 
             </div>
 
-            <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -26,7 +26,7 @@
 
         </div>
 
-        <form method="POST" action="{{ route('admin.roles.store') }}">
+        <form method="POST" action="{{ route('roles.store') }}">
 
             @csrf
 

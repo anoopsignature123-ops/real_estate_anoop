@@ -25,7 +25,7 @@ class DevelopmentController extends Controller
     {
         $this->developmentService->create($request->validated());
 
-        return redirect()->route('admin.developments.index')->with('success', 'Development created successfully.');
+        return redirect()->route('developments.index')->with('success', 'Development created successfully.');
     }
 
     public function edit($id)
@@ -39,7 +39,7 @@ class DevelopmentController extends Controller
     {
         $this->developmentService->update($id, $request->validated());
 
-        return redirect()->route('admin.developments.index')->with('success', 'Development updated successfully.');
+        return redirect()->route('developments.index')->with('success', 'Development updated successfully.');
     }
 
     public function destroy($id)

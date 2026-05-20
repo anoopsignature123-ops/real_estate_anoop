@@ -29,7 +29,7 @@
                             <button class="btn btn-success">
                                 Show
                             </button>
-                            <a href="{{ route('admin.associate-tree') }}" class="btn btn-secondary">
+                            <a href="{{ route('associate-tree') }}" class="btn btn-secondary">
                                 Reset
                             </a>
                         </div>

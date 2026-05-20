@@ -18,7 +18,7 @@
 
             </div>
 
-            <a href="{{ route('admin.associate.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('associate.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>

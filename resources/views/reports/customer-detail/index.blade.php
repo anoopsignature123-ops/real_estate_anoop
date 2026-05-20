@@ -45,10 +45,7 @@
                                 Customer Name
                             </label>
 
-                            <input type="text"
-                                name="name"
-                                value="{{ request('name') }}"
-                                class="form-control"
+                            <input type="text" name="name" value="{{ request('name') }}" class="form-control"
                                 placeholder="Enter customer name">
                         </div>
 
@@ -57,10 +54,7 @@
                                 Mobile
                             </label>
 
-                            <input type="text"
-                                name="mobile"
-                                value="{{ request('mobile') }}"
-                                class="form-control"
+                            <input type="text" name="mobile" value="{{ request('mobile') }}" class="form-control"
                                 placeholder="Enter mobile number">
                         </div>
 
@@ -69,10 +63,7 @@
                                 From Date
                             </label>
 
-                            <input type="date"
-                                name="from_date"
-                                value="{{ request('from_date') }}"
-                                class="form-control">
+                            <input type="date" name="from_date" value="{{ request('from_date') }}" class="form-control">
                         </div>
 
                         <div class="col-md-2">
@@ -80,10 +71,7 @@
                                 To Date
                             </label>
 
-                            <input type="date"
-                                name="to_date"
-                                value="{{ request('to_date') }}"
-                                class="form-control">
+                            <input type="date" name="to_date" value="{{ request('to_date') }}" class="form-control">
                         </div>
 
                         <div class="col-md-3 d-flex gap-2 align-items-end">
@@ -93,13 +81,12 @@
                                 Search
                             </button>
 
-                            <a href="{{ route('admin.customer-details-report.index') }}"
-                                class="btn btn-secondary">
+                            <a href="{{ route('customer-details-report.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
                                 Reset
                             </a>
 
-                            <a href="{{ route('admin.customer-details-report.export', request()->all()) }}"
+                            <a href="{{ route('customer-details-report.export', request()->all()) }}"
                                 class="btn btn-success">
                                 <i class="bi bi-file-earmark-excel me-1"></i>
                                 Export
@@ -129,8 +116,7 @@
 
                 <div class="table-responsive">
 
-                    <table id="customerReportTable"
-                        class="table table-hover align-middle nowrap w-100">
+                    <table id="customerReportTable" class="table table-hover align-middle nowrap w-100">
 
                         <thead>
                             <tr>
@@ -148,7 +134,6 @@
                         <tbody>
 
                             @forelse($customers as $key => $customer)
-
                                 @php
                                     $primary = $customer->primaryDetail;
                                     $contact = $primary?->correspondenceDetail;
@@ -202,7 +187,6 @@
                                         No Record Found
                                     </td>
                                 </tr>
-
                             @endforelse
 
                         </tbody>

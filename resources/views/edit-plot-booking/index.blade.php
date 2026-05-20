@@ -214,7 +214,7 @@
 
                                     <td>
 
-                                        <a href="{{ route('admin.customer-booking.edit', [$customer->id, 'step' => $customer->current_step]) }}"
+                                        <a href="{{ route('customer-booking.edit', [$customer->id, 'step' => $customer->current_step]) }}"
                                             class="btn btn-sm btn-success">
 
                                             <i class="fa fa-edit"></i>

@@ -10,7 +10,7 @@
                     <h4 class="fw-bold mb-1">Plot Registry</h4>
                     <small class="text-muted">Select plot and create registry details</small>
                 </div>
-                <form method="POST" action="{{ route('admin.plot-registry.store') }}" id="registryForm">
+                <form method="POST" action="{{ route('plot-registry.store') }}" id="registryForm">
                     @csrf
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -153,7 +153,7 @@
                 clearBooking();
                 if (!projectId) return;
                 $.get(
-                    "{{ route('admin.plot-registry.blocks', ':id') }}"
+                    "{{ route('plot-registry.blocks', ':id') }}"
                     .replace(':id', projectId),
                     function(res) {
                         $.each(res, function(index, block) {
@@ -174,7 +174,7 @@
                 clearBooking();
                 if (!blockId) return;
                 $.get(
-                    "{{ route('admin.plot-registry.plots', ':id') }}"
+                    "{{ route('plot-registry.plots', ':id') }}"
                     .replace(':id', blockId),
                     function(res) {
                         $.each(res, function(index, plot) {
@@ -196,7 +196,7 @@
                 clearBooking();
                 if (!plotId) return;
                 $.get(
-                    "{{ route('admin.plot-registry.booking', ':id') }}"
+                    "{{ route('plot-registry.booking', ':id') }}"
                     .replace(':id', plotId),
                     function(res) {
                         if (!res.status) return;

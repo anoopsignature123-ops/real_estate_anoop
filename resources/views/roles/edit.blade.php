@@ -16,7 +16,7 @@
 
             </div>
 
-            <a href="{{ route('admin.roles.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary">
 
                 <i class="bi bi-arrow-left"></i>
 
@@ -24,7 +24,7 @@
 
             </a>
         </div>
-        <form method="POST" action="{{ route('admin.roles.update', $role->id) }}">
+        <form method="POST" action="{{ route('roles.update', $role->id) }}">
 
             @csrf
             @method('PUT')

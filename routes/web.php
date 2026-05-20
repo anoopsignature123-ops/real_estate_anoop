@@ -74,7 +74,7 @@ Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])
     ->name('password.update');
 
-Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::resource('users', UserController::class);
@@ -317,7 +317,7 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     });
 
     Route::controller(AssociateAdvanceReportController::class)->group(function () {
-        Route::get('/associate-advance-report','index')->name('associate-advance-report.index');
-        Route::get( '/associate-advance-report/export','export')->name('associate-advance-report.export');
+        Route::get('/associate-advance-report', 'index')->name('associate-advance-report.index');
+        Route::get('/associate-advance-report/export', 'export')->name('associate-advance-report.export');
     });
 });

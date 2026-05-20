@@ -13,7 +13,7 @@
                     Manage system roles and permissions
                 </p>
             </div>
-            <a href="{{ route('admin.roles.create') }}" class="btn btn-success px-4">
+            <a href="{{ route('roles.create') }}" class="btn btn-success px-4">
                 <i class="bi bi-plus-circle me-1"></i>
                 Add Role
             </a>
@@ -41,12 +41,12 @@
                                     </td>
                                     <td class="text-center">
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.roles.edit', $role->id) }}"
+                                        <a href="{{ route('roles.edit', $role->id) }}"
                                             class="btn btn-sm btn-light border me-1">
                                             <i class="bi bi-pencil-square text-primary"></i>
                                         </a>
                                         <!-- Delete -->
-                                        <form method="POST" action="{{ route('admin.roles.destroy', $role->id) }}"
+                                        <form method="POST" action="{{ route('roles.destroy', $role->id) }}"
                                             class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')

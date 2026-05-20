@@ -3,7 +3,7 @@
         $primary = $customer?->primaryDetail;
         $secondaryToggle = old('fill_secondary_detail', $primary?->fill_secondary_detail ?? 'no');
     @endphp
-    <form method="POST" action="{{ route('admin.customer-booking.update', $customer->id) }}">
+    <form method="POST" action="{{ route('customer-booking.update', $customer->id) }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="step" value="2">
@@ -32,7 +32,7 @@
             @include('customer-booking.partials.secondary-form')
         </div>
         <div class="d-flex justify-content-end mt-4">
-            <a href="{{ route('admin.customer-booking.edit', [$customer->id, 'step' => 1]) }}"
+            <a href="{{ route('customer-booking.edit', [$customer->id, 'step' => 1]) }}"
                 class="btn btn-outline-secondary px-4">Previous
             </a>
             <button type="submit" class="btn btn-success ms-2 px-4">Save & Next</button>

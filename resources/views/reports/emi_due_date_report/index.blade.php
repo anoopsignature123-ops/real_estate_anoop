@@ -95,13 +95,12 @@
                                 Search
                             </button>
 
-                            <a href="{{ route('admin.emi-due-date-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('emi-due-date-report.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
                                 Reset
                             </a>
 
-                            <a href="{{ route('admin.emi-due-date-report.export', request()->all()) }}"
-                                class="btn btn-success">
+                            <a href="{{ route('emi-due-date-report.export', request()->all()) }}" class="btn btn-success">
                                 <i class="bi bi-file-earmark-excel me-1"></i>
                                 Export
                             </a>

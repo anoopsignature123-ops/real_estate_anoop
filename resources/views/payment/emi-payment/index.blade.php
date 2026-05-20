@@ -9,7 +9,7 @@
             </div>
 
         </div>
-        <form method="POST" action="{{ route('admin.emi-payment.store') }}">
+        <form method="POST" action="{{ route('emi-payment.store') }}">
             @csrf
             <div class="row">
                 <div class="col-lg-8">

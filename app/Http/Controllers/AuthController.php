@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('dashboard');
         }
 
         return view('auth.login');
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         if ($result['status']) {
             return redirect()
-                ->route('admin.dashboard')
+                ->route('dashboard')
                 ->with('success', $result['message']);
         }
 

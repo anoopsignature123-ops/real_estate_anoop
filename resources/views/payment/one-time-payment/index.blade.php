@@ -9,7 +9,7 @@
             </div>
         </div>
 
-        <form method="POST" action="{{ route('admin.one-time-payment.store') }}" id="paymentForm">
+        <form method="POST" action="{{ route('one-time-payment.store') }}" id="paymentForm">
             @csrf
             <div class="row">
                 {{-- LEFT SIDE --}}
@@ -70,7 +70,8 @@
                                         Manual Receipt No
                                         <small class="text-muted">(Optional)</small>
                                     </label>
-                                    <input type="text" name="manual_receipt_number" value="{{ old('manual_receipt_number') }}"
+                                    <input type="text" name="manual_receipt_number"
+                                        value="{{ old('manual_receipt_number') }}"
                                         class="form-control @error('manual_receipt_number') is-invalid @enderror"
                                         placeholder="Enter manual receipt number">
                                     @error('manual_receipt_number')
@@ -108,11 +109,16 @@
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold">Payment Mode *</label>
                                     <select name="payment_mode" id="payment_mode" class="form-select">
-                                        <option value="cash" {{ old('payment_mode') == 'cash' ? 'selected' : '' }}>Cash</option>
-                                        <option value="cheque" {{ old('payment_mode') == 'cheque' ? 'selected' : '' }}>Cheque</option>
-                                        <option value="dd" {{ old('payment_mode') == 'dd' ? 'selected' : '' }}>DD</option>
-                                        <option value="neft_rtgs" {{ old('payment_mode') == 'neft_rtgs' ? 'selected' : '' }}>NEFT / RTGS</option>
-                                        <option value="card" {{ old('payment_mode') == 'card' ? 'selected' : '' }}>Card</option>
+                                        <option value="cash" {{ old('payment_mode') == 'cash' ? 'selected' : '' }}>Cash
+                                        </option>
+                                        <option value="cheque" {{ old('payment_mode') == 'cheque' ? 'selected' : '' }}>
+                                            Cheque</option>
+                                        <option value="dd" {{ old('payment_mode') == 'dd' ? 'selected' : '' }}>DD
+                                        </option>
+                                        <option value="neft_rtgs"
+                                            {{ old('payment_mode') == 'neft_rtgs' ? 'selected' : '' }}>NEFT / RTGS</option>
+                                        <option value="card" {{ old('payment_mode') == 'card' ? 'selected' : '' }}>Card
+                                        </option>
                                     </select>
                                 </div>
 
@@ -158,15 +164,15 @@
                                 {{-- Transaction Fields --}}
                                 <div class="col-md-6 mb-3 transaction-field d-none">
                                     <label class="form-label fw-semibold">Transaction Number</label>
-                                    <input type="text" name="transaction_number" value="{{ old('transaction_number') }}"
-                                        class="form-control" placeholder="Enter transaction number">
+                                    <input type="text" name="transaction_number"
+                                        value="{{ old('transaction_number') }}" class="form-control"
+                                        placeholder="Enter transaction number">
                                 </div>
 
                                 {{-- Remark --}}
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label fw-semibold">Remark</label>
-                                    <textarea name="remark" rows="2" class="form-control"
-                                        placeholder="Enter payment remark">{{ old('remark') }}</textarea>
+                                    <textarea name="remark" rows="2" class="form-control" placeholder="Enter payment remark">{{ old('remark') }}</textarea>
                                 </div>
 
                                 {{-- Submit --}}

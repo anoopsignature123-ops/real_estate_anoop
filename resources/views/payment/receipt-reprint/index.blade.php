@@ -10,7 +10,7 @@
         </div>
 
         <div class="card p-4">
-            <form method="POST" action="{{ route('admin.receipt-reprint.search') }}">
+            <form method="POST" action="{{ route('receipt-reprint.search') }}">
                 @csrf
                 <div class="row">
                     <div class="col-md-3">
@@ -60,7 +60,7 @@
                                     <td>{{ $receipt->receipt_number }}</td>
                                     <td>{{ $receipt->created_at->format('d-M-Y') }}</td>
                                     <td>
-                                        <a target="_blank" href="{{ route('admin.receipt-reprint.download', $receipt->id) }}"
+                                        <a target="_blank" href="{{ route('receipt-reprint.download', $receipt->id) }}"
                                             class="btn btn-sm btn-primary">PDF</a>
                                     </td>
                                 </tr>
@@ -82,9 +82,11 @@
 
                 if (!plotId) return;
 
-                $.get("{{ route('admin.receipt-reprint.customers', ':id') }}".replace(':id', plotId), function(res) {
+                $.get("{{ route('receipt-reprint.customers', ':id') }}".replace(':id', plotId), function(
+                    res) {
                     $.each(res, function(index, customer) {
-                        $('#customer_id').append(`<option value="${customer.id}">${customer.text}</option>`);
+                        $('#customer_id').append(
+                            `<option value="${customer.id}">${customer.text}</option>`);
                     });
                 });
             });

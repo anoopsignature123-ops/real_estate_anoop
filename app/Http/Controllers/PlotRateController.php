@@ -29,7 +29,7 @@ class PlotRateController extends Controller
     {
         $this->plotRateService->create($request->validated());
 
-        return redirect()->route('admin.plot-rates.index')->with('success',
+        return redirect()->route('plot-rates.index')->with('success',
             'Plot rate created successfully.');
     }
 
@@ -45,7 +45,7 @@ class PlotRateController extends Controller
     {
         $this->plotRateService->update($id, $request->validated());
 
-        return redirect()->route('admin.plot-rates.index')
+        return redirect()->route('plot-rates.index')
             ->with('success', 'Plot rate updated successfully.');
     }
 
@@ -53,7 +53,7 @@ class PlotRateController extends Controller
     {
         $this->plotRateService->delete($id);
 
-        return redirect()->route('admin.plot-rates.index')
+        return redirect()->route('plot-rates.index')
             ->with('success', 'Plot rate deleted successfully.');
     }
 

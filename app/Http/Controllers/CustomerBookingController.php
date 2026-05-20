@@ -40,7 +40,7 @@ class CustomerBookingController extends Controller
     {
         $customer = $this->customerBookingService->storeStepOne($request->validated());
 
-        return redirect()->route('admin.customer-booking.edit', [$customer->id, 'step' => 2]);
+        return redirect()->route('customer-booking.edit', [$customer->id, 'step' => 2]);
     }
 
     public function findById($id)
@@ -73,28 +73,28 @@ class CustomerBookingController extends Controller
             $customer = $this->customerBookingService->storeStepOne($validated, $id);
 
             return redirect()
-                ->route('admin.customer-booking.edit', [$customer->id, 'step' => 2])
+                ->route('customer-booking.edit', [$customer->id, 'step' => 2])
                 ->with('success', 'Step 1 updated successfully.');
         }
         if ($request->step == 2) {
             $validated = app(CustomerBookingStepTwoRequest::class)->validated();
             $this->customerBookingService->storeStepTwo($id, $validated);
 
-            return redirect()->route('admin.customer-booking.edit', [$id, 'step' => 3]);
+            return redirect()->route('customer-booking.edit', [$id, 'step' => 3]);
         }
 
         if ($step == 3) {
             app(CustomerBookingStepThreeRequest::class)->validated();
             $this->customerBookingService->storeStepThree($id, $request);
 
-            return redirect()->route('admin.customer-booking.edit', [$id, 'step' => 4])
+            return redirect()->route('customer-booking.edit', [$id, 'step' => 4])
                 ->with('success', 'Documents uploaded successfully.');
         }
         if ($step == 4) {
             $validated = app(CustomerBookingStepFourRequest::class)->validated();
             $plotSale = $this->customerBookingService->storeStepFour($id, $validated);
 
-            return redirect()->route('admin.customer-booking.edit', [
+            return redirect()->route('customer-booking.edit', [
                 $id,
                 'step' => 5,
                 'plot_sale_detail_id' => $plotSale->id,
@@ -104,7 +104,7 @@ class CustomerBookingController extends Controller
             $validated = app(CustomerBookingStepFiveRequest::class)->validated();
             $this->customerBookingService->storeStepFive($id, $validated);
 
-            return redirect()->route('admin.customer-booking.index')
+            return redirect()->route('customer-booking.index')
                 ->with('success', 'Customer booking completed successfully.');
         }
 
@@ -125,6 +125,6 @@ class CustomerBookingController extends Controller
     {
         $this->customerBookingService->deleteBooking($id);
 
-        return redirect()->route('admin.customer-booking.index')->with('success', 'Customer booking deleted successfully.');
+        return redirect()->route('customer-booking.index')->with('success', 'Customer booking deleted successfully.');
     }
 }

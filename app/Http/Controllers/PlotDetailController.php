@@ -47,7 +47,7 @@ class PlotDetailController extends Controller
     {
         $this->plotDetailService->store($request->validated());
 
-        return redirect()->route('admin.plot-details.index')->with('success', 'Plot created successfully');
+        return redirect()->route('plot-details.index')->with('success', 'Plot created successfully');
     }
 
     public function show($id)
@@ -74,7 +74,7 @@ class PlotDetailController extends Controller
     {
         $this->plotDetailService->update($id, $request->validated());
 
-        return redirect()->route('admin.plot-details.index')->with('success', 'Plot updated successfully');
+        return redirect()->route('plot-details.index')->with('success', 'Plot updated successfully');
     }
 
     public function destroy($id)

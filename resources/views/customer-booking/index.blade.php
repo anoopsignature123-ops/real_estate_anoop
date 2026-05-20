@@ -6,7 +6,7 @@
                 <h3 class="fw-bold mb-1">Customer Booking Management</h3>
                 <small class="text-muted">Manage customer bookings</small>
             </div>
-            <a href="{{ route('admin.customer-booking.create') }}" class="btn btn-success">
+            <a href="{{ route('customer-booking.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>Add New Customer
             </a>
         </div>
@@ -67,14 +67,14 @@
 
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('admin.customer-booking.edit', [
+                                            <a href="{{ route('customer-booking.edit', [
                                                 $customer->id,
                                                 'step' => $customer->status == 'completed' ? 1 : $customer->current_step,
                                             ]) }}"
                                                 class="btn btn-sm btn-success"><i class="fa fa-edit"></i>
                                             </a>
                                             <form
-                                                action="{{ route('admin.customer-booking.destroy', $customer->id) }}"method="POST">
+                                                action="{{ route('customer-booking.destroy', $customer->id) }}"method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-sm btn-danger delete-btn">

@@ -11,7 +11,7 @@
                     Edit plot information
                 </small>
             </div>
-            <a href="{{ route('admin.plot-details.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('plot-details.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
@@ -20,7 +20,7 @@
 
             <div class="card-body">
 
-                <form method="POST" action="{{ route('admin.plot-details.update', $plotDetail->id) }}">
+                <form method="POST" action="{{ route('plot-details.update', $plotDetail->id) }}">
 
                     @csrf
                     @method('PUT')

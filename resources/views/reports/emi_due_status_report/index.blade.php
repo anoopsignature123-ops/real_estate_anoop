@@ -115,7 +115,7 @@
                             </button>
 
 
-                            <a href="{{ route('admin.emi-due-status-report.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('emi-due-status-report.index') }}" class="btn btn-secondary">
 
                                 <i class="bi bi-arrow-clockwise me-1"></i>
 
@@ -124,8 +124,7 @@
                             </a>
 
 
-                            <a href="{{ route('admin.emi-due-status-report.export', request()->all()) }}"
-                                class="btn btn-success">
+                            <a href="{{ route('emi-due-status-report.export', request()->all()) }}" class="btn btn-success">
 
                                 <i class="bi bi-file-earmark-excel me-1"></i>
 

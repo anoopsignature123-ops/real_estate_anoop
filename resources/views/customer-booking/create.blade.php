@@ -7,7 +7,7 @@
                 <h3 class="fw-bold mb-1">Customer Booking</h3>
                 <small class="text-muted">Add new customer booking details</small>
             </div>
-            <a href="{{ route('admin.customer-booking.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('customer-booking.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Back
             </a>
         </div>
@@ -15,9 +15,7 @@
             <div class="card-body p-4">
                 @include('customer-booking.partials.stepper', ['step' => $step])
                 <form method="POST" enctype="multipart/form-data"
-                    action="{{ isset($customer)
-                        ? route('admin.customer-booking.update', $customer->id)
-                        : route('admin.customer-booking.store') }}">
+                    action="{{ isset($customer) ? route('customer-booking.update', $customer->id) : route('customer-booking.store') }}">
                     @csrf
                     @if (isset($customer))
                         @method('PUT')

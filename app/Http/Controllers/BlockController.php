@@ -28,7 +28,7 @@ class BlockController extends Controller
 
     public function store(BlockRequest $request) {
         $this->blockService->create($request->validated());
-        return redirect()->route('admin.blocks.index')
+        return redirect()->route('blocks.index')
         ->with('success','Block created successfully');
     }
 
@@ -41,7 +41,7 @@ class BlockController extends Controller
 
     public function update(BlockRequest $request,$id) {
         $this->blockService->update($id,$request->validated());
-        return redirect()->route('admin.blocks.index')
+        return redirect()->route('blocks.index')
         ->with('success','Block updated successfully');
     }
 

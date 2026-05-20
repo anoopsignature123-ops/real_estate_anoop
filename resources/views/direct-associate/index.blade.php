@@ -70,13 +70,13 @@
                                 Search
                             </button>
 
-                            <a href="{{ route('admin.direct-associate') }}" class="btn btn-danger">
+                            <a href="{{ route('direct-associate') }}" class="btn btn-danger">
 
                                 Reset
 
                             </a>
 
-                            <a href="{{ route('admin.direct-associate.export', request()->query()) }}" class="btn btn-info">
+                            <a href="{{ route('direct-associate.export', request()->query()) }}" class="btn btn-info">
 
                                 Export
 

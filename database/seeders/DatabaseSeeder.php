@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([ModuleSeeder::class]);
         Role::firstOrCreate(['name' => 'super-admin']);
         $user = User::firstOrCreate(
-            ['email' => 'admin@admin.com'],
+            ['email' => 'admin@com'],
             [
                 'name' => 'Super Admin',
                 'password' => Hash::make('Lucknow@123'),

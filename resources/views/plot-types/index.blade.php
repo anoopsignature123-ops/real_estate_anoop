@@ -15,7 +15,7 @@
                     Manage all plot types
                 </small>
             </div>
-            <a href="{{ route('admin.plot-types.create') }}" class="btn btn-success">
+            <a href="{{ route('plot-types.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i>
                 Add Plot Type
             </a>
@@ -52,12 +52,12 @@
                                         {{ $plotType->date ?? 'N/A' }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.plot-types.edit', $plotType->id) }}"
+                                        <a href="{{ route('plot-types.edit', $plotType->id) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <!-- Delete -->
-                                        <form method="POST" action="{{ route('admin.plot-types.destroy', $plotType->id) }}"
+                                        <form method="POST" action="{{ route('plot-types.destroy', $plotType->id) }}"
                                             class="d-inline delete-form">
                                             @csrf
                                             @method('DELETE')

@@ -10,14 +10,14 @@
                 </h3>
                 <p class="text-muted">Manage plot details</p>
             </div>
-            <a href="{{ route('admin.plot-details.create') }}" class="btn btn-success">
+            <a href="{{ route('plot-details.create') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle me-1"></i>Add Plot
             </a>
         </div>
         <!-- Filter Card -->
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-body">
-                <form method="GET" action="{{ route('admin.plot-details.index') }}">
+                <form method="GET" action="{{ route('plot-details.index') }}">
                     <div class="row g-3">
                         <!-- Project -->
                         <div class="col-md-4">
@@ -43,10 +43,10 @@
                             <button type="submit" class="btn btn-light">
                                 <i class="bi bi-search me-1"></i>Filter
                             </button>
-                            <a href="{{ route('admin.plot-details.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('plot-details.index') }}" class="btn btn-secondary">
                                 <i class="bi bi-arrow-clockwise me-1"></i>Reset
                             </a>
-                            <a href="{{ route('admin.plot-details.export', request()->all()) }}" class="btn btn-success">
+                            <a href="{{ route('plot-details.export', request()->all()) }}" class="btn btn-success">
                                 <i class="bi bi-download me-1"></i>
                                 Download
                             </a>
@@ -105,13 +105,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.plot-details.show', $plot->id) }}"
+                                        <a href="{{ route('plot-details.show', $plot->id) }}"
                                             class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="{{ route('admin.plot-details.edit', $plot->id) }}"
+                                        <a href="{{ route('plot-details.edit', $plot->id) }}"
                                             class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i>
                                         </a>
-                                        <form method="POST" action="{{ route('admin.plot-details.destroy', $plot->id) }}"
+                                        <form method="POST" action="{{ route('plot-details.destroy', $plot->id) }}"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')

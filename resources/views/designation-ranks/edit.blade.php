@@ -10,12 +10,12 @@
                     Edit Designation
                 </small>
             </div>
-            <a href="{{ route('admin.designations.index') }}" class="btn btn-outline-secondary"><i
+            <a href="{{ route('designations.index') }}" class="btn btn-outline-secondary"><i
                     class="bi bi-arrow-left"></i>BacK</a>
         </div>
         <div class="card shadow-sm border-0">
             <div class="card-body">
-                <form action="{{ route('admin.designations.update', $designationRank->id) }}" method="POST">
+                <form action="{{ route('designations.update', $designationRank->id) }}" method="POST">
                     @csrf
                     @method('PUT')
 

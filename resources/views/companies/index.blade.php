@@ -12,7 +12,7 @@
                 </small>
             </div>
             @can('company-profile-create')
-                <a href="{{ route('admin.company.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add
+                <a href="{{ route('company.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add
                     Company</a>
             @endcan
         </div>
@@ -63,7 +63,7 @@
                                         <td>
 
                                             @can('company-profile-edit')
-                                                <a href="{{ route('admin.company.edit', $company->id) }}"
+                                                <a href="{{ route('company.edit', $company->id) }}"
                                                     class="btn btn-sm btn-outline-primary">
 
                                                     <i class="bi bi-pencil"></i>
@@ -73,7 +73,7 @@
 
 
                                             @can('company-profile-delete')
-                                                <form method="POST" action="{{ route('admin.company.destroy', $company->id) }}"
+                                                <form method="POST" action="{{ route('company.destroy', $company->id) }}"
                                                     class="d-inline delete-form">
 
                                                     @csrf

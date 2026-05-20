@@ -18,7 +18,7 @@
 
             </div>
 
-            <a href="{{ route('admin.blocks.create') }}" class="btn btn-success">
+            <a href="{{ route('blocks.create') }}" class="btn btn-success">
 
                 <i class="bi bi-plus-circle"></i>
 
@@ -76,7 +76,7 @@
                                     <td>
 
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.blocks.edit', $block->id) }}"
+                                        <a href="{{ route('blocks.edit', $block->id) }}"
                                             class="btn btn-sm btn-outline-primary">
 
                                             <i class="bi bi-pencil"></i>
@@ -85,7 +85,7 @@
 
 
                                         <!-- Delete -->
-                                        <form method="POST" action="{{ route('admin.blocks.destroy', $block->id) }}"
+                                        <form method="POST" action="{{ route('blocks.destroy', $block->id) }}"
                                             class="d-inline delete-form">
 
                                             @csrf

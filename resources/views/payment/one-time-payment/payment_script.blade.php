@@ -55,9 +55,11 @@
 
                 if (!projectId) return;
 
-                $.get("{{ route('admin.one-time-payment.blocks', ':id') }}".replace(':id', projectId), function(res) {
+                $.get("{{ route('one-time-payment.blocks', ':id') }}".replace(':id', projectId), function(
+                    res) {
                     $.each(res, function(index, block) {
-                        $('#block_id').append(`<option value="${block.id}">${block.block}</option>`);
+                        $('#block_id').append(
+                            `<option value="${block.id}">${block.block}</option>`);
                     });
                 });
             });
@@ -70,9 +72,11 @@
 
                 if (!blockId) return;
 
-                $.get("{{ route('admin.one-time-payment.plots', ':id') }}".replace(':id', blockId), function(res) {
+                $.get("{{ route('one-time-payment.plots', ':id') }}".replace(':id', blockId), function(
+                res) {
                     $.each(res, function(index, plot) {
-                        $('#plot_id').append(`<option value="${plot.id}">${plot.plot_number}</option>`);
+                        $('#plot_id').append(
+                            `<option value="${plot.id}">${plot.plot_number}</option>`);
                     });
                 });
             });
@@ -84,9 +88,13 @@
 
                 if (!plotId) return;
 
-                $.get("{{ route('admin.one-time-payment.details', ':id') }}".replace(':id', plotId), function(res) {
+                $.get("{{ route('one-time-payment.details', ':id') }}".replace(':id', plotId), function(
+                res) {
                     if (!res.status) {
-                        Swal.fire({ icon: 'warning', title: 'No Booking Found' });
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'No Booking Found'
+                        });
                         return;
                     }
 
@@ -122,7 +130,10 @@
                     $('#payment_history').html(historyHtml);
 
                 }).fail(function() {
-                    Swal.fire({ icon: 'error', title: 'Something went wrong' });
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong'
+                    });
                 });
             });
 

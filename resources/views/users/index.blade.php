@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="fw-bold">Users Management</h3>
             @can('users-create')
-                <a href="{{ route('admin.users.create') }}" class="btn btn-success">
+                <a href="{{ route('users.create') }}" class="btn btn-success">
                     + Add User
                 </a>
             @endcan
@@ -49,19 +49,18 @@
                                     </td>
                                     <td>
                                         @can('users-view')
-                                            <a href="{{ route('admin.users.show', $user->id) }}"
-                                                class="btn btn-sm btn-outline-info">
+                                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-outline-info">
                                                 <i class="bi bi-eye"></i>
                                             </a>
                                         @endcan
                                         @can('users-edit')
-                                            <a href="{{ route('admin.users.edit', $user->id) }}"
+                                            <a href="{{ route('users.edit', $user->id) }}"
                                                 class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                         @endcan
                                         @can('users-delete')
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST"
                                                 class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')

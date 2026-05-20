@@ -44,7 +44,7 @@ class AssociateController extends Controller
     {
         $this->associateService->store($request->validated());
 
-        return redirect()->route('admin.associate.create')->with('success', 'Associate created successfully.');
+        return redirect()->route('associate.create')->with('success', 'Associate created successfully.');
     }
 
     public function show($id)
@@ -65,14 +65,14 @@ class AssociateController extends Controller
     {
         $this->associateService->update($request->validated(), $id);
 
-        return redirect()->route('admin.associate.index')->with('success', 'Associate updated successfully.');
+        return redirect()->route('associate.index')->with('success', 'Associate updated successfully.');
     }
 
     public function destroy($id)
     {
         $this->associateService->delete($id);
 
-        return redirect()->route('admin.associate.index')->with('success', 'Associate deleted successfully.');
+        return redirect()->route('associate.index')->with('success', 'Associate deleted successfully.');
     }
 
     public function export(Request $request, ExcelExportService $excelExportService)

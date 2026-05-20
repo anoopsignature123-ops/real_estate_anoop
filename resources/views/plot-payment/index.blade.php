@@ -20,7 +20,7 @@
 
             <div class="card-body p-4">
 
-                <form method="GET" action="{{ route('admin.edit-payment-details.index') }}" id="bookingFilterForm">
+                <form method="GET" action="{{ route('edit-payment-details.index') }}" id="bookingFilterForm">
 
                     <div class="row g-3">
 
@@ -192,7 +192,7 @@
 
                                     <td>
 
-                                        <a href="{{ route('admin.edit-payment-details.index', ['selected_booking' => $booking->id]) }}"
+                                        <a href="{{ route('edit-payment-details.index', ['selected_booking' => $booking->id]) }}"
                                             class="btn btn-sm btn-success">
 
                                             <i class="fa fa-edit"></i>

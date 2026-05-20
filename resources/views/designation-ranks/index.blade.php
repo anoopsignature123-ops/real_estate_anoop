@@ -7,7 +7,7 @@
                 <h3 class="fw-bold mb-1">Designation / Rank Master</h3>
                 <small class="text-muted">Manage designations</small>
             </div>
-            <a href="{{ route('admin.designations.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i>
+            <a href="{{ route('designations.create') }}" class="btn btn-success"><i class="bi bi-plus-circle"></i>
                 Add Designation
             </a>
         </div>
@@ -35,12 +35,12 @@
                                         {{ number_format($designation->commission, 2) }} %
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.designations.edit', $designation->id) }}"
+                                        <a href="{{ route('designations.edit', $designation->id) }}"
                                             class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <form action="{{ route('admin.designations.destroy', $designation->id) }}"
-                                            method="POST" class="d-inline">
+                                        <form action="{{ route('designations.destroy', $designation->id) }}" method="POST"
+                                            class="d-inline">
 
                                             @csrf
                                             @method('DELETE')

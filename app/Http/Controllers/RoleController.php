@@ -36,7 +36,7 @@ class RoleController extends Controller
         ]);
         $this->roleService->createRole($request->all());
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role created successfully');
+        return redirect()->route('roles.index')->with('success', 'Role created successfully');
     }
 
     public function edit($id)
@@ -56,13 +56,13 @@ class RoleController extends Controller
         ]);
         $this->roleService->updateRole($id, $request->all());
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role updated successfully');
+        return redirect()->route('roles.index')->with('success', 'Role updated successfully');
     }
 
     public function destroy($id)
     {
         $this->roleService->deleteRole($id);
 
-        return redirect()->route('admin.roles.index')->with('success', 'Role deleted successfully');
+        return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
     }
 }

@@ -10,7 +10,7 @@
                     Update block information
                 </small>
             </div>
-            <a href="{{ route('admin.blocks.index') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('blocks.index') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i>
                 Back
             </a>
@@ -18,7 +18,7 @@
         <div class="card shadow border-0">
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.blocks.update', $block->id) }}">
+                <form method="POST" action="{{ route('blocks.update', $block->id) }}">
                     @csrf
                     @method('PUT')
 

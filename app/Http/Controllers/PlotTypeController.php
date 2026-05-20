@@ -24,7 +24,7 @@ class PlotTypeController extends Controller
 
     public function store(PlotTypeRequest $request) {
         $this->plotTypeService->create($request->validated());
-        return redirect()->route('admin.plot-types.index')
+        return redirect()->route('plot-types.index')
             ->with('success','Plot type created successfully');
     }
 
@@ -36,14 +36,14 @@ class PlotTypeController extends Controller
 
     public function update(PlotTypeRequest $request,$id) {
         $this->plotTypeService->update($id,$request->validated());
-        return redirect()->route('admin.plot-types.index')
+        return redirect()->route('plot-types.index')
         ->with('success','Plot type updated successfully');
     }
 
     public function destroy($id)
     {
         $this->plotTypeService->delete($id);
-        return redirect()->route('admin.plot-types.index')
+        return redirect()->route('plot-types.index')
             ->with('success','Plot type deleted successfully');
     }
 }
