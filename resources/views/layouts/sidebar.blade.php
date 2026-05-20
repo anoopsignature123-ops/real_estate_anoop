@@ -1,4 +1,3 @@
-
 <aside class="app-sidebar   shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
 
@@ -12,17 +11,10 @@
             </span>
         </a>
     </div>
-
-
     @php
-
         $user = auth()->user();
-
         $menus = App\Models\Module::whereNull('parent_id')->with('children')->orderBy('sort_order')->get();
-
     @endphp
-
-
     <div class="sidebar-wrapper">
 
         <nav class="mt-2">
@@ -120,4 +112,3 @@
     </div>
 
 </aside>
-

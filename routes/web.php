@@ -34,6 +34,8 @@ use App\Http\Controllers\EmiDuesSummaryReportController;
 use App\Http\Controllers\EmiDueStatusReportController;
 use App\Http\Controllers\EmiPaymentController;
 use App\Http\Controllers\EmiPaymentDetailsController;
+use App\Http\Controllers\EnquiryController;
+use App\Http\Controllers\EnquiryTypeController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\FullPaymentDetailsController;
 use App\Http\Controllers\GenerateEmiController;
@@ -53,6 +55,7 @@ use App\Http\Controllers\ProjectManipulationController;
 use App\Http\Controllers\ReceiptReprintController;
 use App\Http\Controllers\RegisteredPlotDetailsController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SourceController;
 use App\Http\Controllers\UpdateEmiDateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithoutRegisteredPlotController;
@@ -177,12 +180,10 @@ Route::middleware('auth')->group(function () {
         Route::put('associate-advances/{id}', 'update')->name('associate-advances.update');
         Route::delete('associate-advances/{id}', 'destroy')->name('associate-advances.destroy');
     });
-    Route::controller(BookingLetterController::class)->group(function () {
-        Route::get('booking-letter', 'index')->name('booking-letter.index');
-        Route::get('booking-letter/allotement/{id}', 'allotementLetter')
-            ->name('booking-letter.allotement');
-        Route::get('booking-letter/agreement/{id}', 'agreementLetter')
-            ->name('booking-letter.agreement');
+    Route::controller(BookingLetterController::class)->prefix('booking-letter')->group(function () {
+        Route::get('/', 'index')->name('booking-letter.index');
+        Route::get('/allotement-pdf/{id}', 'allotementPdf')->name('booking-letter.allotement.pdf');
+        Route::get('/agreement-pdf/{id}', 'agreementPdf')->name('booking-letter.agreement.pdf');
     });
     Route::controller(AgentDetailReportController::class)->group(function () {
         Route::get('agent-details-report', 'index')->name('agent-detail-report.index');
@@ -320,4 +321,27 @@ Route::middleware('auth')->group(function () {
         Route::get('/associate-advance-report', 'index')->name('associate-advance-report.index');
         Route::get('/associate-advance-report/export', 'export')->name('associate-advance-report.export');
     });
+
+    Route::controller(SourceController::class)->group(function () {
+        Route::get('source', 'index')->name('source.index');
+        Route::post('source/store', 'store')->name('source.store');
+        Route::get('source/edit/{id}', 'edit')->name('source.edit');
+        Route::put('source/update/{id}', 'update')->name('source.update');
+        Route::delete('source/delete/{id}', 'destroy')->name('source.destroy');
+    });
+    Route::controller(EnquiryTypeController::class)->group(function () {
+        Route::get('enquiry-type/', 'index')->name('enquiry-type.index');
+        Route::post('enquiry-type/store', 'store')->name('enquiry-type.store');
+        Route::get('enquiry-type/edit/{id}', 'edit')->name('enquiry-type.edit');
+        Route::put('enquiry-type/update/{id}', 'update')->name('enquiry-type.update');
+        Route::delete('enquiry-type/destroy/{id}', 'destroy')->name('enquiry-type.destroy');
+    });
+    Route::controller(EnquiryController::class)->group(function () {
+        Route::get('enquiry', 'index')->name('enquiry.index');
+        Route::post('enquiry/store', 'store')->name('enquiry.store');
+        Route::get('enquiry/edit/{id}', 'edit')->name('enquiry.edit');
+        Route::put('enquiry/update/{id}', 'update')->name('enquiry.update');
+        Route::delete('enquiry/delete/{id}', 'destroy')->name('enquiry.destroy');
+    });
+
 });

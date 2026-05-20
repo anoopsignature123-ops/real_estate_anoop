@@ -58,7 +58,7 @@
                 {{-- Listing --}}
                 <div class="table-responsive">
 
-                    <table class="table table-bordered table-hover" id="letterTable">
+                    <table class="table align-middle table-hover text-center" id="letterTable">
 
                         <thead>
 
@@ -121,31 +121,16 @@
                                         @endif
 
                                     </td>
-
-
                                     <td>
-
-                                        <a href="{{ route('booking-letter.allotement', $row->id) }}" target="_blank"
-                                            class="btn btn-sm btn-outline-success me-1">
-
-                                            <i class="bi bi-file-earmark-text"></i>
-
-                                            Allotement
-
+                                        <a href="{{ route('booking-letter.allotement.pdf', $row->id) }}"
+                                            class="btn btn-sm btn-success me-1" title="Allotement Latter">
+                                            <i class="bi bi-download"></i> Allotement Latter
                                         </a>
-
-
-                                        <a href="{{ route('booking-letter.agreement', $row->id) }}" target="_blank"
-                                            class="btn btn-sm btn-outline-primary">
-
-                                            <i class="bi bi-file-earmark-check"></i>
-
-                                            Agreement
-
+                                        <a href="{{ route('booking-letter.agreement.pdf', $row->id) }}"
+                                            class="btn btn-sm btn-secondary " title="Agreement Latter">
+                                            <i class="bi bi-download"></i> Agreement Latter
                                         </a>
-
                                     </td>
-
                                 </tr>
 
                             @empty

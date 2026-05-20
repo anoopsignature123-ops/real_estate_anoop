@@ -583,6 +583,38 @@ class ModuleSeeder extends Seeder
             //     'icon' => 'bi bi-calendar3',
             // ],
 
+            [
+                'name' => 'Lead Management',
+                'slug' => 'lead-management',
+                'icon' => 'bi bi-briefcase',
+            ],
+
+            [
+                'name' => 'Source',
+                'slug' => 'lead-source',
+                'parent_slug' => 'lead-management',
+                'route_name' => 'source.index',
+                'active_routes' => 'source*',
+                'icon' => 'bi bi-box-arrow-in-right',
+            ],
+            [
+                'name' => 'Enquiry Type',
+                'slug' => 'enquiry-type',
+                'parent_slug' => 'lead-management',
+                'route_name' => 'enquiry-type.index',
+                'active_routes' => 'enquiry-type*',
+                'icon' => 'bi bi-list-stars',
+            ],
+
+            [
+                'name' => 'New Enquiry',
+                'slug' => 'new-enquiry',
+                'parent_slug' => 'lead-management',
+                'route_name' => 'enquiry.index',
+                'active_routes' => 'enquiry*',
+                'icon' => 'bi bi-telephone-plus',
+            ],
+
         ];
         foreach ($modules as $module) {
             $parentId = null;

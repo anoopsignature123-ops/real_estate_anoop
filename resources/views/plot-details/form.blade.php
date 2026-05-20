@@ -89,9 +89,8 @@
     <div class="col-md-6 mb-3">
         <label class="form-label">Plot Number</label>
 
-        <input type="text" name="plot_number" 
-            class="form-control @error('plot_number') is-invalid @enderror" placeholder="Enter plot number"
-            value="{{ old('plot_number', $plotDetail->plot_number ?? '') }}">
+        <input type="text" name="plot_number" class="form-control @error('plot_number') is-invalid @enderror"
+            placeholder="Enter plot number" value="{{ old('plot_number', $plotDetail->plot_number ?? '') }}">
 
         @error('plot_number')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -212,7 +211,7 @@
                     return;
                 }
 
-                $.get('/admin/get-project-data/' + projectId, function(response) {
+                $.get('/get-project-data/' + projectId, function(response) {
 
                     $('#location').val(response.location);
 

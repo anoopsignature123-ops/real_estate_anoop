@@ -233,7 +233,7 @@
                 if (customerId != '') {
 
                     $.ajax({
-                        url: "/admin/get-customer-details/" + customerId,
+                        url: "/get-customer-details/" + customerId,
                         type: "GET",
 
                         success: function(response) {

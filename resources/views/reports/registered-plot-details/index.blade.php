@@ -187,7 +187,7 @@
 
             if (id) {
 
-                $.get('/admin/get-customer-details/' + id, function(res) {
+                $.get('/get-customer-details/' + id, function(res) {
 
                     $('#customer_name').val(res.name);
 
@@ -203,7 +203,7 @@
             let projectId = $(this).val();
 
             $.get(
-                '/admin/registered-project-blocks/' + projectId,
+                '/registered-project-blocks/' + projectId,
                 function(res) {
 
                     $('#block_id').html(

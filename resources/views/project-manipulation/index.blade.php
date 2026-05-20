@@ -216,7 +216,7 @@
             let projectId = $(this).val();
 
             $.get(
-                '/admin/get-project-plots-data/' + projectId,
+                '/get-project-plots-data/' + projectId,
 
                 function(response) {
 

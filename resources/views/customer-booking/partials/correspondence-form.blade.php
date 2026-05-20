@@ -168,12 +168,12 @@
             <div class="col-md-6 mb-3">
 
                 <label class="form-label fw-semibold">
-                    Telephone Number
+                    Mobile Number
                 </label>
 
                 <input type="text" name="{{ $prefix }}telephone_no"
                     class="form-control @error($prefix . 'telephone_no') is-invalid @enderror"
-                    placeholder="Enter telephone number"
+                    placeholder="Enter Mobile number"
                     value="{{ old($prefix . 'telephone_no', $detail?->telephone_no) }}">
 
                 @error($prefix . 'telephone_no')

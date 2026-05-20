@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
+
 if (! function_exists('uploadFile')) {
     function uploadFile($file, $path = 'uploads', $oldFile = null)
     {
@@ -32,5 +33,18 @@ if (! function_exists('getFileUrl')) {
 
         // default image
         return asset('assets/images/avatar.png');
+    }
+}
+
+if (! function_exists('amountInWords')) {
+
+    function amountInWords($amount)
+    {
+        $formatter = new NumberFormatter(
+            'en_IN',
+            NumberFormatter::SPELLOUT
+        );
+
+        return ucwords($formatter->format($amount));
     }
 }

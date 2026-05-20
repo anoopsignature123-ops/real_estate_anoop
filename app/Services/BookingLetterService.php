@@ -8,18 +8,21 @@ class BookingLetterService
 {
     public function getBookingDropdown()
     {
-        return CustomerBooking::orderByDesc(
-            'id'
-        )->get();
+        return CustomerBooking::with([
+            'primaryDetail',
+        ])
+            ->latest()
+            ->get();
     }
 
-    public function getBookings(
-        $bookingId = null
-    ) {
+    public function getBookings($bookingId = null)
+    {
         $query = CustomerBooking::with([
 
             'primaryDetail',
-            'plotSaleDetail.plotDetail.block.project',
+            'plotSaleDetail.project',
+            'plotSaleDetail.block',
+            'plotSaleDetail.plotDetail',
             'payment',
 
         ]);
@@ -41,8 +44,17 @@ class BookingLetterService
         return CustomerBooking::with([
 
             'primaryDetail',
-            'plotSaleDetail.plotDetail.block.project',
+            'secondaryDetail',
+            'nomineeDetail',
+
+            'plotSaleDetail.project',
+            'plotSaleDetail.block',
+            'plotSaleDetail.plotDetail',
+
             'payment',
+            'payments',
+
+            'associate',
 
         ])->findOrFail($id);
     }

@@ -171,7 +171,7 @@
                     return;
                 }
                 $.ajax({
-                    url: '/admin/get-project-plots/' + projectId,
+                    url: '/get-project-plots/' + projectId,
                     type: 'GET',
                     success: function(response) {
                         $('#filter_plot_number').html(

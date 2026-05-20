@@ -528,7 +528,7 @@
                 '<option value="">Loading...</option>'
             );
             $.get(
-                '/admin/get-sponsor-ranks/' + associateId,
+                '/get-sponsor-ranks/' + associateId,
                 function(response) {
 
                     let options =

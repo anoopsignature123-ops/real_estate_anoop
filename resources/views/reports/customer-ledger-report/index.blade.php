@@ -159,7 +159,7 @@
                 $('#plot_id').html('<option value="">Select Plot</option>');
                 $('#booking_id').val('');
                 if (projectId != '') {
-                    $.get('/admin/ledger-project-blocks/' + projectId,
+                    $.get('/ledger-project-blocks/' + projectId,
                         function(response) {
                             $.each(response, function(index, item) {
                                 $('#block_id').append(
@@ -176,7 +176,7 @@
                 $('#plot_id').html('<option value="">Select Plot</option>');
                 $('#booking_id').val('');
                 if (blockId != '') {
-                    $.get('/admin/ledger-block-customers/' + projectId + '/' + blockId,
+                    $.get('/ledger-block-customers/' + projectId + '/' + blockId,
                         function(response) {
                             $.each(response, function(index, item) {
                                 $('#customer_id').append(`
@@ -191,7 +191,7 @@
                 $('#plot_id').html('<option value="">Select Plot</option>');
                 $('#booking_id').val('');
                 if (customerId != '') {
-                    $.get('/admin/ledger-customer-plots/' + customerId,
+                    $.get('/ledger-customer-plots/' + customerId,
                         function(response) {
                             $.each(response, function(index, item) {
                                 $('#plot_id').append(`
@@ -207,7 +207,7 @@
                 let plotId = $(this).val();
                 let customerId = $('#customer_id').val();
                 if (plotId && customerId) {
-                    $.get('/admin/ledger-plot-booking/' + plotId + '/' + customerId,
+                    $.get('/ledger-plot-booking/' + plotId + '/' + customerId,
                         function(response) {
                             $('#booking_id').val(response.booking_code ?? '');
                         }

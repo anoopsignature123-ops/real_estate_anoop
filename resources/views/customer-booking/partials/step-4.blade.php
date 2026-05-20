@@ -39,7 +39,7 @@
                         return;
                     }
                     $('#blockId').html('<option value="">Loading...</option>');
-                    $.get('/admin/get-blocks/' + projectId, function(blocks) {
+                    $.get('/get-blocks/' + projectId, function(blocks) {
                         let html = '<option value="">Select Block</option>';
                         $.each(blocks, function(i, block) {
                             let selected = '';
@@ -84,7 +84,7 @@
                         });
                         return;
                     }
-                    let plotsUrl = '/admin/get-plots/' + blockId;
+                    let plotsUrl = '/get-plots/' + blockId;
                     if (customerId) {
                         plotsUrl += '/' + customerId;
                     }

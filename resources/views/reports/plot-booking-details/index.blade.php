@@ -343,7 +343,7 @@
 
                 if (customerId) {
 
-                    $.get('/admin/plot-booking-details-report/customer-details/' + customerId,
+                    $.get('/plot-booking-details-report/customer-details/' + customerId,
                         function(response) {
 
                             $('#customer_name').val(response.name);
@@ -362,7 +362,7 @@
                 $('#block_id').html('<option value="">All</option>');
                 $('#plot_type_id').html('<option value="">All</option>');
 
-                $.get('/admin/plot-booking-details-report/project-blocks/' + projectId,
+                $.get('/plot-booking-details-report/project-blocks/' + projectId,
                     function(response) {
 
                         $.each(response, function(index, block) {
@@ -386,7 +386,7 @@
 
                 $('#plot_type_id').html('<option value="">All</option>');
 
-                $.get('/admin/plot-booking-details-report/block-plc/' + blockId,
+                $.get('/plot-booking-details-report/block-plc/' + blockId,
                     function(response) {
 
                         $.each(response, function(index, item) {

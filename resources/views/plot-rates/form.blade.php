@@ -52,7 +52,7 @@
                     return;
                 }
                 $.ajax({
-                    url: "/admin/get-project-data/" + projectId,
+                    url: "/get-project-data/" + projectId,
                     type: "GET",
                     success: function(response) {
                         $('#block_id').html(

@@ -41,9 +41,10 @@
                 $('#block_id').html('<option value="">Select Block</option>');
                 $('#plot_id').html('<option value="">Select Plot</option>');
 
-                $.get('/admin/emi-payment/blocks/' + projectId, function(res) {
+                $.get('/emi-payment/blocks/' + projectId, function(res) {
                     $.each(res.data, function(key, block) {
-                        $('#block_id').append(`<option value="${block.id}">${block.block}</option>`);
+                        $('#block_id').append(
+                            `<option value="${block.id}">${block.block}</option>`);
                     });
                 });
             });
@@ -54,9 +55,10 @@
 
                 $('#plot_id').html('<option value="">Select Plot</option>');
 
-                $.get('/admin/emi-payment/plots/' + blockId, function(res) {
+                $.get('/emi-payment/plots/' + blockId, function(res) {
                     $.each(res, function(key, plot) {
-                        $('#plot_id').append(`<option value="${plot.id}">${plot.plot_number}</option>`);
+                        $('#plot_id').append(
+                            `<option value="${plot.id}">${plot.plot_number}</option>`);
                     });
                 });
             });
@@ -65,7 +67,7 @@
             $('#plot_id').change(function() {
                 let plotId = $(this).val();
 
-                $.get('/admin/emi-payment/details/' + plotId, function(res) {
+                $.get('/emi-payment/details/' + plotId, function(res) {
                     if (!res.status) {
                         alert('EMI Booking Not Found');
                         return;
