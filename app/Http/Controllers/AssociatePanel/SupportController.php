@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers\AssociatePanel;
+
+use App\Http\Controllers\Controller;
+use App\Models\Support;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class SupportController extends Controller
+{
+    public function index()
+    {
+        $enquiries = Support::where('associate_id', Auth::id())->latest()->get();
+
+        return view('associate-panel.support.index', compact('enquiries'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+        Support::create([
+            'associate_id' => Auth::id(),
+            'query' => $request->input('query'),
+            'description' => $request->input('description'),
+            'status' => 'Pending',
+        ]);
+
+        return redirect()->route('associate-panel.support.index')
+            ->with('success', 'Enquiry submitted successfully!');
+    }
+}

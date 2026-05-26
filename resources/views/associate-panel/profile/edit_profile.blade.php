@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid px-4 py-4 bg-light min-vh-100">
 
-        <form method="POST" action="{{ route('associate-panel.update-profile') }}">
+        <form method="POST" action="{{ route('associate-panel.update-profile') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
 
@@ -310,7 +310,77 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="card border-0 shadow-sm rounded-4 mt-4">
+                    <div class="card-body p-3 bg-light rounded-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-0">Document Upload</h6>
+                                <small class="text-muted">Upload required documents</small>
+                            </div>
+                            <span class="badge bg-success-subtle text-success px-2 py-1 rounded-pill small">4 Docs</span>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-6 col-lg-3">
+                                <div
+                                    class="bg-white rounded-4 shadow-sm border border-success border-opacity-10 p-2 text-center upload-card">
+                                    <img id="photoPreview"
+                                        src="{{ $associate->photo ? getFileUrl($associate->photo) : 'https://placehold.co/85x85?text=Photo' }}"
+                                        class="rounded-3 border object-fit-cover mb-2" width="85" height="85">
+                                    <h6 class="fw-semibold small mb-1">Profile Photo</h6>
+                                    <label class="btn btn-success btn-sm rounded-pill px-2 py-1 small">
+                                        <i class="bi bi-upload me-1"></i>Upload
+                                        <input type="file" name="photo" hidden accept="image/*"
+                                            onchange="previewImage(this, 'photoPreview')">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div
+                                    class="bg-white rounded-4 shadow-sm border border-primary border-opacity-10 p-2 text-center upload-card">
+                                    <img id="idProofPreview"
+                                        src="{{ $associate->id_proof_photo ? getFileUrl($associate->id_proof_photo) : 'https://placehold.co/85x85?text=ID' }}"
+                                        class="rounded-3 border object-fit-cover mb-2" width="85" height="85">
+                                    <h6 class="fw-semibold small mb-1">ID Proof</h6>
+                                    <label class="btn btn-primary btn-sm rounded-pill px-2 py-1 small">
+                                        <i class="bi bi-upload me-1"></i>Upload
+                                        <input type="file" name="id_proof_photo" hidden accept="image/*,.pdf"
+                                            onchange="previewImage(this, 'idProofPreview')">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div
+                                    class="bg-white rounded-4 shadow-sm border border-warning border-opacity-10 p-2 text-center upload-card">
+                                    <img id="panPreview"
+                                        src="{{ $associate->pancard_photo ? getFileUrl($associate->pancard_photo) : 'https://placehold.co/85x85?text=PAN' }}"
+                                        class="rounded-3 border object-fit-cover mb-2" width="85" height="85">
+                                    <h6 class="fw-semibold small mb-1">PAN Card</h6>
+                                    <label class="btn btn-warning btn-sm rounded-pill px-2 py-1 small text-white">
+                                        <i class="bi bi-upload me-1"></i>Upload
+                                        <input type="file" name="pancard_photo" hidden accept="image/*,.pdf"
+                                            onchange="previewImage(this, 'panPreview')">
+                                    </label>
+                                </div>
+                            </div>
+                            {{-- Passbook --}}
+                            <div class="col-6 col-lg-3">
+                                <div
+                                    class="bg-white rounded-4 shadow-sm border border-info border-opacity-10 p-2 text-center upload-card">
+                                    <img id="passbookPreview"
+                                        src="{{ $associate->bankDetail->bank_passbook ? getFileUrl($associate->bankDetail->bank_passbook) : 'https://placehold.co/85x85?text=Bank' }}"
+                                        class="rounded-3 border object-fit-cover mb-2" width="85" height="85">
+                                    <h6 class="fw-semibold small mb-1">Passbook</h6>
+                                    <label class="btn btn-info btn-sm rounded-pill px-2 py-1 small text-white">
+                                        <i class="bi bi-upload me-1"></i>
+                                        Upload
+                                        <input type="file" name="bank_passbook" hidden accept="image/*,.pdf"
+                                            onchange="previewImage(this, 'passbookPreview')">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row mt-4">
@@ -325,3 +395,17 @@
         </form>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        function previewImage(input, previewId) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(previewId).src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+@endpush

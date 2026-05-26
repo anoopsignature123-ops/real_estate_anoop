@@ -37,7 +37,6 @@ class AssociateProfileController extends Controller
     public function updateProfile(AssociateProfileRequest $request)
     {
         $associate = Auth::guard('associate')->user();
-
         $this->profileService->updateProfile($associate, $request->validated());
 
         return redirect()

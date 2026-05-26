@@ -1,6 +1,10 @@
 @php
     $isAssociate = auth()->guard('associate')->check();
     $currentUser = $isAssociate ? auth()->guard('associate')->user() : auth()->user();
+    $profilePhoto =
+        $isAssociate && $currentUser->photo
+            ? getFileUrl($currentUser->photo)
+            : asset('assets/images/user2-160x160.jpg');
 @endphp
 <nav class="app-header navbar navbar-expand bg-body">
     <div class="container-fluid">
@@ -20,8 +24,8 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
-                    <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="rounded-circle shadow-sm me-2"
-                        width="34" height="34" alt="User Image">
+                    <img src="{{ $profilePhoto }}" class="rounded-circle shadow-sm me-2" width="34" height="34"
+                        alt="User Image">
                     <div class="d-none d-md-block text-start">
                         <div class="fw-semibold text-dark">
                             {{ $isAssociate ? $currentUser->associate_name ?? 'Associate' : $currentUser->name ?? 'Admin' }}
@@ -35,8 +39,8 @@
                     style="min-width: 260px; border-radius: 12px; overflow: hidden;">
 
                     <li class="bg-light text-center p-3 border-bottom">
-                        <img src="{{ asset('assets/images/user2-160x160.jpg') }}" class="rounded-circle mb-2 shadow-sm"
-                            width="60" height="60" alt="User Image">
+                        <img src="{{ $profilePhoto }}" class="rounded-circle mb-2 shadow-sm" width="60"
+                            height="60" alt="User Image">
                         <div class="fw-bold">
                             {{ $isAssociate ? $currentUser->associate_name ?? 'Associate' : $currentUser->name ?? 'Admin' }}
                         </div>

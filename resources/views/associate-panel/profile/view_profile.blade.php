@@ -28,7 +28,6 @@
         </div>
 
         <div class="row g-4">
-
             <div class="col-12 col-lg-6">
                 <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
                     <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-success border-opacity-25">
@@ -180,7 +179,76 @@
                     </div>
                 </div>
             </div>
-
+            {{-- Documents Section --}}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm bg-white rounded-4">
+                        <div class="card-header bg-transparent border-bottom border-success border-opacity-25 px-4 py-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h5 class="fw-bold mb-1 text-dark">
+                                        <i class="bi bi-file-earmark-check-fill text-success me-2"></i>
+                                        Uploaded Documents
+                                    </h5>
+                                    <small class="text-muted">Verified associate documents preview</small>
+                                </div>
+                                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-semibold">4
+                                    Documents</span>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
+                                        <div class="mb-3">
+                                            <img src="{{ $associate->photo ? getFileUrl($associate->photo) : 'https://placehold.co/120x120?text=Photo' }}"
+                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
+                                                height="120">
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Profile Photo</h6>
+                                        <small class="text-muted">Associate Image</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
+                                        <div class="mb-3">
+                                            <img src="{{ $associate->id_proof_photo ? getFileUrl($associate->id_proof_photo) : 'https://placehold.co/120x120?text=ID+Proof' }}"
+                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
+                                                height="120">
+                                        </div>
+                                        <h6 class="fw-bold mb-1">ID Proof</h6>
+                                        <small class="text-muted">Aadhaar / Voter ID</small>
+                                    </div>
+                                </div>
+                                {{-- PAN Card --}}
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
+                                        <div class="mb-3">
+                                            <img src="{{ $associate->pancard_photo ? getFileUrl($associate->pancard_photo) : 'https://placehold.co/120x120?text=PAN' }}"
+                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
+                                                height="120">
+                                        </div>
+                                        <h6 class="fw-bold mb-1"> PAN Card</h6>
+                                        <small class="text-muted"> PAN Verification</small>
+                                    </div>
+                                </div>
+                                {{-- Passbook --}}
+                                <div class="col-6 col-md-3">
+                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
+                                        <div class="mb-3">
+                                            <img src="{{ $associate->bankDetail->bank_passbook ? getFileUrl($associate->bankDetail->bank_passbook) : 'https://placehold.co/120x120?text=Passbook' }}"
+                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
+                                                height="120">
+                                        </div>
+                                        <h6 class="fw-bold mb-1">Bank Passbook</h6>
+                                        <small class="text-muted">Account Verification</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

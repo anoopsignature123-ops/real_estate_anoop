@@ -13,6 +13,9 @@ use App\Http\Controllers\AssociatePanel\AssociateProfileController;
 use App\Http\Controllers\AssociatePanel\AssociateRegistrationController;
 use App\Http\Controllers\AssociatePanel\BookingDetailController;
 use App\Http\Controllers\AssociatePanel\CustomerLedgerController;
+use App\Http\Controllers\AssociatePanel\PlotAvilabilityController;
+use App\Http\Controllers\AssociatePanel\SupportController;
+use App\Http\Controllers\AssociatePanel\TeamController;
 use App\Http\Controllers\AssociateTeamNewBookingDetailsReportController;
 use App\Http\Controllers\AssociateTreeController;
 use App\Http\Controllers\AuthController;
@@ -382,7 +385,6 @@ Route::prefix('associate-panel')->name('associate-panel.')->group(function () {
             Route::get('export-associate', 'associateExport')->name('export-associate');
             Route::get('associate/{id}/download-pdf', 'downloadPdf')->name('associat-download-pdf');
         });
-
         Route::controller(BookingDetailController::class)->group(function () {
             Route::get('booking-detail', 'index')->name('booking-detail');
             Route::get('get-blocks/{projectId}', 'getBlocks')->name('booking.blocks');
@@ -392,9 +394,20 @@ Route::prefix('associate-panel')->name('associate-panel.')->group(function () {
             Route::get('team-business-report', 'teamBusinessReport')->name('team-business-report');
             Route::get('due-emi-amount', 'dueEmiAmount')->name('due-emi-amount');
         });
-
         Route::controller(CustomerLedgerController::class)->group(function () {
             Route::get('customer-ledger', 'customerLedger')->name('customer-ledger');
+        });
+        Route::controller(TeamController::class)->group(function () {
+            Route::get('my-tree', 'myTree')->name('my-tree');
+            Route::get('my-downline', 'myDownline')->name('my-downline');
+            Route::get('my-direct', 'myDirect')->name('my-direct');
+        });
+        Route::controller(PlotAvilabilityController::class)->group(function () {
+            Route::get('plot-avilable', 'plotAvilable')->name('plot-avilable');
+        });
+        Route::controller(SupportController::class)->group(function () {
+            Route::get('/support', 'index')->name('support.index');
+            Route::post('/support', 'store')->name('support.store');
         });
     });
 
