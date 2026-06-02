@@ -12,4 +12,14 @@ class Broker extends Model
     {
         return $this->hasOne(BrokerBankDetail::class);
     }
+
+      public function stateName()
+    {
+        return $this->belongsTo(State::class, 'state', 'id_state');  
+    }
+
+    public function cityName()
+    {
+        return $this->belongsTo(City::class, 'city', 'id_city');  
+    }
 }

@@ -41,7 +41,9 @@
                         </div>
                         <div class="list-group-item px-0 d-flex justify-content-between">
                             <span class="text-muted">City / State</span>
-                            <span class="fw-semibold">{{ $broker->city ?? 'N/A' }}, {{ $broker->state ?? 'N/A' }}</span>
+                            <span class="fw-semibold">
+                               {{ $broker->city ?? 'N/A' }}, {{ $broker->stateName->state ?? 'N/A' }}
+                            </span>
                         </div>
                         <div class="list-group-item px-0 d-flex justify-content-between">
                             <span class="text-muted">PAN Number</span>

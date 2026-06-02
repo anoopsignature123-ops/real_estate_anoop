@@ -53,12 +53,29 @@
                                     <td>{{ $farmer->caste ?? 'N/A' }}</td>
                                     <td>{{ $farmer->mobile_number ?? 'N/A' }}</td>
                                     <td>{{ $farmer->pancard_number ?? 'N/A' }}</td>
-                                    <td class="font-monospace text-muted">[Redacted]</td>
+                                    <td class="font-monospace text-muted">{{ $farmer->aadhar_number }}</td>
                                     <td>{{ $farmer->bankDetail->bank_name ?? 'N/A' }}</td>
                                     <td>{{ $farmer->bankDetail->account_number ?? 'N/A' }}</td>
                                     <td class="text-uppercase">{{ $farmer->bankDetail->ifsc_code ?? 'N/A' }}</td>
                                     <td>{{ $farmer->created_at?->format('d M Y') ?? 'N/A' }}</td>
-                                    <td class="text-center">...actions...</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="{{ route('farmers.show', $farmer->id) }}"
+                                                class="btn btn-sm btn-light border text-info"><i class="bi bi-eye"></i></a>
+                                            @can('farmers-modify')
+                                                <a href="{{ route('farmers.edit', $farmer->id) }}"
+                                                    class="btn btn-sm btn-light border text-primary"><i
+                                                        class="bi bi-pencil-square"></i></a>
+                                                <form action="{{ route('farmers.destroy', $farmer->id) }}" method="POST"
+                                                    class="delete-form d-inline">
+                                                    @csrf @method('DELETE')
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-light border text-danger delete-btn"><i
+                                                            class="bi bi-trash"></i></button>
+                                                </form>
+                                            @endcan
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

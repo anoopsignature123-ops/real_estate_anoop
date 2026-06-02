@@ -1,82 +1,81 @@
-<div class="row g-3">
+<div class="col-md-6">
+    <label class="form-label fw-semibold">
+        State <span class="text-danger">*</span>
+    </label>
+    <select name="state" id="state_id" class="form-select @error('state') is-invalid @enderror">
+        <option value="">Select State</option>
+        @foreach ($states as $state)
+            <option value="{{ $state->id_state }}" {{ (string)($selectedState ?? '') === (string)$state->id_state ? 'selected' : '' }}>
+                {{ $state->state }}
+            </option>
+        @endforeach
+    </select>
+    <div class="invalid-feedback state-error"></div>
+</div>
 
-    <div class="col-md-6">
-        <label class="form-label fw-semibold">
-            State <span class="text-danger">*</span>
-        </label>
-
-        <select name="state" id="state_id" class="form-select">
-            <option value="">Select State</option>
-
-            @foreach ($states as $state)
-                <option value="{{ $state->id_state }}"
-                    {{ old('state', $farmer->state ?? '') == $state->id_state ? 'selected' : '' }}>
-                    {{ $state->state }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="col-md-6">
-        <label class="form-label fw-semibold">
-            City <span class="text-danger">*</span>
-        </label>
-
-        <select name="city" id="city_id" class="form-select">
-            <option value="">Select City</option>
-        </select>
-    </div>
-
+<div class="col-md-6">
+    <label class="form-label fw-semibold">
+        City <span class="text-danger">*</span>
+    </label>
+    <select name="city" id="city_id" class="form-select @error('city') is-invalid @enderror">
+        <option value="">Select City</option>
+    </select>
+    <div class="invalid-feedback city-error"></div>
 </div>
 
 @push('scripts')
 <script>
-$(document).ready(function () {
+$(function() {
+    const $stateSelect = $('#state_id');
+    const $citySelect = $('#city_id');
+    
+    // Initial values
+    const selectedState = "{{ $selectedState ?? '' }}";
+    const selectedCity = "{{ $selectedCity ?? '' }}";
 
-    let selectedState = "{{ old('state', $farmer->state ?? '') }}";
-    let selectedCity  = "{{ old('city', $farmer->city ?? '') }}";
-
-    function loadCities(stateId, selectedCity = '') {
-
+    function loadCities(stateId, cityToSelect = '') {
         if (!stateId) {
-            $('#city_id').html('<option value="">Select City</option>');
+            $citySelect.html('<option value="">Select City</option>');
             return;
         }
 
-        $.ajax({
-            url: '/get-cities/' + stateId,
-            type: 'GET',
-
-            success: function (response) {
-
-                let options = '<option value="">Select City</option>';
-
-                $.each(response, function (index, city) {
-
-                    let selected = city.city == selectedCity ? 'selected' : '';
-
-                    options += `
-                        <option value="${city.city}" ${selected}>
-                            ${city.city}
-                        </option>
-                    `;
-                });
-
-                $('#city_id').html(options);
-            }
+        $.get(`/get-cities/${stateId}`, function(response) {
+            let options = '<option value="">Select City</option>';
+            
+            response.forEach(city => {
+                const isSelected = (city.city == cityToSelect) ? 'selected' : '';
+                options += `<option value="${city.city}" ${isSelected}>${city.city}</option>`;
+            });
+            
+            $citySelect.html(options);
+        }).fail(() => {
+            console.error("Error loading cities");
         });
     }
-
-    // State Change
-    $('#state_id').on('change', function () {
+    $stateSelect.on('change', function() {
+        $stateSelect.removeClass('is-invalid');
         loadCities($(this).val());
     });
-
-    // Edit Page Auto Load
     if (selectedState) {
         loadCities(selectedState, selectedCity);
     }
+    $('form').on('submit', function(e) {
+        let valid = true;
 
+        if (!$stateSelect.val()) {
+            $stateSelect.addClass('is-invalid');
+            $('.state-error').text('Please select a state');
+            valid = false;
+        }
+
+        if (!$citySelect.val()) {
+            $citySelect.addClass('is-invalid');
+            $('.city-error').text('Please select a city');
+            valid = false;
+        }
+
+        if (!valid) e.preventDefault();
+    });
 });
 </script>
 @endpush

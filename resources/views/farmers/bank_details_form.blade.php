@@ -5,10 +5,8 @@
         <input type="text" name="bank_name" 
             value="{{ old('bank_name', $farmer->bankDetail->bank_name ?? '') }}"
             class="form-control @error('bank_name') is-invalid @enderror" 
-            placeholder="Enter Bank Name">
-        @error('bank_name')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+            placeholder="Enter Bank Name" required>
+        @error('bank_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
 
     {{-- Account Holder Name --}}
@@ -17,10 +15,8 @@
         <input type="text" name="account_holder_name"
             value="{{ old('account_holder_name', $farmer->bankDetail->account_holder_name ?? '') }}"
             class="form-control @error('account_holder_name') is-invalid @enderror"
-            placeholder="Enter Account Holder Name">
-        @error('account_holder_name')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+            placeholder="Enter Account Holder Name" required>
+        @error('account_holder_name') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
 
     {{-- Account Number --}}
@@ -29,10 +25,8 @@
         <input type="text" name="account_number" 
             value="{{ old('account_number', $farmer->bankDetail->account_number ?? '') }}"
             class="form-control @error('account_number') is-invalid @enderror" 
-            placeholder="Enter Account Number">
-        @error('account_number')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+            placeholder="Enter Account Number" required>
+        @error('account_number') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
 
     {{-- IFSC Code --}}
@@ -41,9 +35,7 @@
         <input type="text" name="ifsc_code" 
             value="{{ old('ifsc_code', $farmer->bankDetail->ifsc_code ?? '') }}"
             class="form-control text-uppercase @error('ifsc_code') is-invalid @enderror" 
-            placeholder="e.g. SBIN0001234">
-        @error('ifsc_code')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+            placeholder="e.g. SBIN0001234" required>
+        @error('ifsc_code') <div class="invalid-feedback">{{ $message }}</div> @enderror
     </div>
 </div>

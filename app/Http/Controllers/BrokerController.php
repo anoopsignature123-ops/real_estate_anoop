@@ -6,37 +6,31 @@ use App\Http\Requests\BrokerRequest;
 use App\Models\Broker;
 use App\Services\BrokerService;
 use App\Services\LocationService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class BrokerController extends Controller
 {
-    protected $brokerService;
+    public function __construct(
+        protected BrokerService $brokerService,
+        protected LocationService $locationService
+    ) {}
 
-    protected $locationService;
-
-    public function __construct(BrokerService $brokerService, LocationService $locationService)
-    {
-        $this->brokerService = $brokerService;
-        $this->locationService = $locationService;
-    }
-
-    public function index()
+    public function index(): View
     {
         $brokers = $this->brokerService->getBrokers();
-
         return view('brokers.index', compact('brokers'));
     }
 
-    public function create()
+    public function create(): View
     {
-        return view('farmers.create', [
-            'brokers' => Broker::latest()->get(),
+        return view('brokers.create', [
             'states' => $this->locationService->getStates(),
         ]);
     }
 
-    public function store(BrokerRequest $request)
+    public function store(BrokerRequest $request): RedirectResponse
     {
-
         $this->brokerService->createBroker($request->validated());
 
         return redirect()
@@ -44,40 +38,34 @@ class BrokerController extends Controller
             ->with('success', 'Broker created successfully.');
     }
 
-    public function show($id)
+    public function show($id): View
     {
         $broker = $this->brokerService->findBroker($id);
-
         return view('brokers.show', compact('broker'));
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         return view('brokers.edit', [
             'broker' => $this->brokerService->findBroker($id),
-              'brokers' => $this->brokerService->getBrokers(),
-        'states'  => $this->locationService->getStates(),
+            'states' => $this->locationService->getStates(),
         ]);
     }
 
-    public function update(BrokerRequest $request, $id)
+    public function update(BrokerRequest $request, $id): RedirectResponse
     {
         $broker = $this->brokerService->findBroker($id);
-
-        $this->brokerService->updateBroker(
-            $broker,
-            $request->validated()
-        );
+        
+        $this->brokerService->updateBroker($broker, $request->validated());
 
         return redirect()
             ->route('brokers.index')
             ->with('success', 'Broker updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $broker = $this->brokerService->findBroker($id);
-
         $this->brokerService->deleteBroker($broker);
 
         return redirect()

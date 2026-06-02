@@ -46,7 +46,7 @@
                                     <td class="fw-semibold">{{ $broker->name }}</td>
                                     <td>{{ $broker->mobile_number ?? 'N/A' }}</td>
                                     <td>{{ $broker->pancard_number ?? 'N/A' }}</td>
-                                    <td class="text-muted">[Redacted]</td>
+                                    <td class="text-muted">{{ $broker->aadhar_number }}</td>
                                     <td>{{ $broker->bankDetail->bank_name ?? 'N/A' }}</td>
                                     <td>{{ $broker->bankDetail->account_number ?? 'N/A' }}</td>
                                     <td class="text-uppercase">{{ $broker->bankDetail->ifsc_code ?? 'N/A' }}</td>
