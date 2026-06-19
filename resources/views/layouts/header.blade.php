@@ -1,19 +1,57 @@
 @php
     $isAssociate = auth()->guard('associate')->check();
+    $isCustomer = auth()->guard('customer')->check();
 
-    $currentUser = $isAssociate
-        ? auth()->guard('associate')->user()
-        : auth()->user();
+    if ($isAssociate) {
+        $currentUser = auth()->guard('associate')->user();
+    } elseif ($isCustomer) {
+        $currentUser = auth()->guard('customer')->user();
+    } else {
+        $currentUser = auth()->user();
+    }
+    if ($isAssociate) {
+        $profilePhoto = $currentUser->photo
+            ? getFileUrl($currentUser->photo)
+            : asset('assets/images/user2-160x160.jpg');
+    } elseif ($isCustomer) {
+        $profilePhoto = asset('assets/images/user2-160x160.jpg');
+    } else {
+        $profilePhoto = $currentUser?->profile_image
+            ? getFileUrl($currentUser->profile_image)
+            : asset('assets/images/user2-160x160.jpg');
+    }
 
-    $profilePhoto = $isAssociate
-        ? ($currentUser->photo ? getFileUrl($currentUser->photo) : asset('assets/images/user2-160x160.jpg'))
-        : ($currentUser->profile_image ? getFileUrl($currentUser->profile_image) : asset('assets/images/user2-160x160.jpg'));
+    if ($isAssociate) {
+        $userName = $currentUser->associate_name ?? 'Associate';
+        $userRole = 'Associate';
+        $profileRoute = route('associate-panel.view-profile');
+        $passwordRoute = route('associate-panel.change-password');
+        $logoutRoute = route('associate-panel.logout');
+        $headerTitle = 'Real Estate Management Software';
+        $headerSubtitle = 'Associate / Agent Panel';
+        $dropdownInfo = 'ID: ' . ($currentUser->associate_id ?? '');
+    } elseif ($isCustomer) {
+        $userName = $currentUser->primaryDetail?->name
+            ?? $currentUser->customer_name
+            ?? 'Customer';
 
-    $userName = $isAssociate
-        ? ($currentUser->associate_name ?? 'Associate')
-        : ($currentUser->name ?? 'Admin');
-
-    $userRole = $isAssociate ? 'Associate' : 'Administrator';
+        $userRole = 'Customer';
+        $profileRoute = route('customer-panel.profile');
+        $passwordRoute = '#';
+        $logoutRoute = route('customer-panel.logout');
+        $headerTitle = 'Real Estate Management Software';
+        $headerSubtitle = 'Customer Panel';
+        $dropdownInfo = 'ID: ' . ($currentUser->customer_code ?? '');
+    } else {
+        $userName = $currentUser->name ?? 'Admin';
+        $userRole = 'Administrator';
+        $profileRoute = route('profile');
+        $passwordRoute = route('change-password');
+        $logoutRoute = route('logout');
+        $headerTitle = 'Real Estate Management Software';
+        $headerSubtitle = 'Admin Panel';
+        $dropdownInfo = $currentUser->email ?? '';
+    }
 @endphp
 
 <nav class="app-header navbar navbar-expand header-navbar">
@@ -28,10 +66,10 @@
 
             <div class="d-none d-md-block">
                 <h6 class="fw-bold mb-0 text-dark">
-                    Real Estate Management Software
+                    {{ $headerTitle }}
                 </h6>
                 <small class="text-muted">
-                    Welcome Back
+                    {{ $headerSubtitle }}
                 </small>
             </div>
 
@@ -51,18 +89,6 @@
                     </small>
                 </div>
             </li>
-
-            {{-- Notification --}}
-            {{-- <li class="nav-item">
-                <a href="#" class="header-icon-btn position-relative">
-                    <i class="bi bi-bell"></i>
-
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger header-badge">
-                        3
-                    </span>
-                </a>
-            </li> --}}
-
             {{-- User Dropdown --}}
             <li class="nav-item dropdown user-menu">
 
@@ -100,33 +126,34 @@
                         </h6>
 
                         <small class="text-white-50">
-                            {{ $isAssociate ? 'ID: ' . ($currentUser->associate_id ?? '') : ($currentUser->email ?? '') }}
+                            {{ $dropdownInfo }}
                         </small>
                     </li>
 
                     <li>
-                        <a href="{{ $isAssociate ? route('associate-panel.view-profile') : route('profile') }}"
+                        <a href="{{ $profileRoute }}"
                             class="dropdown-item header-dropdown-item">
                             <i class="bi bi-person"></i>
                             Manage Profile
                         </a>
                     </li>
 
-                    <li>
-                        <a href="{{ $isAssociate ? route('associate-panel.change-password') : route('change-password') }}"
-                            class="dropdown-item header-dropdown-item">
-                            <i class="bi bi-shield-lock"></i>
-                            Change Password
-                        </a>
-                    </li>
+                    @if (!$isCustomer)
+                        <li>
+                            <a href="{{ $passwordRoute }}"
+                                class="dropdown-item header-dropdown-item">
+                                <i class="bi bi-shield-lock"></i>
+                                Change Password
+                            </a>
+                        </li>
+                    @endif
 
                     <li>
                         <hr class="dropdown-divider m-0">
                     </li>
 
                     <li>
-                        <form action="{{ $isAssociate ? route('associate-panel.logout') : route('logout') }}"
-                            method="POST">
+                        <form action="{{ $logoutRoute }}" method="POST">
                             @csrf
 
                             <button type="submit" class="dropdown-item header-dropdown-item text-danger">

@@ -126,9 +126,21 @@ return [
     | since doing so does not grant a meaningful security improvement.
     |
     */
-    'cookie' => isset($_SERVER['REQUEST_URI']) && str_contains($_SERVER['REQUEST_URI'], '/associate-panel')
-             ? 'associate_session'
-             : env('SESSION_COOKIE', Str::slug(env('APP_NAME', 'laravel'), '_').'_session'),
+    'cookie' => match (true) {
+
+        isset($_SERVER['REQUEST_URI']) &&
+        str_contains($_SERVER['REQUEST_URI'], '/associate-panel')
+        => 'associate_session',
+
+        isset($_SERVER['REQUEST_URI']) &&
+        str_contains($_SERVER['REQUEST_URI'], '/customer-panel')
+        => 'customer_session',
+
+        default => env(
+            'SESSION_COOKIE',
+            Str::slug(env('APP_NAME', 'laravel'), '_') . '_session'
+        ),
+    },
     // 'cookie' => env(
     //     'SESSION_COOKIE',
     //     Str::slug((string) env('APP_NAME', 'laravel')).'-session'

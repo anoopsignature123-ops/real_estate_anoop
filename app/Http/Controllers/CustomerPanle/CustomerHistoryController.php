@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers\CustomerPanle;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class CustomerHistoryController extends Controller
+{
+    public function profile(Request $request)
+    {
+        $customer = auth()->guard('customer')->user();
+
+        $customer->load([
+            'primaryDetail.correspondenceDetail',
+            'plotSaleDetails.project',
+            'plotSaleDetails.block',
+            'plotSaleDetails.plotDetail',
+            'payments',
+        ]);
+
+        $plots = $customer->plotSaleDetails;
+        $payments = $customer->payments;
+
+        $totalBooking = $plots->count();
+
+        $totalPlotCost = $plots->sum(function ($plot) {
+            return $plot->total_plot_cost ?? $plot->total_amount ?? 0;
+        });
+
+        $totalPaid = $payments->sum(function ($payment) {
+            return $payment->booking_amount ?? $payment->paid_amount ?? 0;
+        });
+
+        $dueAmount = max($totalPlotCost - $totalPaid, 0);
+
+        return view('customer-panel.profile.index', compact(
+            'customer',
+            'plots',
+            'payments',
+            'totalBooking',
+            'totalPlotCost',
+            'totalPaid',
+            'dueAmount'
+        ));
+    }
+
+    public function bookingHistory(Request $request)
+    {
+        $customer = auth()->guard('customer')->user();
+
+        $customer->load([
+            'primaryDetail.correspondenceDetail',
+            'plotSaleDetails.project',
+            'plotSaleDetails.block',
+            'plotSaleDetails.plotDetail',
+            'plotSaleDetails.payments',
+            'payments',
+        ]);
+
+        $bookings = $customer->plotSaleDetails()
+            ->with(['project', 'block', 'plotDetail'])
+            ->whereNotNull('booking_code')
+            ->latest()
+            ->get();
+
+        return view('customer-panel.booking-history.index', compact('customer', 'bookings'));
+    }
+
+    public function paymentHistory(Request $request)
+    {
+        $customer = auth()->guard('customer')->user();
+
+        $payments = $customer->payments()
+            ->with([
+                'plotSaleDetail.project',
+                'plotSaleDetail.block',
+                'plotSaleDetail.plotDetail',
+            ])
+            ->latest()
+            ->get();
+
+        return view(
+            'customer-panel.payment-history.index',
+            compact('payments')
+        );
+    }
+
+
+    
+
+    public function myPlotBooking(Request $request)
+{
+    $customer = auth()->guard('customer')->user();
+
+    $plots = $customer->plotSaleDetails()
+        ->with([
+            'project',
+            'block',
+            'plotDetail',
+        ])
+        ->whereNotNull('booking_code')
+        ->latest()
+        ->get();
+
+    return view(
+        'customer-panel.plot-histroy.index',
+        compact('plots')
+    );
+}
+    public function support(Request $request)
+    {
+        return view('customer-panel.support.index');
+    }
+}

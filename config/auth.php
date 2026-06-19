@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Associate;
+use App\Models\CustomerBooking;
 use App\Models\User;
 
 return [
@@ -47,6 +48,11 @@ return [
             'driver' => 'session',
             'provider' => 'associates', // Yeh niche wale provider se connect hoga
         ],
+
+        'customer' => [
+            'driver' => 'session',
+            'provider' => 'customers', // Yeh niche wale provider se connect hoga
+        ],
     ],
 
     /*
@@ -80,7 +86,10 @@ return [
             'driver' => 'eloquent',
             'model' => Associate::class, // Aapka Associate Model path
         ],
-
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => CustomerBooking::class, // Aapka Customer Model path
+        ],
     ],
 
     /*
@@ -111,6 +120,13 @@ return [
         ],
         'associates' => [
             'provider' => 'associates',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'customers' => [
+            'provider' => 'customers',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

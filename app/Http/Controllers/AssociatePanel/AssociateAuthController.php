@@ -38,7 +38,6 @@ class AssociateAuthController extends Controller
         Auth::guard('associate')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect()->route(
             'associate-panel.login'
         );

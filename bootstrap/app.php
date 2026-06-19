@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 return route('associate-panel.login');
             }
 
+            if ($request->is('customer-panel*')) {
+                return route('customer-panel.login');
+            }
+
             return route('login');
         });
 
@@ -29,6 +33,11 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($request->is('associate-panel*')) {
                 return route('associate-panel.dashboard');
             }
+
+            if ($request->is('customer-panel*')) {
+                return route('customer-panel.dashboard');
+            }
+
 
             return route('dashboard');
         });

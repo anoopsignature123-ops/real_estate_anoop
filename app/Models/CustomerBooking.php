@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
-class CustomerBooking extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+class CustomerBooking extends Authenticatable
 {
-    use SoftDeletes;
 
+    use HasFactory, Notifiable, SoftDeletes;
     protected $fillable = ['associate_id', 'customer_id', 'booking_code', 'customer_type', 'customer_code', 'customer_name', 'associate_code', 'associate_name', 'current_step', 'status', 'password', 'plain_password'];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
     public function parentCustomer()
     {
-        return $this->belongsTo(
-            CustomerBooking::class,
-            'customer_id'
-        );
+        return $this->belongsTo(CustomerBooking::class, 'customer_id');
     }
 
     public function associate()

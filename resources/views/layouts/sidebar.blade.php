@@ -6,16 +6,75 @@
     </div>
     @php
         $isAssociate = auth()->guard('associate')->check();
-        $user = $isAssociate ? auth()->guard('associate')->user() : auth()->user();
-        $menus = !$isAssociate
-            ? App\Models\Module::whereNull('parent_id')->with('children')->orderBy('sort_order')->get()
-            : collect();
+        $isCustomer = auth()->guard('customer')->check();
+
+        if ($isAssociate) {
+            $user = auth()->guard('associate')->user();
+        } elseif ($isCustomer) {
+            $user = auth()->guard('customer')->user();
+        } else {
+            $user = auth()->user();
+        }
+
+        $menus =
+            !$isAssociate && !$isCustomer
+                ? App\Models\Module::whereNull('parent_id')->with('children')->orderBy('sort_order')->get()
+                : collect();
     @endphp
 
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" data-accordion="false">
-                @if ($isAssociate)
+                {{-- CUSTOMER MENU --}}
+                @if ($isCustomer)
+
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.dashboard') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-speedometer2"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.profile') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.profile') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-person-circle"></i>
+                            <p>My Profile</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.booking-history') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.booking-history') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-journal-bookmark"></i>
+                            <p>My Booking History</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.payment-history') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.payment-history') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-wallet2"></i>
+                            <p>My Payment History</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.my-plot-booking') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.my-plot-booking') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-house-check"></i>
+                            <p>My Plot Booking</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('customer-panel.support') }}"
+                            class="nav-link {{ request()->routeIs('customer-panel.support') ? 'active' : '' }}">
+                            <i class="nav-icon bi bi-life-preserver"></i>
+                            <p>Support</p>
+                        </a>
+                    </li>
+                @elseif($isAssociate)
                     <li class="nav-item">
                         <a href="{{ route('associate-panel.dashboard') }}"
                             class="nav-link {{ request()->routeIs('associate-panel.dashboard') ? 'active' : '' }}">
@@ -175,11 +234,11 @@
                     <li
                         class="nav-item
                             {{ request()->routeIs('associate-panel.payout-details') ? 'menu-open' : '' }}">
-                         
-                       <a href="#"
+
+                        <a href="#"
                             class="nav-link
                                 {{ request()->routeIs('associate-panel.payout-details') ? 'active' : '' }}">
-                             <i class="nav-icon bi bi-cash-stack"></i>
+                            <i class="nav-icon bi bi-cash-stack"></i>
                             <p>My Account <i class="nav-arrow bi bi-chevron-right"></i></p>
                         </a>
 
@@ -187,7 +246,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('associate-panel.payout-details') }}"
                                     class="nav-link {{ request()->routeIs('associate-panel.payout-details*') ? 'active' : '' }}">
-                                   
+
                                     <i class="nav-icon bi bi-record-fill"></i>
                                     <p>Payout Details</p>
                                 </a>
