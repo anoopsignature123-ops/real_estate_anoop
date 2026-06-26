@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Company;
 use App\Models\CustomerPayment;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReceiptReprintService
 {
+    public function __construct(private ReceiptPdfService $receiptPdfService) {}
+
     public function search($plotId, $customerBookingId)
     {
         return CustomerPayment::with([
@@ -33,12 +33,6 @@ class ReceiptReprintService
             'plotSaleDetail.plotDetail',
         ])->findOrFail($paymentId);
 
-        $company = Company::where('status', '1')->first();
-
-        $pdf = Pdf::loadView('payment.receipt-reprint.pdf', compact('payment', 'company'));
-
-        return $pdf->download(
-            'receipt-' . ($payment->receipt_number ?? 'RCP-' . $paymentId) . '.pdf'
-        );
+        return $this->receiptPdfService->download($payment);
     }
 }

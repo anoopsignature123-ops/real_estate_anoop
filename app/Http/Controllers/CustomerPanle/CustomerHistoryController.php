@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\CustomerPanle;
 
 use App\Http\Controllers\Controller;
-use App\Models\Company;
 use App\Models\CustomerDocument;
 use App\Models\CustomerPayment;
 use App\Models\Support;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\ReceiptPdfService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -201,9 +200,7 @@ class CustomerHistoryController extends Controller
             'plotSaleDetail.block',
             'plotSaleDetail.plotDetail',
         ])->where('customer_booking_id', auth()->guard('customer')->id())->findOrFail($paymentId);
-        $company = Company::where('status', '1')->first();
-        $pdf = Pdf::loadView('payment.receipt-reprint.pdf', compact('payment', 'company'));
-        return $pdf->download('receipt-' . ($payment->receipt_number ?? 'RCP-' . $payment->id) . '.pdf');
+        return app(ReceiptPdfService::class)->download($payment);
     }
 
     public function myPlotBooking(Request $request)

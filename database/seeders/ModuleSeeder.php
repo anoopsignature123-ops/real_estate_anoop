@@ -312,6 +312,15 @@ class ModuleSeeder extends Seeder
             ],
 
             [
+                'name' => 'Receipt Templates',
+                'slug' => 'receipt-templates',
+                'parent_slug' => 'payment',
+                'route_name' => 'receipt-templates.index',
+                'active_routes' => 'receipt-templates*',
+                'icon' => 'bi bi-file-earmark-richtext',
+            ],
+
+            [
                 'name' => 'One Time Payment',
                 'slug' => 'one-time-payment',
                 'parent_slug' => 'payment',

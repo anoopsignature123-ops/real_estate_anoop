@@ -9,9 +9,11 @@
         <div class="card border-0 rounded-4 mb-4 overflow-hidden position-relative shadow-sm"
             style="background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center;">
 
+            
+
             <div class="position-absolute w-100 h-100"
-                style="background: linear-gradient(135deg, rgba(48, 80, 58, 0.95) 0%, rgba(45, 146, 121, 0.9) 100%);">
-            </div>
+    style="background: url('{{ asset('assets/images/sidebarbg.jpg') }}') center center / cover no-repeat;">
+</div>
 
             <div class="position-absolute end-0 top-0 opacity-10 p-3">
                 <i class="bi bi-person-badge" style="font-size: 8rem; color: #ffffff;"></i>

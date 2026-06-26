@@ -61,6 +61,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectManipulationController;
 use App\Http\Controllers\ReceiptReprintController;
+use App\Http\Controllers\ReceiptTemplateController;
 use App\Http\Controllers\RegisteredPlotDetailsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SourceController;
@@ -159,6 +160,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/receipt-reprint/search', 'search')->name('receipt-reprint.search');
         Route::get('/receipt-reprint/download/{payment}', 'download')->name('receipt-reprint.download');
         Route::get('/receipt-reprint/customers/{plot}', 'getCustomersByPlot')->name('receipt-reprint.customers');
+    });
+    Route::controller(ReceiptTemplateController::class)->group(function () {
+        Route::get('/receipt-templates', 'index')->name('receipt-templates.index');
+        Route::get('/receipt-templates/{receiptTemplate}/preview', 'preview')->name('receipt-templates.preview');
+        Route::post('/receipt-templates/{receiptTemplate}/activate', 'activate')->name('receipt-templates.activate');
     });
     Route::controller(OneTimePaymentController::class)->group(function () {
         Route::get('/one-time-payment', 'index')->name('one-time-payment.index');

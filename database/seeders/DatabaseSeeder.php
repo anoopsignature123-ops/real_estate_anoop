@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([ModuleSeeder::class]);
+        $this->call(ReceiptTemplateSeeder::class);
         $this->call(RankDesignationSeeder::class);
         $this->call([AssociateSeeder::class]);
         Role::firstOrCreate(['name' => 'super-admin']);
