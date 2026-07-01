@@ -78,9 +78,7 @@ class EmiPaymentService
 
                 $newDueAmount = round(max(0, $dueInfo['due'] - $plotPaidAmount), 2);
                 $fixedMonthlyEmi = round((float) $dueInfo['monthly_emi'], 2);
-                $remainingEmiMonths = $fixedMonthlyEmi > 0
-                    ? (int) ceil($newDueAmount / $fixedMonthlyEmi)
-                    : 0;
+                $remainingEmiMonths = $this->calculateRemainingEmiMonths($newDueAmount, $fixedMonthlyEmi);
                 $paymentStatus = $isHoldPayment ? 'hold' : ($newDueAmount <= 0 ? 'cleared' : 'paid');
 
                 if (!$isHoldPayment && $newDueAmount <= 0) {
@@ -122,16 +120,35 @@ class EmiPaymentService
                 ->latest()
                 ->first();
 
+            $dueAmount = round((float) ($latestPayment->due_amount ?? 0), 2);
+            $monthlyEmi = round((float) ($latestPayment->after_booking_payable_amount ?? 0), 2);
+
             return [
                 'plot_sale_id' => $plotSale->id,
                 'total_cost' => round((float) ($plotSale->total_plot_cost ?? 0), 2),
-                'due' => round((float) ($latestPayment->due_amount ?? 0), 2),
-                'monthly_emi' => round((float) ($latestPayment->after_booking_payable_amount ?? 0), 2),
+                'due' => $dueAmount,
+                'monthly_emi' => $monthlyEmi,
                 'booking_amount' => round((float) ($latestPayment->booking_amount ?? 0), 2),
-                'emi_months' => (int) ($latestPayment->emi_months ?? 0),
+                'emi_months' => $this->calculateRemainingEmiMonths($dueAmount, $monthlyEmi),
                 'latest_payment' => $latestPayment,
             ];
         });
+    }
+
+    public function calculateRemainingEmiMonths(float $dueAmount, float $monthlyEmi): int
+    {
+        if ($dueAmount <= 0 || $monthlyEmi <= 0) {
+            return 0;
+        }
+
+        $months = $dueAmount / $monthlyEmi;
+        $roundedMonths = (int) round($months);
+
+        if ($roundedMonths > 0 && abs(($monthlyEmi * $roundedMonths) - $dueAmount) <= 0.05) {
+            return $roundedMonths;
+        }
+
+        return (int) ceil($months);
     }
 
     public function allocatePaymentAmount(Collection $dues, float $payingAmount, float $remainingDue): array

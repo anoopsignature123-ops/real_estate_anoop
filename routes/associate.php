@@ -14,7 +14,7 @@ use App\Http\Controllers\AssociatePanel\AssociateCommissionController;
 
 // ------------------Associate Routes-------------
 Route::prefix('associate-panel')->name('associate-panel.')->group(function () {
-    Route::middleware('guest:associate')->group(function () {
+    Route::middleware('redirect.auth:associate')->group(function () {
         Route::get('/login', [AssociateAuthController::class, 'loginForm'])->name('login');
         Route::post('/login', [AssociateAuthController::class, 'login'])
             ->middleware('throttle:5,1')

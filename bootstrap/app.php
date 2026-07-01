@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Middleware\AdminAccessKey;
+use App\Http\Middleware\CheckModulePermission;
+use App\Http\Middleware\RedirectIfAuthenticatedUser;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -27,6 +29,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin.key' => AdminAccessKey::class,
+            'module.permission' => CheckModulePermission::class,
+            'redirect.auth' => RedirectIfAuthenticatedUser::class,
         ]);
 
         $middleware->redirectUsersTo(function (Request $request) {

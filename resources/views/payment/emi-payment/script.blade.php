@@ -86,6 +86,7 @@
                 $('#max_due_amount').val('0');
                 $('#minimum_emi').html('&#8377;0.00');
                 $('#payment_history_count').text('0 Records');
+                renderEmiOverview(null);
                 $('#form_selected_plots_box').addClass('d-none');
                 $('#form_selected_plot_count').text('0 Plots');
                 $('#form_selected_plot_mode').text('Verify EMI plot details before entering amount.');
@@ -108,6 +109,38 @@
 
             function resetPlotGroups() {
                 $('#plot_group_hint').text('Select project and block to load EMI groups.');
+            }
+
+            function renderEmiOverview(overview) {
+                if (!overview) {
+                    $('#emi_view_box').addClass('d-none');
+                    $('#emi_view_total_badge').text('0 EMI');
+                    $('#emi_view_total, #emi_view_paid, #emi_view_hold, #emi_view_remaining').text('0');
+                    $('#emi_view_progress_bar')
+                        .css('width', '0%')
+                        .attr('aria-valuenow', 0)
+                        .text('');
+                    $('#emi_view_progress_text').text('0% Paid');
+                    return;
+                }
+
+                const total = parseInt(overview.total_installments || 0, 10);
+                const paid = parseInt(overview.paid_installments || 0, 10);
+                const hold = parseInt(overview.hold_installments || 0, 10);
+                const remaining = parseInt(overview.remaining_installments || 0, 10);
+                const progress = Math.min(100, Math.max(0, parseInt(overview.progress_percent || 0, 10)));
+
+                $('#emi_view_total_badge').text(total + (total === 1 ? ' EMI' : ' EMIs'));
+                $('#emi_view_total').text(total);
+                $('#emi_view_paid').text(paid);
+                $('#emi_view_hold').text(hold);
+                $('#emi_view_remaining').text(remaining);
+                $('#emi_view_progress_bar')
+                    .css('width', progress + '%')
+                    .attr('aria-valuenow', progress)
+                    .text('');
+                $('#emi_view_progress_text').text(progress + '% Paid');
+                $('#emi_view_box').removeClass('d-none');
             }
 
             function renderPlotGroups(plots) {
@@ -154,7 +187,7 @@
                 });
             }
 
-            function renderSelectedPlots(plots) {
+            function renderSelectedPlots(plots, overview = null, isMultiple = false) {
                 if (!Array.isArray(plots) || plots.length === 0) {
                     $('#form_selected_plots_box').addClass('d-none');
                     return;
@@ -162,14 +195,34 @@
 
                 let html = '';
                 $.each(plots, function(index, plot) {
+                    const progressData = isMultiple && overview ? overview : plot;
+                    const paidInstallments = progressData.paid_installments ?? 0;
+                    const holdInstallments = progressData.hold_installments ?? 0;
+                    const remainingInstallments = progressData.remaining_installments ?? 0;
+                    const totalInstallments = progressData.total_installments ?? 0;
+                    const progressPercent = progressData.progress_percent ?? 0;
+                    const progressLabel = isMultiple ? 'group EMI paid' : 'EMI paid';
+
                     html += `<tr>
                         <td>
                             <span class="fw-bold text-dark">${plot.plot_no ?? '-'}</span>
                             <span class="d-block small text-muted">${plot.project ?? '-'} / Block ${plot.block ?? '-'}</span>
+                            <span class="d-block small text-muted">Cost: &#8377;${plot.total_cost ?? '0.00'}</span>
                         </td>
                         <td class="text-nowrap">${plot.area ?? '0.00'} Sq.Ft.</td>
-                        <td class="text-nowrap">&#8377;${plot.total_cost ?? '0.00'}</td>
                         <td class="text-nowrap">&#8377;${plot.monthly_emi ?? '0.00'}</td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-1 mb-1">
+                                <span class="badge bg-success-subtle text-success border">${paidInstallments} Paid</span>
+                                <span class="badge bg-warning-subtle text-warning border">${holdInstallments} Hold</span>
+                                <span class="badge bg-danger-subtle text-danger border">${remainingInstallments} Left</span>
+                            </div>
+                            <div class="progress emi-row-progress" role="progressbar"
+                                aria-valuenow="${progressPercent}" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar bg-success" style="width: ${progressPercent}%"></div>
+                            </div>
+                            <small class="text-muted">${paidInstallments}/${totalInstallments} ${progressLabel}</small>
+                        </td>
                         <td class="text-end text-nowrap fw-semibold">&#8377;${plot.due_amount ?? '0.00'}</td>
                     </tr>`;
                 });
@@ -311,8 +364,8 @@
                 renderPlotGroups(allPlotGroups);
                 $('#payment_plot_type_help').text(
                     selectedPlotType() === 'multiple'
-                        ? 'Multiple mode me sirf grouped EMI bookings show hongi.'
-                        : 'Single mode me sirf one-plot EMI bookings show hongi.'
+                        ? 'Multiple mode shows only grouped EMI bookings.'
+                        : 'Single mode shows only one-plot EMI bookings.'
                 );
             });
 
@@ -343,7 +396,6 @@
                     $('#booking_id').val(res.booking_code);
                     $('#customer_id').val(res.customer_code);
                     $('#customer_name').val(res.customer_name);
-                    renderSelectedPlots(res.plots || []);
 
                     $('#total_cost').text(res.total_cost);
                     $('#booking_amount').text(res.booking_amount);
@@ -351,7 +403,13 @@
                     $('#hold_amount').text(res.hold_amount || '0.00');
                     $('#due_amount').text(res.due_amount);
                     $('#emi_start_date').text(res.emi_start_date);
-                    $('#emi_months').text(res.months_passed + ' / ' + res.emi_months + ' Months');
+                    renderEmiOverview(res.emi_overview);
+                    renderSelectedPlots(res.plots || [], res.emi_overview, Boolean(res.is_multiple));
+                    const overview = res.emi_overview || {};
+                    $('#emi_months').text(
+                        (overview.paid_installments ?? res.months_passed) + ' / ' +
+                        (overview.total_installments ?? res.emi_months) + ' Months'
+                    );
                     $('#monthly_emi').text(res.monthly_emi);
 
                     $('#booking_amount_input').val(res.monthly_emi).attr('max', res.due_amount);

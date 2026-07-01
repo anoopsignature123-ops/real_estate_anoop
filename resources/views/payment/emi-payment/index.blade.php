@@ -102,8 +102,8 @@
                                                     <tr>
                                                         <th>Plot</th>
                                                         <th>Area</th>
-                                                        <th>Total Cost</th>
                                                         <th>Monthly EMI</th>
+                                                        <th>EMI Progress</th>
                                                         <th class="text-end">Due</th>
                                                     </tr>
                                                 </thead>

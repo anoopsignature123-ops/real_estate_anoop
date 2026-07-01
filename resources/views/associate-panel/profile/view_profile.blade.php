@@ -1,26 +1,111 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid px-4 py-4 bg-light min-vh-100">
+    @php
+        $bank = $associate->bankDetail;
+        $initials = collect(explode(' ', trim($associate->associate_name ?? 'Associate')))
+            ->filter()
+            ->map(fn ($part) => strtoupper(substr($part, 0, 1)))
+            ->take(2)
+            ->implode('');
+        $documents = [
+            ['label' => 'Profile Photo', 'file' => $associate->photo, 'icon' => 'bi-person-square'],
+            ['label' => 'ID Proof', 'file' => $associate->id_proof_photo, 'icon' => 'bi-card-checklist'],
+            ['label' => 'PAN Card', 'file' => $associate->pancard_photo, 'icon' => 'bi-credit-card-2-front'],
+            ['label' => 'Bank Passbook', 'file' => $bank?->bank_passbook, 'icon' => 'bi-bank'],
+        ];
+        $uploadedDocuments = collect($documents)->whereNotNull('file')->count();
+    @endphp
 
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card border-0 shadow-sm bg-white rounded-3">
-                    <div class="card-body d-flex justify-content-between align-items-center p-4">
-                        <div>
-                            <span
-                                class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-2 text-uppercase fw-bold fs-7">
-                                Associate Security
-                            </span>
-                            <h2 class="mb-1 text-dark fw-bold h3 tracking-tight">My Profile Details</h2>
-                            <p class="mb-0 text-muted small fw-medium">Verify your registered personal credentials, address
-                                matrix, and active banking channels.</p>
+    <div class="container-fluid mt-4 transaction-page">
+        <div class="transaction-hero mb-4">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="transaction-icon">
+                        @if ($associate->photo)
+                            <img src="{{ getFileUrl($associate->photo) }}" alt="Profile"
+                                style="width:100%;height:100%;object-fit:cover;border-radius:8px;">
+                        @else
+                            {{ $initials ?: 'A' }}
+                        @endif
+                    </span>
+                    <div>
+                        <span class="text-success fw-bold text-uppercase small">Associate Profile</span>
+                        <h3 class="fw-bold mb-1 text-dark">My Profile Details</h3>
+                        <p class="text-muted mb-0 small">View your personal, bank, nominee and document details.</p>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('associate-panel.edit-profile') }}" class="btn btn-success">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Profile
+                    </a>
+                    <a href="{{ route('associate-panel.change-password') }}" class="btn btn-outline-success">
+                        <i class="bi bi-shield-lock me-1"></i> Change Password
+                    </a>
+                    <a href="{{ route('associate-panel.welcome-letter') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-download me-1"></i> Welcome Letter
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        @if (session('success'))
+            <div class="alert alert-success border-0 shadow-sm">
+                <i class="bi bi-check-circle me-1"></i> {{ session('success') }}
+            </div>
+        @endif
+
+        <div class="row g-3 mb-4">
+            <div class="col-xl-3 col-md-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body py-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="transaction-section-title-icon"><i class="bi bi-person-badge"></i></span>
+                            <div>
+                                <small class="text-muted fw-semibold">Associate ID</small>
+                                <h5 class="fw-bold mb-0">{{ $associate->associate_id ?? '-' }}</h5>
+                            </div>
                         </div>
-                        <div class="d-none d-md-block flex-shrink-0 text-end">
-                            <a href="{{ route('associate-panel.edit-profile') }}"
-                                class="btn btn-success px-4 fw-semibold shadow-sm">
-                                <i class="bi bi-pencil-square me-1"></i> Edit Profile
-                            </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body py-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="transaction-section-title-icon"><i class="bi bi-diagram-3"></i></span>
+                            <div>
+                                <small class="text-muted fw-semibold">Sponsor</small>
+                                <h5 class="fw-bold mb-0">{{ $associate->sponsor?->associate_name ?? '-' }}</h5>
+                                <small class="text-muted">{{ $associate->sponsor_id ?? '-' }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body py-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="transaction-section-title-icon"><i class="bi bi-award"></i></span>
+                            <div>
+                                <small class="text-muted fw-semibold">Rank</small>
+                                <h5 class="fw-bold mb-0">{{ $associate->rank?->designation ?? 'Associate' }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body py-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="transaction-section-title-icon"><i class="bi bi-folder-check"></i></span>
+                            <div>
+                                <small class="text-muted fw-semibold">Documents</small>
+                                <h5 class="fw-bold mb-0">{{ $uploadedDocuments }} / {{ count($documents) }}</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -28,223 +113,127 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-12 col-lg-6">
-                <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                    <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-success border-opacity-25">
-                        <h4 class="fw-bold mb-0 text-dark h5">
-                            <i class="bi bi-person-bounding-box text-success me-2"></i>Personal Details
-                        </h4>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="row row-cols-1 g-0">
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Sponsor Name</span>
-                                <span class="text-dark fw-bold">{{ $associate->sponsor->associate_name ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Associate Name</span>
-                                <span
-                                    class="text-dark fw-bold text-uppercase">{{ $associate->associate_name ?? '-' }}</span>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Gender</span>
-                                <span class="text-dark fw-bold">{{ $associate->gender ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Father/Husband Name</span>
-                                <span class="text-dark fw-bold">{{ $associate->father_name ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">DOB</span>
-                                <span class="text-dark fw-bold font-monospace">
-                                    {{ $associate->dob ? \Carbon\Carbon::parse($associate->dob)->format('d M Y') : '-' }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                    <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-success border-opacity-25">
-                        <h4 class="fw-bold mb-0 text-dark h5">
-                            <i class="bi bi-shield-check text-success me-2"></i>Nominee's Details
-                        </h4>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="row row-cols-1 g-0">
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Nominee Name</span>
-                                <span class="text-dark fw-bold">{{ $associate->bankDetail->nominee_name ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Nominee Relation</span>
-                                <span class="text-dark fw-bold">{{ $associate->bankDetail->nominee_relation ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Nominee Age</span>
-                                <span
-                                    class="text-dark fw-bold font-monospace">{{ $associate->bankDetail->nominee_age ?? '-' }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                    <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-success border-opacity-25">
-                        <h4 class="fw-bold mb-0 text-dark h5">
-                            <i class="bi bi-geo-alt-fill text-success me-2"></i>Address Information
-                        </h4>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="row row-cols-1 g-0">
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold flex-shrink-0">Address</span>
-                                <span class="text-dark fw-bold text-end w-75">{{ $associate->address ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">City</span>
-                                <span class="text-dark fw-bold">{{ $associate->city ?? '-' }}</span>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">State</span>
-                                <span class="text-dark fw-bold text-capitalize">{{ $associate->state ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Mobile</span>
-                                <span
-                                    class="text-dark fw-bold font-monospace">{{ $associate->mobile_number ?? '-' }}</span>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Email</span>
-                                <span
-                                    class="text-dark fw-bold font-monospace text-lowercase">{{ $associate->email ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Pancard No</span>
-                                <span class="text-dark fw-bold font-monospace text-uppercase"
-                                    style="letter-spacing: 0.5px;">{{ $associate->pancard_number ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Aadhaar No</span>
-                                <span
-                                    class="text-dark fw-bold font-monospace">{{ $associate->aadhar_number ?? '-' }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                    <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-success border-opacity-25">
-                        <h4 class="fw-bold mb-0 text-dark h5">
-                            <i class="bi bi-bank2 text-success me-2"></i>Bank Details
-                        </h4>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="row row-cols-1 g-0">
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">Bank Name</span>
-                                <span
-                                    class="text-dark fw-bold text-uppercase">{{ $associate->bankDetail->bank_name ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom">
-                                <span class="text-secondary fw-semibold">Account No</span>
-                                <span
-                                    class="text-dark fw-bold font-monospace">{{ $associate->bankDetail->account_number ?? '-' }}</span>
-                            </div>
-                            <div
-                                class="d-flex align-items-center justify-content-between p-3 px-4 border-bottom bg-light bg-opacity-25">
-                                <span class="text-secondary fw-semibold">IFSC Code</span>
-                                <span class="text-success fw-bold font-monospace text-uppercase"
-                                    style="letter-spacing: 0.5px;">{{ $associate->bankDetail->ifsc_code ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between p-3 px-4">
-                                <span class="text-secondary fw-semibold">Account Holder Name</span>
-                                <span
-                                    class="text-dark fw-bold">{{ $associate->bankDetail->account_holder_name ?? '-' }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Documents Section --}}
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm bg-white rounded-4">
-                        <div class="card-header bg-transparent border-bottom border-success border-opacity-25 px-4 py-3">
-                            <div class="d-flex align-items-center justify-content-between">
+            <div class="col-xl-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body">
+                        <div class="transaction-section-title">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="transaction-section-title-icon"><i class="bi bi-person-vcard"></i></span>
                                 <div>
-                                    <h5 class="fw-bold mb-1 text-dark">
-                                        <i class="bi bi-file-earmark-check-fill text-success me-2"></i>
-                                        Uploaded Documents
-                                    </h5>
-                                    <small class="text-muted">Verified associate documents preview</small>
+                                    <h5 class="fw-bold mb-1">Personal Details</h5>
+                                    <small class="text-muted">Registered identity and contact information.</small>
                                 </div>
-                                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-semibold">4
-                                    Documents</span>
                             </div>
                         </div>
-                        <div class="card-body p-4">
-                            <div class="row g-4">
-                                <div class="col-6 col-md-3">
-                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
-                                        <div class="mb-3">
-                                            <img src="{{ $associate->photo ? getFileUrl($associate->photo) : 'https://placehold.co/120x120?text=Photo' }}"
-                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
-                                                height="120">
-                                        </div>
-                                        <h6 class="fw-bold mb-1">Profile Photo</h6>
-                                        <small class="text-muted">Associate Image</small>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
-                                        <div class="mb-3">
-                                            <img src="{{ $associate->id_proof_photo ? getFileUrl($associate->id_proof_photo) : 'https://placehold.co/120x120?text=ID+Proof' }}"
-                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
-                                                height="120">
-                                        </div>
-                                        <h6 class="fw-bold mb-1">ID Proof</h6>
-                                        <small class="text-muted">Aadhaar / Voter ID</small>
-                                    </div>
-                                </div>
-                                {{-- PAN Card --}}
-                                <div class="col-6 col-md-3">
-                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
-                                        <div class="mb-3">
-                                            <img src="{{ $associate->pancard_photo ? getFileUrl($associate->pancard_photo) : 'https://placehold.co/120x120?text=PAN' }}"
-                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
-                                                height="120">
-                                        </div>
-                                        <h6 class="fw-bold mb-1"> PAN Card</h6>
-                                        <small class="text-muted"> PAN Verification</small>
-                                    </div>
-                                </div>
-                                {{-- Passbook --}}
-                                <div class="col-6 col-md-3">
-                                    <div class="border rounded-4 p-3 text-center bg-light h-100">
-                                        <div class="mb-3">
-                                            <img src="{{ $associate->bankDetail->bank_passbook ? getFileUrl($associate->bankDetail->bank_passbook) : 'https://placehold.co/120x120?text=Passbook' }}"
-                                                class="rounded-4 border object-fit-cover shadow-sm" width="120"
-                                                height="120">
-                                        </div>
-                                        <h6 class="fw-bold mb-1">Bank Passbook</h6>
-                                        <small class="text-muted">Account Verification</small>
-                                    </div>
+                        <div class="customer-receipt-line"><span>Associate Name</span><strong>{{ $associate->associate_name ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Gender</span><strong>{{ ucfirst($associate->gender ?? '-') }}</strong></div>
+                        <div class="customer-receipt-line"><span>Father / Husband Name</span><strong>{{ $associate->father_name ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Date Of Birth</span><strong>{{ $associate->dob ? \Carbon\Carbon::parse($associate->dob)->format('d M Y') : '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Mobile</span><strong>{{ $associate->mobile_number ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Email</span><strong>{{ $associate->email ?? '-' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body">
+                        <div class="transaction-section-title">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="transaction-section-title-icon"><i class="bi bi-geo-alt"></i></span>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Address & KYC</h5>
+                                    <small class="text-muted">Address, PAN and Aadhaar details.</small>
                                 </div>
                             </div>
+                        </div>
+                        <div class="customer-receipt-line"><span>Address</span><strong>{{ $associate->address ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>City</span><strong>{{ $associate->city ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>State</span><strong>{{ $associate->state ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>PAN Card No</span><strong>{{ $associate->pancard_number ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Aadhaar No</span><strong>{{ $associate->aadhar_number ?? '-' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body">
+                        <div class="transaction-section-title">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="transaction-section-title-icon"><i class="bi bi-bank"></i></span>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Bank Details</h5>
+                                    <small class="text-muted">Payout account information.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="customer-receipt-line"><span>Bank Name</span><strong>{{ $bank?->bank_name ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Account No</span><strong>{{ $bank?->account_number ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>IFSC Code</span><strong>{{ $bank?->ifsc_code ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Account Holder Name</span><strong>{{ $bank?->account_holder_name ?? '-' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6">
+                <div class="transaction-card h-100">
+                    <div class="transaction-card-body">
+                        <div class="transaction-section-title">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="transaction-section-title-icon"><i class="bi bi-person-heart"></i></span>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Nominee Details</h5>
+                                    <small class="text-muted">Nominee information for associate record.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="customer-receipt-line"><span>Nominee Name</span><strong>{{ $bank?->nominee_name ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Nominee Relation</span><strong>{{ $bank?->nominee_relation ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Nominee Age</span><strong>{{ $bank?->nominee_age ?? '-' }}</strong></div>
+                        <div class="customer-receipt-line"><span>Joining Date</span><strong>{{ $associate->created_at?->format('d M Y') ?? '-' }}</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="transaction-card">
+                    <div class="transaction-card-body">
+                        <div class="transaction-section-title">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="transaction-section-title-icon"><i class="bi bi-folder2-open"></i></span>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Uploaded Documents</h5>
+                                    <small class="text-muted">Preview or open uploaded associate documents.</small>
+                                </div>
+                            </div>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle">
+                                {{ $uploadedDocuments }} Uploaded
+                            </span>
+                        </div>
+
+                        <div class="row g-3">
+                            @foreach ($documents as $document)
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="border rounded p-3 h-100 bg-light">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="transaction-section-title-icon">
+                                                <i class="bi {{ $document['icon'] }}"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="fw-bold mb-1">{{ $document['label'] }}</h6>
+                                                @if ($document['file'])
+                                                    <a href="{{ getFileUrl($document['file']) }}" target="_blank" class="btn btn-outline-success btn-sm mt-2">
+                                                        <i class="bi bi-eye me-1"></i> View File
+                                                    </a>
+                                                @else
+                                                    <small class="text-muted">Not uploaded</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -71,7 +71,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WithoutRegisteredPlotController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['admin.key', 'guest'])->group(function () {
+Route::middleware(['admin.key', 'redirect.auth:web'])->group(function () {
     Route::get('/rs-login-panel', [AuthController::class, 'showLoginForm'])->name('login');
 });
 
@@ -88,7 +88,8 @@ Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showRes
 Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])
     ->name('password.update');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'module.permission'])->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile', 'index')->name('profile');
@@ -138,8 +139,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('cancel-booking', CancelBookingController::class)->only(['index', 'store']);
     Route::get('customer-list', [CustomerListController::class, 'index'])->name('customer-list.index');
     Route::get('edit-plot-booking', [CustomerListController::class, 'editPlotBooking'])->name('edit-plot-booking.index');
-    Route::get('/get-blocks/{projectId}', [CustomerBookingController::class, 'getBlocks']);
-    Route::get('/get-plots/{blockId}/{customerId?}', [CustomerBookingController::class, 'getPlots']);
+
+    Route::get('/get-blocks/{projectId}', [CustomerBookingController::class, 'getBlocks'])
+        ->name('customer-booking.get-blocks');
+
+    Route::get('/get-plots/{blockId}/{customerId?}', [CustomerBookingController::class, 'getPlots'])
+        ->name('customer-booking.get-plots');
 
     Route::controller(PlotPaymentController::class)->group(function () {
         Route::get('edit-payment-details', 'index')->name('edit-payment-details.index');

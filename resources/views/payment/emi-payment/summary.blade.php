@@ -66,6 +66,44 @@
             </div>
         </div>
 
+        <div class="emi-view-box mb-3 d-none" id="emi_view_box">
+            <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                <div>
+                    <h6 class="fw-bold mb-1">View EMI</h6>
+                    <small class="text-muted">Total EMI, paid EMI and remaining EMI for selected booking.</small>
+                </div>
+                <span class="badge bg-success-subtle text-success border" id="emi_view_total_badge">0 EMI</span>
+            </div>
+
+            <div class="emi-view-stats">
+                <div>
+                    <small>Total EMI</small>
+                    <strong id="emi_view_total">0</strong>
+                </div>
+                <div class="success">
+                    <small>Paid</small>
+                    <strong id="emi_view_paid">0</strong>
+                </div>
+                <div class="warning">
+                    <small>Hold</small>
+                    <strong id="emi_view_hold">0</strong>
+                </div>
+                <div class="danger">
+                    <small>Remaining</small>
+                    <strong id="emi_view_remaining">0</strong>
+                </div>
+            </div>
+
+            <div class="progress emi-view-progress mt-3" role="progressbar" aria-label="EMI paid progress"
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-success" id="emi_view_progress_bar" style="width: 0%"></div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mt-2 small">
+                <span class="text-muted fw-semibold">Paid progress</span>
+                <strong class="text-success" id="emi_view_progress_text">0% Paid</strong>
+            </div>
+        </div>
+
         <div class="emi-history-box">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <h6 class="fw-bold mb-0">Payment History</h6>

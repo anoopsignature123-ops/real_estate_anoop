@@ -3031,6 +3031,7 @@
 }
 
 .emi-progress-box > div,
+.emi-view-box,
 .emi-history-box {
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -3051,6 +3052,63 @@
 .emi-progress-box strong {
     color: #0f172a;
     font-weight: 900;
+}
+
+.emi-view-box {
+    background: #ffffff;
+}
+
+.emi-view-stats {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.emi-view-stats > div {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.emi-view-stats small,
+.emi-view-stats strong {
+    display: block;
+}
+
+.emi-view-stats small {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.emi-view-stats strong {
+    color: #0f172a;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.emi-view-stats .success strong {
+    color: #198754;
+}
+
+.emi-view-stats .warning strong {
+    color: #f97316;
+}
+
+.emi-view-stats .danger strong {
+    color: #dc3545;
+}
+
+.emi-view-progress,
+.emi-row-progress {
+    background: #e2e8f0;
+    height: 8px;
+}
+
+.emi-view-progress {
+    height: 18px;
 }
 
 .emi-history-box table thead th {
@@ -3075,7 +3133,8 @@
     }
 
     .emi-summary-grid,
-    .emi-progress-box {
+    .emi-progress-box,
+    .emi-view-stats {
         grid-template-columns: 1fr;
     }
 }

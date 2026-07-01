@@ -6,7 +6,7 @@ use App\Http\Controllers\CustomerPanle\CustomerDashboardController;
 use App\Http\Controllers\CustomerPanle\CustomerHistoryController;
 
 Route::prefix('customer-panel')->name('customer-panel.')->group(function () {
-    Route::middleware('guest:customer')->group(function () {
+    Route::middleware('redirect.auth:customer')->group(function () {
         Route::get('/login', [CustomerAuthController::class, 'loginForm'])->name('login');
         Route::post('/login', [CustomerAuthController::class, 'login'])
             ->middleware('throttle:5,1')

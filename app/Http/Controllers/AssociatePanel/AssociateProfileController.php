@@ -22,14 +22,14 @@ class AssociateProfileController extends Controller
 
     public function viewProfile(Request $request)
     {
-        $associate = auth()->guard('associate')->user()->load(['sponsor', 'bankDetail']);
+        $associate = auth()->guard('associate')->user()->load(['sponsor', 'rank', 'bankDetail']);
 
         return view('associate-panel.profile.view_profile', compact('associate'));
     }
 
     public function editProfile(Request $request)
     {
-        $associate = auth()->guard('associate')->user()->load(['sponsor', 'bankDetail']);
+        $associate = auth()->guard('associate')->user()->load(['sponsor', 'rank', 'bankDetail']);
 
         return view('associate-panel.profile.edit_profile', compact('associate'));
     }

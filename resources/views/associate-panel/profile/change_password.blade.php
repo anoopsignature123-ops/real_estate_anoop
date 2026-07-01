@@ -1,182 +1,174 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid px-4 py-4 bg-light min-vh-100">
-
-        {{-- Form Start --}}
+    <div class="container-fluid mt-4 transaction-page">
         <form method="POST" action="{{ route('associate-panel.update-password') }}">
             @csrf
 
-            {{-- Header Block (Exactly same as Modify Profile) --}}
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="card border-0 shadow-sm bg-white rounded-3">
-                        <div
-                            class="card-body d-flex flex-column flex-sm-row justify-content-between align-items-sm-center p-4 gap-3">
-                            <div>
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success mb-2 px-3 py-2 text-uppercase fw-bold fs-7">
-                                    Security Workspace
-                                </span>
-                                <h2 class="mb-1 text-dark fw-bold h3 tracking-tight">Modify Password Credentials</h2>
-                                <p class="mb-0 text-muted small fw-medium">
-                                    Keep your account secure. Ensure your password is strong and updated regularly.
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0">
-                                <button type="submit" class="btn btn-success px-4 py-2 fw-semibold shadow-sm">
-                                    <i class="bi bi-check-circle me-1"></i> Save Changes
-                                </button>
-                            </div>
+            <div class="transaction-hero mb-4">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="transaction-icon"><i class="bi bi-shield-lock"></i></span>
+                        <div>
+                            <span class="text-success fw-bold text-uppercase small">Account Security</span>
+                            <h3 class="fw-bold mb-1 text-dark">Change Password</h3>
+                            <p class="text-muted mb-0 small">Update your password securely and keep your associate account protected.</p>
                         </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ route('associate-panel.view-profile') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Back
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle me-1"></i> Update Password
+                        </button>
                     </div>
                 </div>
             </div>
 
-            {{-- 2-Column Layout (Full Screen Grid like Modify Profile) --}}
-            <div class="row g-4">
+            @if (session('success'))
+                <div class="alert alert-success border-0 shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> {{ session('success') }}
+                </div>
+            @endif
 
-                {{-- Left Column: Security Guidelines (Fills the Left Side Space) --}}
-                <div class="col-12 col-xl-6">
-                    <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                        <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-light">
-                            <h4 class="fw-bold mb-0 text-dark h5">
-                                <i class="bi bi-shield-check text-success me-2"></i>Security Guidelines
-                            </h4>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="p-3 bg-light rounded-3 mb-3">
-                                <h6 class="fw-bold text-dark mb-2"><i
-                                        class="bi bi-info-circle-fill text-success me-2"></i>Password Requirements:</h6>
-                                <ul class="text-muted small mb-0 ps-3">
-                                    <li class="mb-2">Must be at least <b>8 characters</b> long.</li>
-                                    <li class="mb-2">Should contain a mix of uppercase letters, numbers, and special
-                                        characters (e.g., @, #, $).</li>
-                                    <li>Do not use easily guessable names, birthdays, or mobile numbers.</li>
-                                </ul>
+            @if ($errors->any())
+                <div class="alert alert-danger border-0 shadow-sm">
+                    <strong>Please fix the following:</strong>
+                    <ul class="mb-0 mt-2">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="row g-4">
+                <div class="col-xl-5">
+                    <div class="transaction-card h-100">
+                        <div class="transaction-card-body">
+                            <div class="transaction-section-title">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="transaction-section-title-icon"><i class="bi bi-info-circle"></i></span>
+                                    <div>
+                                        <h5 class="fw-bold mb-1">Security Guidelines</h5>
+                                        <small class="text-muted">Use a strong password and keep it private.</small>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="p-3 border border-dashed rounded-3 mt-4">
-                                <p class="mb-0 text-muted small fw-medium">
-                                    <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-                                    <b>Note:</b> After a successful password reset, you might need to login again with your
-                                    new credentials to securely re-establish your session.
-                                </p>
+                            <div class="customer-receipt-line">
+                                <span>Minimum Length</span>
+                                <strong>8 characters</strong>
+                            </div>
+                            <div class="customer-receipt-line">
+                                <span>Recommended Mix</span>
+                                <strong>Letters, numbers and symbols</strong>
+                            </div>
+                            <div class="customer-receipt-line">
+                                <span>Avoid</span>
+                                <strong>Name, mobile number, date of birth</strong>
+                            </div>
+
+                            <div class="alert alert-warning border-0 mt-4 mb-0">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                After changing your password, you will be logged out and must sign in again.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Right Column: Change Password Inputs (Fills the Right Side Space) --}}
-                <div class="col-12 col-xl-6">
-                    <div class="card border-0 shadow-sm bg-white rounded-3 h-100">
-                        <div class="card-header bg-transparent pt-4 px-4 pb-3 border-bottom border-light">
-                            <h4 class="fw-bold mb-0 text-dark h5">
-                                <i class="bi bi-key-fill text-success me-2"></i>Update Password
-                            </h4>
-                        </div>
-                        <div class="card-body p-4">
-
-                            {{-- Success Message Alert inside the card --}}
-                            @if (session('success'))
-                                <div class="alert alert-success border-0 shadow-sm rounded-3 d-flex align-items-center p-3 mb-4"
-                                    role="alert">
-                                    <i class="bi bi-check-circle-fill text-success fs-5 me-2"></i>
-                                    <div class="fw-semibold text-success small">{{ session('success') }}</div>
+                <div class="col-xl-7">
+                    <div class="transaction-card">
+                        <div class="transaction-card-body">
+                            <div class="transaction-section-title">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="transaction-section-title-icon"><i class="bi bi-key"></i></span>
+                                    <div>
+                                        <h5 class="fw-bold mb-1">Update Password</h5>
+                                        <small class="text-muted">Enter current password and set a new password.</small>
+                                    </div>
                                 </div>
-                            @endif
+                            </div>
 
-                            <div class="row g-4">
-                                {{-- Current Password --}}
+                            <div class="row g-3">
                                 <div class="col-12">
-                                    <label class="form-label text-secondary fw-semibold small mb-1">Current Password <span
-                                            class="text-danger">*</span></label>
+                                    <label class="form-label fw-semibold">Current Password <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="password" name="current_password" id="current_password"
-                                            class="form-control fw-semibold @error('current_password') is-invalid @enderror"
-                                            placeholder="Enter your old password" required>
-                                        <button class="btn btn-outline-secondary toggle-password" type="button"
-                                            data-target="current_password">
+                                            class="form-control @error('current_password') is-invalid @enderror"
+                                            placeholder="Enter current password" required>
+                                        <button class="btn btn-outline-success toggle-password" type="button" data-target="current_password">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                         @error('current_password')
-                                            <div class="invalid-feedback mt-1">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-                                {{-- New Password --}}
-                                <div class="col-12">
-                                    <label class="form-label text-secondary fw-semibold small mb-1">New Password <span
-                                            class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">New Password <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <input type="password" name="new_password" id="new_password"
-                                            class="form-control fw-semibold @error('new_password') is-invalid @enderror"
-                                            placeholder="Enter minimum 8 characters password" required>
-                                        <button class="btn btn-outline-secondary toggle-password" type="button"
-                                            data-target="new_password">
+                                            class="form-control @error('new_password') is-invalid @enderror"
+                                            placeholder="Enter new password" required>
+                                        <button class="btn btn-outline-success toggle-password" type="button" data-target="new_password">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                         @error('new_password')
-                                            <div class="invalid-feedback mt-1">{{ $message }}</div>
+                                            <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <small class="text-muted">Minimum 8 characters.</small>
                                 </div>
 
-                                {{-- Confirm New Password --}}
-                                <div class="col-12">
-                                    <label class="form-label text-secondary fw-semibold small mb-1">Confirm New Password
-                                        <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Confirm New Password <span class="text-danger">*</span></label>
                                     <div class="input-group">
-                                        <input type="password" name="new_password_confirmation"
-                                            id="new_password_confirmation" class="form-control fw-semibold"
-                                            placeholder="Re-enter your new password" required>
-                                        <button class="btn btn-outline-secondary toggle-password" type="button"
-                                            data-target="new_password_confirmation">
+                                        <input type="password" name="new_password_confirmation" id="new_password_confirmation"
+                                            class="form-control" placeholder="Re-enter new password" required>
+                                        <button class="btn btn-outline-success toggle-password" type="button" data-target="new_password_confirmation">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="transaction-card mt-4">
+                        <div class="transaction-card-body">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1">Save Password Changes</h5>
+                                    <small class="text-muted">Your session will end after a successful password update.</small>
+                                </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="{{ route('associate-panel.view-profile') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                                    <button type="submit" class="btn btn-success px-5">
+                                        <i class="bi bi-check-circle me-1"></i> Update Password
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            {{-- Footer Action Buttons (Same as Modify Profile) --}}
-            <div class="row mt-4">
-                <div class="col-12 text-end border-top border-light-subtle pt-4 pb-2">
-                    <a href="{{ route('associate-panel.view-profile') }}"
-                        class="btn btn-outline-secondary px-4 py-2 me-2 fw-semibold">Cancel</a>
-                    <button type="submit" class="btn btn-success px-5 py-2 fw-semibold shadow-sm">Save Password
-                        Changes</button>
-                </div>
-            </div>
-
         </form>
     </div>
-
-    {{-- Eye Icon functionally working karne ke liye chota sa JS --}}
 @endsection
+
 @push('scripts')
     <script>
         document.querySelectorAll('.toggle-password').forEach(button => {
             button.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const input = document.getElementById(targetId);
+                const input = document.getElementById(this.dataset.target);
                 const icon = this.querySelector('i');
 
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('bi-eye');
-                    icon.classList.add('bi-eye-slash');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('bi-eye-slash');
-                    icon.classList.add('bi-eye');
-                }
+                input.type = input.type === 'password' ? 'text' : 'password';
+                icon.classList.toggle('bi-eye');
+                icon.classList.toggle('bi-eye-slash');
             });
         });
     </script>

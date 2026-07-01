@@ -166,6 +166,23 @@ class EmiPaymentController extends Controller
             ->whereIn('payment_status', ['paid', 'cleared'])
             ->groupBy(fn ($payment) => $payment->receipt_number ?: 'payment-'.$payment->id)
             ->count();
+        $emiReceiptGroups = $payments
+            ->where('transaction_category', 'emi_payment')
+            ->groupBy(fn ($payment) => $payment->receipt_number ?: 'payment-'.$payment->id);
+        $groupPaidInstallments = $emiReceiptGroups
+            ->filter(fn ($receiptPayments) => $receiptPayments->whereIn('payment_status', ['paid', 'cleared'])->isNotEmpty())
+            ->count();
+        $groupHoldInstallments = $emiReceiptGroups
+            ->filter(function ($receiptPayments) {
+                return $receiptPayments->whereIn('payment_status', ['paid', 'cleared'])->isEmpty()
+                    && $receiptPayments->where('payment_status', 'hold')->isNotEmpty();
+            })
+            ->count();
+        $groupRemainingInstallments = $this->service->calculateRemainingEmiMonths($dueAmount, $monthlyEmi);
+        $groupTotalInstallments = $groupPaidInstallments + $groupHoldInstallments + $groupRemainingInstallments;
+        $groupProgressPercent = $groupTotalInstallments > 0
+            ? min(100, round(($groupPaidInstallments / $groupTotalInstallments) * 100))
+            : 0;
 
         $history = $payments->sortByDesc('id')->groupBy(fn ($payment) => $payment->receipt_number ?: 'payment-'.$payment->id)->map(function ($receiptPayments) {
             $payment = $receiptPayments->first();
@@ -207,8 +224,33 @@ class EmiPaymentController extends Controller
             'months_passed' => $monthsPassed,
             'monthly_emi' => number_format($monthlyEmi, 2, '.', ''),
             'emi_start_date' => $emiStartDate,
-            'plots' => $groupPlotSales->map(function ($sale) use ($dueDetails) {
+            'emi_overview' => [
+                'total_installments' => $groupTotalInstallments,
+                'paid_installments' => $groupPaidInstallments,
+                'hold_installments' => $groupHoldInstallments,
+                'remaining_installments' => $groupRemainingInstallments,
+                'progress_percent' => $groupProgressPercent,
+            ],
+            'plots' => $groupPlotSales->map(function ($sale) use ($dueDetails, $payments) {
                 $dueInfo = $dueDetails->firstWhere('plot_sale_id', $sale->id);
+                $plotEmiReceiptGroups = $payments
+                    ->where('plot_sale_detail_id', $sale->id)
+                    ->where('transaction_category', 'emi_payment')
+                    ->groupBy(fn ($payment) => $payment->receipt_number ?: 'payment-'.$payment->id);
+                $paidInstallments = $plotEmiReceiptGroups
+                    ->filter(fn ($receiptPayments) => $receiptPayments->whereIn('payment_status', ['paid', 'cleared'])->isNotEmpty())
+                    ->count();
+                $holdInstallments = $plotEmiReceiptGroups
+                    ->filter(function ($receiptPayments) {
+                        return $receiptPayments->whereIn('payment_status', ['paid', 'cleared'])->isEmpty()
+                            && $receiptPayments->where('payment_status', 'hold')->isNotEmpty();
+                    })
+                    ->count();
+                $remainingInstallments = (int) ($dueInfo['emi_months'] ?? 0);
+                $totalInstallments = $paidInstallments + $holdInstallments + $remainingInstallments;
+                $progressPercent = $totalInstallments > 0
+                    ? min(100, round(($paidInstallments / $totalInstallments) * 100))
+                    : 0;
 
                 return [
                     'plot_sale_id' => $sale->id,
@@ -219,6 +261,11 @@ class EmiPaymentController extends Controller
                     'total_cost' => number_format((float) ($sale->total_plot_cost ?? 0), 2),
                     'monthly_emi' => number_format((float) ($dueInfo['monthly_emi'] ?? 0), 2),
                     'due_amount' => number_format((float) ($dueInfo['due'] ?? 0), 2),
+                    'total_installments' => $totalInstallments,
+                    'paid_installments' => $paidInstallments,
+                    'hold_installments' => $holdInstallments,
+                    'remaining_installments' => $remainingInstallments,
+                    'progress_percent' => $progressPercent,
                 ];
             })->values(),
             'payment_history' => $history,

@@ -19,7 +19,7 @@ class ChangePasswordRequest extends FormRequest
                 'required',
                 function ($attribute, $value, $fail) {
                     if (! Hash::check($value, $this->user()->password)) {
-                        $fail('Aapka purana password galat hai.');
+                        $fail('The current password is incorrect.');
                     }
                 },
             ],
