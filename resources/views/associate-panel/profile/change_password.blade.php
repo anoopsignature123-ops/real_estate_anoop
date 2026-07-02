@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Change Password
+@endpush
 @section('content')
     <div class="container-fluid mt-4 transaction-page">
         <form method="POST" action="{{ route('associate-panel.update-password') }}">

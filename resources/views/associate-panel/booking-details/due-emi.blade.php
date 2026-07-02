@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Due EMI Details
+@endpush
 @section('content')
     @php
         $totalRecords = $dueEmi->count();

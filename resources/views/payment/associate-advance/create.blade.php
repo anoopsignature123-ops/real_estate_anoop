@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Add Associate Advance
+@endpush
 @section('content')
     <div class="container-fluid mt-4 associate-advance-page">
         <div class="associate-advance-hero mb-4">

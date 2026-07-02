@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@push('title')
+     Associate | Dashboard
+@endpush
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
 @endpush

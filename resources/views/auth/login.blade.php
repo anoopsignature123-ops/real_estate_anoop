@@ -51,7 +51,7 @@
                         <div class="text-center mb-4 position-relative">
                             <img src="{{ asset('assets/images/admin.png') }}" alt="Logo" class="secure-login-logo">
 
-                            <h2 class="fw-bold text-white mt-3 mb-1">Admin Login</h2>
+                            <h2 class="fw-bold text-white mt-3 mb-1">Sign In</h2>
                             <p class="text-white-50 small mb-0">Sign in with your authorized admin account</p>
                         </div>
 
@@ -93,10 +93,10 @@
                                 <small class="text-white-50">
                                     Protected login with session regeneration.
                                 </small>
-                                <a href="{{ route('password.request') }}"
+                                {{-- <a href="{{ route('password.request') }}"
                                     class="small text-success text-decoration-none fw-semibold">
                                     Forgot password?
-                                </a>
+                                </a> --}}
                             </div>
 
                             <button type="submit" class="btn secure-login-btn w-100 login-submit-btn">

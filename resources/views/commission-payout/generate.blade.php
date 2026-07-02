@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Generate Commission
+@endpush
 @section('content')
     <div class="container-fluid py-4">
 

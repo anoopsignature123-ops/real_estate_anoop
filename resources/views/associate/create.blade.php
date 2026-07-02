@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Add Associate
+@endpush
 @section('content')
     <div class="container-fluid mt-4 associate-form-page">
         <div class="associate-form-hero mb-4">

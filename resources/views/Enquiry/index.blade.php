@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@push('title')
+    Enquiry Management
+@endpush
 @section('content')
     <div class="container-fluid mt-4">
 

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer Panel |  Plot History
+@endpush
+
 @section('content')
     <div class="container-fluid customer-panel-page customer-plot-booking-page">
         <div class="customer-profile-hero mb-4">

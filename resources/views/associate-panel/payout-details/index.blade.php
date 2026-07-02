@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel | Payout Details
+@endpush
 @section('content')
     @php
         $totalRecords = $commissions->count();

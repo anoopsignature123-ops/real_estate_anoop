@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Tree
+@endpush
 @section('content')
     <div class="container-fluid mt-4 associate-tree-page">
         <div class="tree-page-header mb-4">

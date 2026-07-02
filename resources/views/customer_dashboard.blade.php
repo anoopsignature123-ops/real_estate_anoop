@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer | Dashboard
+@endpush
+
 @section('content')
     @php
         $primary = $customer->primaryDetail;

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Receipt Reprint
+@endpush
 @section('content')
     <div class="container-fluid mt-4 receipt-reprint-page">
         <div class="receipt-reprint-hero mb-4">

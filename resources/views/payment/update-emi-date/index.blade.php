@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Update EMI Date
+@endpush
 @section('content')
     @php
         $totalMonthlyEmi = $payments->sum(fn ($payment) => (float) ($payment->group_monthly_emi ?? 0));

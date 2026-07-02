@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    One Time Payment
+@endpush
 @section('content')
     <div class="container-fluid mt-4 one-time-payment-page">
         <div class="one-time-payment-hero mb-4">

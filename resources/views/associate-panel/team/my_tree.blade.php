@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')                                                                                                              
+    Associate Panel |  My Tree
+@endpush
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/tree.css') }}">
 @endpush

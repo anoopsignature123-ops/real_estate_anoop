@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Generate EMI
+@endpush
 @section('content')
     @php
         $totalDue = 0;

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Edit Plot Booking
+@endpush
 @section('content')
     <div class="container-fluid mt-4">
         <div class="card border-0 shadow-sm rounded-4 mb-4">

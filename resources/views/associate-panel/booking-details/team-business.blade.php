@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Team Business Report
+@endpush
 @section('content')
     @php
         $totalBookings = $reports->count();

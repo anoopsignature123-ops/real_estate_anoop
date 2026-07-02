@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Associate Registration
+@endpush
 @section('content')
     <div class="container-fluid mt-4 transaction-page">
         <div class="transaction-hero mb-4">

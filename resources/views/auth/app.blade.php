@@ -3,14 +3,16 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin | Login Page</title>
+    <title>@stack('title')</title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#007bff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1a1a1a" media="(prefers-color-scheme: dark)" />
-    <meta name="title" content="AdminLTE 4 | Login Page" />
+    {{-- <meta name="title" content="AdminLTE 4 | Login Page" /> --}}
     <meta name="author" content="ColorlibHQ" />
     <meta name="supported-color-schemes" content="light dark" />
+      <link rel="icon" type="image/png" href="{{ asset('assets/images/admin.png') }}">
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
         integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" media="print"

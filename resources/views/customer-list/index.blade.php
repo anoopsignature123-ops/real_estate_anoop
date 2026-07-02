@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer List
+@endpush
 @section('content')
     @php
         $totalBookings = $customers->sum(fn ($customer) => ($customer->booked_plots ?? collect())->count());

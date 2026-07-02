@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer Panel |  Manage Profile
+@endpush
 @section('content')
     @php
         $primary = $customer->primaryDetail;

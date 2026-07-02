@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Farmer Details
+@endpush
 @section('content')
     <div class="container-fluid py-4">
         {{-- PAGE HEADER --}}

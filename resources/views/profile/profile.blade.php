@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Profile Settings
+@endpush
 @section('content')
     <div class="container-fluid py-4">
 

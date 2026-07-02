@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Plot Transfer
+@endpush
 @section('content')
     <div class="container-fluid mt-4 transaction-page">
 

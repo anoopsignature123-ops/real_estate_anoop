@@ -1,5 +1,7 @@
 @extends('auth.app')
-
+@push('title')
+    Customer | Login
+@endpush
 @section('content')
     <div class="customer-login-wrapper">
 
@@ -49,7 +51,7 @@
                             </h2>
 
                             <p class="text-white-50 small mb-0">
-                                Sign in using your customer code
+                                Sign in using your customer Id
                             </p>
                         </div>
 
@@ -58,7 +60,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label text-white-50 small">
-                                    Customer Code
+                                    Customer Id
                                 </label>
 
                                 <div class="dark-input-group">
@@ -68,7 +70,7 @@
                                         name="customer_code"
                                         value="{{ old('customer_code') }}"
                                         class="form-control @error('customer_code') is-invalid @enderror"
-                                        placeholder="Enter Customer Code"
+                                        placeholder="Enter Customer Id"
                                         autofocus>
                                 </div>
 
@@ -107,7 +109,7 @@
                                 @enderror
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+                            {{-- <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
                                 <div class="form-check">
                                     <input class="form-check-input"
                                         type="checkbox"
@@ -123,9 +125,9 @@
                                     class="small text-success text-decoration-none fw-semibold">
                                     Forgot password?
                                 </a>
-                            </div>
+                            </div> --}}
 
-                            <button type="submit" class="btn login-btn-dark w-100">
+                            <button type="submit" class="btn login-btn-dark w-100 mb-4 mt-3">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>
                                 Secure Login
                             </button>

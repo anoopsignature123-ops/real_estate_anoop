@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Multiple Cheque Clearance
+@endpush
 @section('content')
     <div class="container-fluid mt-4 cheque-clearance-page">
         <div class="cheque-clearance-hero mb-4">

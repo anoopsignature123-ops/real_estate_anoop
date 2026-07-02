@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer Panel |  Support
+@endpush
 @section('content')
     <div class="container-fluid customer-panel-page customer-support-page">
         <div class="customer-profile-hero mb-4">

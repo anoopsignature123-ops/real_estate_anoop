@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Associate List
+@endpush
 @section('content')
     <div class="container-fluid mt-4">
         <!-- Header -->

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Customer Booking
+@endpush
 @section('content')
     @php
         $completedCount = $customers->where('status', 'completed')->count();

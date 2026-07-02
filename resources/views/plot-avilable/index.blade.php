@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Plot Availability
+@endpush
 @section('content')
     @php
         $statusCounts = $plots->countBy('current_status');

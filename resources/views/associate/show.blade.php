@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Details
+@endpush
 @section('content')
     @php
         $photoUrl = $associate->photo ? getFileUrl($associate->photo) : null;

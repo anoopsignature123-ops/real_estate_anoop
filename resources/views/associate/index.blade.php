@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Management
+@endpush
 @section('content')
     <div class="container-fluid py-4 associate-management-page">
 

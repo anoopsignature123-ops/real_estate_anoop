@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Booking Details
+@endpush
 @section('content')
     <div class="container-fluid transaction-page">
         <div class="transaction-hero mb-4">

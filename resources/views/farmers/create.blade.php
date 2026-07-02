@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Create New Broker
+@endpush
 @section('content')
 <div class="container-fluid py-4">
 

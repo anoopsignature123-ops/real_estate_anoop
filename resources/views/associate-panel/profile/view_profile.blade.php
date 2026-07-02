@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  My Profile
+@endpush
 @section('content')
     @php
         $bank = $associate->bankDetail;

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  My Downline
+@endpush
 @section('content')
     @php
         $totalAssociates = $associates->count();

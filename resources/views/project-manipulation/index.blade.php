@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Project Manipulation
+@endpush
 @section('content')
     <div class="container-fluid py-4">
 

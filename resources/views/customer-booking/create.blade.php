@@ -51,6 +51,9 @@
 @endsection --}}
 @extends('layouts.app')
 
+@push('title')
+    Customer Booking
+@endpush
 @section('content')
     <div class="container-fluid py-4">
 

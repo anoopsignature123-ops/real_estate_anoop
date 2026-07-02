@@ -1,4 +1,8 @@
 @extends('layouts.app')
+
+@push('title')
+    Source Management
+@endpush
 @section('content')
     <div class="container-fluid mt-4">
         <div class="card border-0 shadow-sm mb-4 rounded-4">

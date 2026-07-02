@@ -3,10 +3,13 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin | Dashboard</title>
+    <title> @stack('title')</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="title" content="Admin | Dashboard" />
+
     <meta name="author" content="ColorlibHQ" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/admin.png') }}">
     <meta name="supported-color-schemes" content="light dark" />
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"

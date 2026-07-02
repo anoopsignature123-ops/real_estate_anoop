@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Edit Block
+@endpush
 @section('content')
     <div class="container-fluid mt-4">
 

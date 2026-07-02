@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@push('title')
+    Role Management
+@endpush
 @section('content')
     <div class="container-fluid mt-4 transaction-page role-management-page">
         <div class="transaction-hero mb-4">

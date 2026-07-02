@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    EMI Payment
+@endpush
 @section('content')
     <div class="container-fluid mt-4 emi-payment-page">
         <div class="emi-payment-hero mb-4">

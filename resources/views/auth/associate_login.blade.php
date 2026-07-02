@@ -1,5 +1,9 @@
 @extends('auth.app')
 
+@push('title')
+    Associate | Login
+@endpush
+
 @section('content')
     <div class="secure-login-wrapper" style="--secure-login-image: url('{{ asset('assets/images/customer.jpg') }}');">
         <div class="secure-login-bg"></div>
@@ -89,7 +93,7 @@
                                 @enderror
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center my-4">
+                            {{-- <div class="d-flex justify-content-between align-items-center my-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember">
                                     <label class="form-check-label small text-white-50" for="remember">
@@ -98,9 +102,9 @@
                                 </div>
 
                                 <small class="text-white-50">Secure session</small>
-                            </div>
+                            </div> --}}
 
-                            <button type="submit" class="btn secure-login-btn w-100 login-submit-btn">
+                            <button type="submit" class="btn secure-login-btn w-100 login-submit-btn mt-3">
                                 <span class="btn-label">
                                     <i class="bi bi-box-arrow-in-right me-2"></i>
                                     Secure Login

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Associate Panel |  Support
+@endpush
 @section('content')
     @php
         $totalTickets = $enquiries->count();

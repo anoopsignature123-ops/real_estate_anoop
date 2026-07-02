@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@push('title')
+    Plot Payment
+@endpush
 @section('content')
     <div class="container-fluid mt-4 edit-payment-page">
         <div class="edit-payment-hero mb-4">
